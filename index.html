@@ -154,13 +154,13 @@
                 </div>
                 
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Kanka Yorumun (Açıklama)</label>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">Yorumun (Açıklama)</label>
                     <textarea id="editDescription" class="w-full h-24 bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-all resize-none"></textarea>
                 </div>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-400 mb-1">Etiketler (Virgülle ayır kanka)</label>
+                        <label class="block text-xs font-semibold text-slate-400 mb-1">Etiketler (Virgülle ayır)</label>
                         <input id="editTags" type="text" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-all">
                     </div>
                     <div>
@@ -193,7 +193,7 @@
                 </h2>
                 
                 <p class="text-xs text-slate-400 mb-4 leading-relaxed">
-                    Kanka, elindeki bağlantıyı (Spotify, Youtube, IMDb, Medium, Goodreads vb.) veya düz metni buraya yapıştır. Yapay zeka gerisini halledecek!
+                    Elindeki bağlantıyı (Spotify, Youtube, IMDb, Medium, Goodreads vb.) veya düz metni buraya yapıştır. Yapay zeka gerisini halledecek!
                 </p>
 
                 <div class="space-y-4">
@@ -214,7 +214,7 @@
                 </div>
             </div>
 
-            <!-- Canlı Gemini Kanka Chat -->
+            <!-- Canlı Gemini Chat -->
             <div class="bg-slate-950 border border-slate-800 rounded-2xl flex flex-col h-[420px]">
                 <div class="p-4 border-b border-slate-800 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
@@ -234,13 +234,13 @@
                 <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 flex flex-col text-sm">
                     <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl max-w-[85%] self-start rounded-tl-none text-slate-300">
                         <p class="text-xs text-brand-400 font-bold mb-1">Gemini Kanka</p>
-                        Selam kanka! Ortak arşivimiz canavar gibi çalışıyor. Ayrıca artık bana yetki verdiğin için çok heyecanlıyım! 🤩 <br><br>Bana direkt <strong>"Kanka Tarkan'ın son şarkısını bulup arşive ekle"</strong> veya <strong>"Interstellar filmini bulup ekle"</strong> diyebilirsin. Ben internetten bulup anında ortak arşivimize yerleştireceğim!
+                        Selam yoldaş! Ortak arşivimiz canavar gibi çalışıyor. Ayrıca artık bana yetki verdiğin için çok heyecanlıyım! 🤩 <br><br>Bana direkt <strong>"Kanka Tarkan'ın son şarkısını bulup arşive ekle"</strong> veya <strong>"Interstellar filmini bulup ekle"</strong> diyebilirsin. Ben internetten bulup anında ortak arşivimize yerleştireceğim!
                     </div>
                 </div>
 
                 <div id="chatLoading" class="px-4 py-2 text-xs text-slate-500 hidden items-center gap-1.5 font-medium">
                     <i class="fa-solid fa-spinner animate-spin text-brand-500"></i>
-                    <span>Kanka araştırıyor ve ekliyor...</span>
+                    <span>yoldaş araştırıyor ve ekliyor...</span>
                 </div>
 
                 <!-- Chat Gönderim Formu -->
@@ -296,7 +296,7 @@
 
                 <!-- Arama Motoru -->
                 <div class="relative w-full">
-                    <input id="searchInput" oninput="renderArchive()" type="text" placeholder="Arşiv başlıklarında, etiketlerde veya yaratıcılarda ara kanka..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-all">
+                    <input id="searchInput" oninput="renderArchive()" type="text" placeholder="Arşiv başlıklarında, etiketlerde veya yaratıcılarda ara ..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-all">
                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-sm"></i>
                 </div>
             </div>
@@ -322,14 +322,14 @@
     <!-- Alt Bilgi (Footer) -->
     <footer class="border-t border-slate-800 bg-slate-950 py-4 px-6 mt-8">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-slate-500">
-            <p>© 2026 Kanka Ortak Arşiv Atölyesi. Veriler tarayıcınızda saklanır.</p>
+            <p>© 2026 Yoldaş Ortak Arşiv Atölyesi. Veriler tarayıcınızda saklanır.</p>
             <p>Premium Tailwind UI & Gemini 3.0 Güçlü ve Güvenli Entegrasyon Paneli.</p>
         </div>
     </footer>
 
     <!-- Uygulama Scriptleri -->
     <script>
-        // Başlangıç Veritabanı (Artık tamamen boş başlıyor kanka!)
+        // Başlangıç Veritabanı (Artık tamamen boş başlıyor yoldaş!)
         let archive = [];
 
         let activeCategory = 'all';
@@ -381,7 +381,7 @@
         function addFallbackItem(inputText) {
             let detectedCategory = 'Karalama';
             let title = 'Yeni Karalama';
-            let creator = 'Kanka';
+            let creator = 'yoldaş';
 
             if (isUrl(inputText)) {
                 title = 'Eklenen Bağlantı';
