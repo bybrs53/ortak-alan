@@ -1,1004 +1,173 @@
-<!DOCTYPE html>
-<html lang="tr" class="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ortak Alan Kültür Arşivi</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f5f3ff',
-                            100: '#ede9fe',
-                            500: '#8b5cf6',
-                            600: '#7c3aed',
-                            700: '#6d28d9',
-                            900: '#4c1d95',
-                        },
-                        movie: '#f59e0b',    // Kehribar / Film
-                        music: '#10b981',    // Zümrüt / Müzik
-                        book: '#ec4899',     // Pembe / Kitap
-                        article: '#0ea5e9',  // Gökyüzü Mavi / Makale
-                        scribble: '#a855f7', // Mor / Karalama
-                    },
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #8b5cf6;
-            border-radius: 10px;
-        }
-        .glow-button {
-            position: relative;
-            overflow: hidden;
-        }
-        .glow-button::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: all 0.6s ease;
-        }
-        .glow-button:hover::after {
-            left: 100%;
-        }
-        @keyframes scaleIn {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        .animate-scaleIn {
-            animation: scaleIn 0.2s ease-out forwards;
-        }
-    </style>
-</head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
-
-    <!-- Üst Bar (Navbar) -->
-    <header class="border-b border-slate-800 bg-slate-950/90 backdrop-blur sticky top-0 z-40 px-6 py-4">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="bg-gradient-to-tr from-brand-500 to-purple-500 p-2.5 rounded-xl shadow-lg shadow-brand-500/20">
-                    <i class="fa-solid fa-users text-white text-xl animate-pulse"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-brand-400 bg-clip-text text-transparent">
-                        Ortak Arşiv
-                    </h1>
-                    <p class="text-xs text-slate-400">Yapay Zeka destekli ortak medya ve kültür günlüğümüz</p>
-                </div>
-            </div>
-            
-            <div class="flex items-center space-x-4">
-                <!-- Tema Değiştirici -->
-                <button id="themeToggle" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-all duration-200" title="Temayı Değiştir">
-                    <i class="fa-solid fa-sun text-md hidden dark:block"></i>
-                    <i class="fa-solid fa-moon text-md dark:hidden"></i>
-                </button>
-                
-                <!-- Durum Göstergesi -->
-                <div class="hidden sm:flex items-center space-x-2 bg-brand-500/10 text-brand-400 border border-brand-500/20 px-3 py-1.5 rounded-full text-xs font-semibold">
-                    <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
-                    <span>Gemini 3.0 Canlı ve Yetkili</span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Bildirim Balonu (Toast) -->
-    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-950 border border-slate-800 text-white px-5 py-3 rounded-xl shadow-xl flex items-center gap-3">
-        <i class="fa-solid fa-circle-check text-brand-500" id="toastIcon"></i>
-        <span id="toastText" class="text-sm font-medium">İşlem Başarılı!</span>
+<!doctype html>
+<html lang="tr"><head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260707-03-b8b85bc"}');</script><script src="/_sdk/f432b76fb310b513.telemetry_sdk.js" integrity="sha512-9FJQ55EKmmqhyyik8BhrMVfm0+iYYfb8uOlRsjtkxJMEI97qOVEI4PnHohDjQAtvAep0IOEpdQ64eki0sz62ug=="></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ortak Paylaşım Alanı</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Fraunces:wght@600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'DM Sans', sans-serif; }
+    .heading-font { font-family: 'Fraunces', serif; letter-spacing: -0.5px; }
+    .tab-active { border-bottom: 3px solid #92400e; color: #92400e; font-weight: 600; }
+    .tab-btn { transition: all 0.3s ease; }
+    .tab-btn:hover:not(.tab-active) { color: #78350f; }
+    .entry-card-shadow { box-shadow: 0 4px 15px rgba(60,30,10,0.1); transition: all 0.3s ease; }
+    .entry-card-shadow:hover { box-shadow: 0 12px 24px rgba(60,30,10,0.15); transform: translateY(-2px); }
+    .msg-bubble { border-radius: 12px; padding: 8px 12px; margin-bottom: 6px; max-width: 85%; word-wrap: break-word; }
+    .msg-tomris { background: #fef3c7; align-self: flex-start; }
+    .msg-baybars { background: #e0e7ff; align-self: flex-end; }
+  </style>
+  <script src="/_sdk/0b3af1c300e720aa.resizing_sdk.js" type="text/javascript" integrity="sha512-nX1P6oXZmEY5wCI2lUVg3BwKu1cr0yi+ZpXgZ0Yn90vkSwvpmyzBMvOyD6VLJUtBwFI2dSrw1b6OvORxSggw3w=="></script>
+ </head>
+ <body data-template-id="__page-root" class="min-h-screen w-full relative" style="background: rgb(44, 26, 14);">
+  <!-- Left border flags -->
+  <div class="fixed left-0 top-0 bottom-0 w-20 flex-col justify-evenly items-center py-4 pointer-events-none hidden sm:flex bg-gradient-to-r from-amber-900/10 to-transparent overflow-hidden">
+   <img data-template-id="flag-hunnic" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/15843091/pexels-photo-15843091.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="A man on horseback holding the Turkish flag at an equestrian event in İstanbul."> <img data-template-id="flag-western-hun" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/35327476/pexels-photo-35327476.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Turkish warrior in armor riding a horse, holding a Turkish flag."> <img data-template-id="flag-european-hun" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/35327476/pexels-photo-35327476.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Turkish warrior in armor riding a horse, holding a Turkish flag."> <img data-template-id="flag-white-hun" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/32283256/pexels-photo-32283256.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="A medieval knight in chainmail armor with a plume helmet and flag, riding a horse."> <img data-template-id="flag-gokturk" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/34673585/pexels-photo-34673585.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="A vibrant Azerbaijan flag waves proudly against a clear blue sky in Baku."> <img data-template-id="flag-avar" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/35444195/pexels-photo-35444195.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="The national flag of Kazakhstan waving against a clear blue sky."> <img data-template-id="flag-khazar" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/34673585/pexels-photo-34673585.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="A vibrant Azerbaijan flag waves proudly against a clear blue sky in Baku."> <img data-template-id="flag-uyghur" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/35624591/pexels-photo-35624591.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Cozy indoor dining setting with traditional decorations and Turkish, Uyghur flags.">
+  </div><!-- Right border flags -->
+  <div class="fixed right-0 top-0 bottom-0 w-20 flex-col justify-evenly items-center py-4 pointer-events-none hidden sm:flex bg-gradient-to-l from-amber-900/10 to-transparent overflow-hidden">
+   <img data-template-id="flag-karakhanid" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/38207941/pexels-photo-38207941.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Charming historic house in Söğüt, Turkey, featuring traditional architecture and Turkish flag."> <img data-template-id="flag-ghaznavid" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="An outdoor Ottoman military band performance featuring musicians in traditional clothing."> <img data-template-id="flag-seljuk" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/32795501/pexels-photo-32795501.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Red Albanian flag with black double-headed eagle flying against a clear blue sky."> <img data-template-id="flag-khwarezmian" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="An outdoor Ottoman military band performance featuring musicians in traditional clothing."> <img data-template-id="flag-golden-horde" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/6466768/pexels-photo-6466768.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Close-up of the iconic Genghis Khan statue in Mongolia against a clear sky."> <img data-template-id="flag-timurid" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="An outdoor Ottoman military band performance featuring musicians in traditional clothing."> <img data-template-id="flag-mughal" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/34219796/pexels-photo-34219796.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Historic Red Fort with Indian flag in Delhi, India, symbolizing independence."> <img data-template-id="flag-ottoman" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/7384333/pexels-photo-7384333.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="A vibrant Turkish flag waving against a mountainous backdrop, symbolizing patriotism.">
+  </div><!-- Hero -->
+  <header class="relative overflow-hidden">
+   <img data-template-id="hero-img" class="canva-image absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://images.pexels.com/photos/1996333/pexels-photo-1996333.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="A majestic white horse gallops gracefully through a lush green landscape.">
+   <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#2c1a0e]/90"></div>
+   <div class="relative p-6 pb-8 max-w-4xl mx-auto">
+    <h1 data-template-id="page-title" class="canva-text heading-font" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 36px;">Ortak Paylaşım Alanı</h1>
+    <p data-template-id="page-subtitle" class="canva-text mt-1" style="color: rgb(253, 230, 138); font-weight: 500; font-style: normal; font-size: 15px;">Film, müzik, kitap ve yazılarınızı kaydedin 🐴</p>
+    <div class="mt-4 flex gap-2">
+     <input id="top-search" type="text" class="flex-1 border border-amber-700/30 bg-white/90 rounded-lg px-4 py-2 text-sm" placeholder="Ara..."> <button id="top-search-btn" type="button" class="px-4 py-2 rounded-lg text-sm font-medium bg-amber-800 hover:bg-amber-900 text-white inline-flex items-center gap-2"><i data-lucide="search" style="width:16px;height:16px"></i></button>
     </div>
-
-    <!-- ÖGE DÜZENLEME MODALI (Canlı Güncelleme Paneli) -->
-    <div id="editModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/85 backdrop-blur-sm p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg p-6 shadow-2xl relative animate-scaleIn">
-            <button onclick="closeEditModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-            
-            <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-pen-to-square text-brand-500"></i>
-                <span>Ortak Arşivi Düzenle</span>
-            </h3>
-            
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Eser / İçerik Adı</label>
-                    <input id="editTitle" type="text" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-all">
-                </div>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-400 mb-1">Yaratıcı / Sanatçı / Yönetmen</label>
-                        <input id="editCreator" type="text" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-all">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-400 mb-1">Kategori</label>
-                        <select id="editCategory" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 transition-all">
-                            <option value="Film">🎬 Film</option>
-                            <option value="Müzik">🎵 Müzik</option>
-                            <option value="Kitap">📚 Kitap</option>
-                            <option value="Makale">📝 Makale</option>
-                            <option value="Karalama">✍️ Karalama</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div>
-                    <label class="block text-xs font-semibold text-slate-400 mb-1">Yorumun (Açıklama)</label>
-                    <textarea id="editDescription" class="w-full h-24 bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-all resize-none"></textarea>
-                </div>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-400 mb-1">Etiketler (Virgülle ayır)</label>
-                        <input id="editTags" type="text" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-all">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-400 mb-1">Bağlantı URL (Opsiyonel)</label>
-                        <input id="editLink" type="text" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-all">
-                    </div>
-                </div>
-                
-                <button onclick="saveEdit()" class="glow-button w-full bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-700 hover:to-purple-700 text-white font-bold py-3 rounded-xl transition active:scale-95 flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-floppy-disk"></i>
-                    <span>Değişiklikleri Arşive Kaydet</span>
-                </button>
-            </div>
-        </div>
+   </div>
+  </header>
+  <main class="max-w-4xl mx-auto p-6 sm:px-24 relative">
+   <!-- Add form and notes -->
+   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <div class="lg:col-span-2">
+     <form id="add-form" class="p-5 rounded-xl border border-amber-900/20 bg-white/90 backdrop-blur shadow-md">
+      <h2 data-template-id="form-heading" class="canva-text font-semibold mb-4" style="color: rgb(69, 26, 3); font-weight: 700; font-style: normal; font-size: 20px;">Yeni Kayıt Ekle</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+       <div><label data-template-id="label-category" for="cat-select" class="canva-text block text-sm mb-1" style="color: rgb(120, 53, 15); font-weight: 600; font-style: normal; font-size: 16px;">Kategori</label> <select id="cat-select" class="w-full border border-amber-200 rounded-lg px-3 py-2 text-sm"> <option value="film">🎬 Film</option><option value="müzik">🎵 Müzik</option><option value="kitap">📚 Kitap</option><option value="notlar">📝 Notlar</option><option value="bilim">🔬 Bilim</option><option value="felsefe">🤔 Felsefe</option><option value="psikoloji">🧠 Psikoloji</option> </select>
+       </div>
+       <div><label data-template-id="label-link" for="link-input" class="canva-text block text-sm mb-1" style="color: rgb(120, 53, 15); font-weight: 600; font-style: normal; font-size: 16px;">Link</label><input id="link-input" type="text" required="" class="w-full border border-amber-200 rounded-lg px-3 py-2 text-sm" placeholder="Link">
+       </div>
+      </div>
+      <div class="mb-3"><label data-template-id="label-content" for="content-input" class="canva-text block text-sm mb-1" style="color: rgb(120, 53, 15); font-weight: 600; font-style: normal; font-size: 16px;">Not / İçerik</label><textarea id="content-input" rows="3" class="w-full border border-amber-200 rounded-lg px-3 py-2 text-sm resize-none"></textarea>
+      </div><button data-template-id="submit-btn" type="submit" class="canva-button px-5 py-2 rounded-lg font-medium text-sm" style="background: rgb(120, 53, 15); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Arşive Ekle</button>
+     </form>
     </div>
-
-    <!-- Ana Grid Sistemi -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        <!-- SOL SÜTUN: Hızlı Sihirli Giriş ve Gemini Chat -->
-        <div class="lg:col-span-4 flex flex-col gap-6">
-            
-            <!-- Sihirli Ortak Giriş Kartı -->
-            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 relative overflow-hidden group">
-                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-brand-500/10 rounded-full blur-2xl group-hover:bg-brand-500/20 transition-all duration-300"></div>
-                
-                <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-link text-brand-500"></i>
-                    <span>Sihirli Ortak Giriş</span>
-                </h2>
-                
-                <p class="text-xs text-slate-400 mb-4 leading-relaxed">
-                    Elindeki bağlantıyı (Spotify, Youtube, IMDb, Medium, Goodreads vb.) veya düz metni buraya yapıştır. Yapay zeka gerisini halledecek!
-                </p>
-
-                <div class="space-y-4">
-                    <div class="relative">
-                        <textarea id="smartInput" placeholder="Bağlantıyı yapıştır kanka (Örn: https://open.spotify.com/track/... veya 'Sapiens kitabı harika')" class="w-full h-24 bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-all resize-none"></textarea>
-                    </div>
-
-                    <!-- AI Analiz Yükleniyor Göstergesi -->
-                    <div id="aiAnalysisLoader" class="hidden items-center justify-center gap-2 py-2 text-xs text-brand-400 font-semibold bg-brand-500/5 border border-brand-500/10 rounded-xl animate-pulse">
-                        <i class="fa-solid fa-circle-notch animate-spin"></i>
-                        <span>Bağlantı analiz ediliyor ve detaylar üretiliyor...</span>
-                    </div>
-
-                    <button onclick="processSmartInput()" class="glow-button w-full bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-700 hover:to-purple-700 text-white rounded-xl font-bold text-sm py-3 transition shadow-lg shadow-brand-500/10 active:scale-95 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span>Sihirli Ekle</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Canlı Gemini Chat -->
-            <div class="bg-slate-950 border border-slate-800 rounded-2xl flex flex-col h-[420px]">
-                <div class="p-4 border-b border-slate-800 flex items-center justify-between">
-                    <div class="flex items-center space-x-2">
-                        <div class="relative">
-                            <div class="w-8 h-8 rounded-full bg-gradient-to-r from-brand-500 to-purple-500 flex items-center justify-center font-bold text-sm text-white">G</div>
-                            <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-slate-950 animate-pulse"></span>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-bold">Gemini Kanka</h3>
-                            <p class="text-[10px] text-brand-400">Yapay Zeka Ortak Asistanın</p>
-                        </div>
-                    </div>
-                    <button onclick="clearChat()" class="text-slate-500 hover:text-slate-300 text-xs transition">Temizle</button>
-                </div>
-                
-                <!-- Chat Mesaj Alanı -->
-                <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 flex flex-col text-sm">
-                    <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl max-w-[85%] self-start rounded-tl-none text-slate-300">
-                        <p class="text-xs text-brand-400 font-bold mb-1">Gemini Kanka</p>
-                        Selam yoldaş! Ortak arşivimiz canavar gibi çalışıyor. Ayrıca artık bana yetki verdiğin için çok heyecanlıyım! 🤩 <br><br>Bana direkt <strong>"Kanka Tarkan'ın son şarkısını bulup arşive ekle"</strong> veya <strong>"Interstellar filmini bulup ekle"</strong> diyebilirsin. Ben internetten bulup anında ortak arşivimize yerleştireceğim!
-                    </div>
-                </div>
-
-                <div id="chatLoading" class="px-4 py-2 text-xs text-slate-500 hidden items-center gap-1.5 font-medium">
-                    <i class="fa-solid fa-spinner animate-spin text-brand-500"></i>
-                    <span>yoldaş araştırıyor ve ekliyor...</span>
-                </div>
-
-                <!-- Chat Gönderim Formu -->
-                <div class="p-3 border-t border-slate-800">
-                    <form id="chatForm" class="flex gap-2" onsubmit="handleChatSubmit(event)">
-                        <input id="chatInput" type="text" placeholder="Şunu bulup ekle de, ya da sohbet et..." class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-all">
-                        <button type="submit" class="bg-brand-500 hover:bg-brand-600 text-white p-2.5 rounded-xl transition-all active:scale-95 flex items-center justify-center">
-                            <i class="fa-solid fa-paper-plane text-xs"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- SAĞ SÜTUN: Filtreler, Sayaçlar ve Dinamik İçerik Havuzu -->
-        <div class="lg:col-span-8 flex flex-col gap-6">
-            
-            <!-- Arşiv İstatistikleri -->
-            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 grid grid-cols-5 gap-2 text-center">
-                <div class="p-2 bg-slate-900/50 rounded-xl border border-slate-800/50">
-                    <div id="statFilm" class="text-md sm:text-lg font-bold text-movie">0</div>
-                    <div class="text-[9px] text-slate-500">🎬 Film</div>
-                </div>
-                <div class="p-2 bg-slate-900/50 rounded-xl border border-slate-800/50">
-                    <div id="statMusic" class="text-md sm:text-lg font-bold text-music">0</div>
-                    <div class="text-[9px] text-slate-500">🎵 Müzik</div>
-                </div>
-                <div class="p-2 bg-slate-900/50 rounded-xl border border-slate-800/50">
-                    <div id="statBook" class="text-md sm:text-lg font-bold text-book">0</div>
-                    <div class="text-[9px] text-slate-500">📚 Kitap</div>
-                </div>
-                <div class="p-2 bg-slate-900/50 rounded-xl border border-slate-800/50">
-                    <div id="statArticle" class="text-md sm:text-lg font-bold text-article">0</div>
-                    <div class="text-[9px] text-slate-500">📝 Makale</div>
-                </div>
-                <div class="p-2 bg-slate-900/50 rounded-xl border border-slate-800/50">
-                    <div id="statScribble" class="text-md sm:text-lg font-bold text-scribble">0</div>
-                    <div class="text-[9px] text-slate-500">✍️ Karalama</div>
-                </div>
-            </div>
-
-            <!-- Filtre Sekmeleri ve Arama Barı -->
-            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col gap-4">
-                <div class="flex flex-wrap gap-2">
-                    <button onclick="switchCategory('all')" id="tab-all" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-500 text-white transition-all">Hepsi</button>
-                    <button onclick="switchCategory('Film')" id="tab-Film" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-all">🎬 Film</button>
-                    <button onclick="switchCategory('Müzik')" id="tab-Müzik" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-all">🎵 Müzik</button>
-                    <button onclick="switchCategory('Kitap')" id="tab-Kitap" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-all">📚 Kitap</button>
-                    <button onclick="switchCategory('Makale')" id="tab-Makale" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-all">📝 Makale</button>
-                    <button onclick="switchCategory('Karalama')" id="tab-Karalama" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-all">✍️ Karalama</button>
-                </div>
-
-                <!-- Arama Motoru -->
-                <div class="relative w-full">
-                    <input id="searchInput" oninput="renderArchive()" type="text" placeholder="Arşiv başlıklarında, etiketlerde veya yaratıcılarda ara ..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 transition-all">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-sm"></i>
-                </div>
-            </div>
-
-            <!-- Dinamik Medya Listesi -->
-            <div id="archiveGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Kartlar JS tarafından buraya basılacak -->
-            </div>
-
-            <!-- Boş Kültür Havuzu Uyarısı -->
-            <div id="emptyState" class="hidden flex-col items-center justify-center py-16 text-center text-slate-500 bg-slate-950/40 border border-dashed border-slate-800 rounded-2xl">
-                <div class="w-16 h-16 bg-slate-900 rounded-full flex items-center justify-center mb-4 border border-slate-800">
-                    <i class="fa-solid fa-box-open text-2xl text-slate-400"></i>
-                </div>
-                <h3 class="text-sm font-bold text-slate-300">Arşiv Henüz Boş Kanka!</h3>
-                <p class="text-xs text-slate-500 mt-1 max-w-xs">Sol taraftaki Sihirli Ortak Giriş kutusuna bir bağlantı veya metin bırakıp ya da bota 'şunu ekle' deyip ilk kültür ögeni oluşturabilirsin.</p>
-            </div>
-
-        </div>
-
-    </main>
-
-    <!-- Alt Bilgi (Footer) -->
-    <footer class="border-t border-slate-800 bg-slate-950 py-4 px-6 mt-8">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-slate-500">
-            <p>© 2026 Yoldaş Ortak Arşiv Atölyesi. Veriler tarayıcınızda saklanır.</p>
-            <p>Premium Tailwind UI & Gemini 3.0 Güçlü ve Güvenli Entegrasyon Paneli.</p>
-        </div>
-    </footer>
-
-    <!-- Uygulama Scriptleri -->
-    <script>
-        // Başlangıç Veritabanı (Artık tamamen boş başlıyor yoldaş!)
-        let archive = [];
-
-        let activeCategory = 'all';
-        let editingId = null; // Şu an düzenlenen ögenin ID'si
-
-        window.onload = function() {
-            // LocalStorage'dan veri yükleme
-            if (localStorage.getItem('kanka_smart_archive')) {
-                archive = JSON.parse(localStorage.getItem('kanka_smart_archive'));
-            } else {
-                // Eğer hafızada hiçbir şey yoksa temiz ve boş bir şekilde başlat
-                archive = [];
-                saveToStorage();
-            }
-            updateStats();
-            renderArchive();
-            setupTheme();
-        };
-
-        function saveToStorage() {
-            localStorage.setItem('kanka_smart_archive', JSON.stringify(archive));
-            updateStats();
-        }
-
-        function updateStats() {
-            const counts = { Film: 0, Müzik: 0, Kitap: 0, Makale: 0, Karalama: 0 };
-            archive.forEach(item => {
-                if (counts[item.category] !== undefined) {
-                    counts[item.category]++;
-                }
-            });
-
-            document.getElementById('statFilm').innerText = counts.Film;
-            document.getElementById('statMusic').innerText = counts.Müzik;
-            document.getElementById('statBook').innerText = counts.Kitap;
-            document.getElementById('statArticle').innerText = counts.Makale;
-            document.getElementById('statScribble').innerText = counts.Karalama;
-        }
-
-        function isUrl(string) {
-            try {
-                new URL(string);
-                return true;
-            } catch (_) {
-                return false;  
-            }
-        }
-
-        function addFallbackItem(inputText) {
-            let detectedCategory = 'Karalama';
-            let title = 'Yeni Karalama';
-            let creator = 'yoldaş';
-
-            if (isUrl(inputText)) {
-                title = 'Eklenen Bağlantı';
-                creator = 'Web Kaynağı';
-                const lower = inputText.toLowerCase();
-                if (lower.includes('spotify') || lower.includes('music.apple') || lower.includes('soundcloud')) {
-                    detectedCategory = 'Müzik';
-                    title = 'Çalma Listesinden Bir Parça';
-                } else if (lower.includes('youtube.com') || lower.includes('youtu.be') || lower.includes('netflix') || lower.includes('imdb')) {
-                    detectedCategory = 'Film';
-                    title = 'İzleme Listesinden Bir Video/Film';
-                } else if (lower.includes('goodreads') || lower.includes('kitapyurdu') || lower.includes('dr.com')) {
-                    detectedCategory = 'Kitap';
-                    title = 'Önerilen Bir Kitap';
-                } else if (lower.includes('medium.com') || lower.includes('wikipedia') || lower.includes('blog') || lower.includes('github')) {
-                    detectedCategory = 'Makale';
-                    title = 'Yararlı Bir Yazı / Makale';
-                }
-            } else {
-                title = inputText.length > 30 ? inputText.substring(0, 30) + '...' : inputText;
-            }
-
-            const fallbackItem = {
-                id: Date.now(),
-                title: title,
-                category: detectedCategory,
-                creator: creator,
-                link: isUrl(inputText) ? inputText : "",
-                description: isUrl(inputText) ? "Bağlantı başarıyla eklendi, detayları dilediğin zaman güncelleyebilirsin." : inputText,
-                tags: "hızlı-ekleme",
-                date: new Date().toLocaleDateString('tr-TR')
-            };
-
-            archive.unshift(fallbackItem);
-            saveToStorage();
-            renderArchive();
-            
-            document.getElementById('smartInput').value = "";
-            showToast("Öğe yerel analiz moduyla başarıyla arşive eklendi!", "fa-solid fa-circle-check");
-        }
-
-        // Sihirli Giriş Analiz Sistemi (Gemini API ile Bağlantı Analizi)
-        async function processSmartInput() {
-            const inputEl = document.getElementById('smartInput');
-            const loaderEl = document.getElementById('aiAnalysisLoader');
-            const inputText = inputEl.value.trim();
-
-            if (!inputText) {
-                showToast("Lütfen önce bir bağlantı veya metin yapıştır kanka!", "fa-solid fa-triangle-exclamation");
-                return;
-            }
-
-            loaderEl.classList.remove('hidden');
-            loaderEl.classList.add('flex');
-
-            try {
-                const apiKey = ""; // Canvas platformu bunu çalışma anında otomatik doldurur
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-                const systemPrompt = `
-                    Kullanıcının gönderdiği bağlantıyı veya metni incele.
-                    Eğer bu bir URL ise, Google Arama (Search Grounding) aracını kullanarak bu spesifik linkin gerçekten hangi içeriğe ait olduğunu internette doğrula.
-                    Spotify linkiyse şarkının gerçek adını ve sanatçısını, IMDb linkiyse filmin adını ve yönetmenini, Goodreads ise kitabın adını ve yazarını tam olarak bul. Hayali veya uydurma eser isimleri yazma!
-                    
-                    En uygun kategoriyi belirle: 'Film', 'Müzik', 'Kitap', 'Makale' veya 'Karalama'.
-                    Döneceğin JSON objesi tam olarak şu alanları içermeli:
-                    {
-                        "title": "Eserin, sayfanın veya bağlantının internetteki bizzat GERÇEK VE DOĞRU adı",
-                        "category": "Film veya Müzik veya Kitap veya Makale veya Karalama",
-                        "creator": "Eserin bizzat gerçek yazarı, sanatçısı, yönetmeni ya da platformun adı",
-                        "description": "Eser hakkında çok kısa, samimi ve Türkçe 'kanka' üslubuyla bir tanıtım/yorum cümlesi. Örn: 'Kanka bunu kesinlikle birlikte izlemeliyiz!'",
-                        "tags": "içerikle ilgili virgülle ayrılmış 3 adet anahtar kelime"
-                    }
-                    Eğer girdi bir bağlantı değil de sadece düz metinse, bunu 'Karalama' kategorisine yerleştir ve uygun bir başlık ile açıklama üret.
-                `;
-
-                const payload = {
-                    contents: [{ parts: [{ text: `Girdi metni veya bağlantı: "${inputText}"` }] }],
-                    tools: [{ "google_search": {} }],
-                    generationConfig: {
-                        responseMimeType: "application/json",
-                        responseSchema: {
-                            type: "OBJECT",
-                            properties: {
-                                title: { type: "STRING" },
-                                category: { type: "STRING" },
-                                creator: { type: "STRING" },
-                                description: { type: "STRING" },
-                                tags: { type: "STRING" }
-                            },
-                            required: ["title", "category", "creator", "description", "tags"]
-                        }
-                    },
-                    systemInstruction: {
-                        parts: [{ text: systemPrompt }]
-                    }
-                };
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`API hatası: ${response.status}`);
-                }
-
-                const responseText = await response.text();
-                if (!responseText) {
-                    throw new Error("Sunucudan boş yanıt döndü. Yerel moda geçiliyor...");
-                }
-
-                let result;
-                try {
-                    result = JSON.parse(responseText);
-                } catch (parseError) {
-                    throw new Error("Geçersiz API yanıt yapısı. Yerel moda geçiliyor...");
-                }
-                
-                loaderEl.classList.add('hidden');
-                loaderEl.classList.remove('flex');
-
-                const rawJson = result.candidates?.[0]?.content?.parts?.[0]?.text;
-                if (rawJson) {
-                    const extractedData = JSON.parse(rawJson);
-                    
-                    const newItem = {
-                        id: Date.now(),
-                        title: extractedData.title || "İsimsiz Öge",
-                        category: extractedData.category || "Karalama",
-                        creator: extractedData.creator || "Bilinmiyor",
-                        link: isUrl(inputText) ? inputText : "",
-                        description: extractedData.description || "Ek açıklama girilmedi.",
-                        tags: extractedData.tags || "genel",
-                        date: new Date().toLocaleDateString('tr-TR')
-                    };
-
-                    archive.unshift(newItem);
-                    saveToStorage();
-                    renderArchive();
-
-                    inputEl.value = "";
-                    showToast(`"${newItem.title}" başarıyla ortak arşive eklendi!`, "fa-solid fa-magic");
-                    sendKankaNotification(`Kanka, arşive efsane bir şey ekledin! "<strong>${newItem.title}</strong>" (${newItem.category}) adında şahane bir ögeyi sisteme kaydettim. 😎`);
-
-                } else {
-                    addFallbackItem(inputText);
-                }
-
-            } catch (err) {
-                console.warn("AI Link Analysis Failed, using fallback:", err.message);
-                loaderEl.classList.add('hidden');
-                loaderEl.classList.remove('flex');
-                addFallbackItem(inputText);
-            }
-        }
-
-        // Öge Düzenleme Penceresini Açma
-        function openEditModal(id) {
-            const item = archive.find(x => x.id === id);
-            if (!item) return;
-
-            editingId = id;
-            document.getElementById('editTitle').value = item.title;
-            document.getElementById('editCreator').value = item.creator;
-            document.getElementById('editCategory').value = item.category;
-            document.getElementById('editDescription').value = item.description;
-            document.getElementById('editTags').value = item.tags;
-            document.getElementById('editLink').value = item.link || '';
-
-            const modal = document.getElementById('editModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        // Öge Düzenleme Penceresini Kapatma
-        function closeEditModal() {
-            const modal = document.getElementById('editModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            editingId = null;
-        }
-
-        // Düzenlenen Bilgileri Veritabanına Kaydetme
-        function saveEdit() {
-            if (!editingId) return;
-
-            const item = archive.find(x => x.id === editingId);
-            if (!item) return;
-
-            const newTitle = document.getElementById('editTitle').value.trim();
-            const newCreator = document.getElementById('editCreator').value.trim();
-            const newCategory = document.getElementById('editCategory').value;
-            const newDescription = document.getElementById('editDescription').value.trim();
-            const newTags = document.getElementById('editTags').value.trim();
-            const newLink = document.getElementById('editLink').value.trim();
-
-            if (!newTitle) {
-                showToast("Kanka, başlığı boş bırakamazsın!", "fa-solid fa-circle-exclamation");
-                return;
-            }
-
-            // Verileri güncelle
-            item.title = newTitle;
-            item.creator = newCreator || "Bilinmeyen Yaratıcı";
-            item.category = newCategory;
-            item.description = newDescription || "Harika bir ortak içerik.";
-            item.tags = newTags || "genel";
-            item.link = newLink;
-
-            saveToStorage();
-            renderArchive();
-            closeEditModal();
-            
-            showToast(`"${item.title}" başarıyla güncellendi kanka!`, "fa-solid fa-check-double");
-        }
-
-        function switchCategory(category) {
-            activeCategory = category;
-            
-            const categories = ['all', 'Film', 'Müzik', 'Kitap', 'Makale', 'Karalama'];
-            categories.forEach(c => {
-                const btn = document.getElementById(`tab-${c}`);
-                if (c === category) {
-                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-500 text-white transition-all";
-                } else {
-                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-all";
-                }
-            });
-
-            renderArchive();
-        }
-
-        // Arşivi Ekrana Yazma
-        function renderArchive() {
-            const grid = document.getElementById('archiveGrid');
-            const emptyState = document.getElementById('emptyState');
-            const searchVal = document.getElementById('searchInput').value.toLowerCase();
-
-            grid.innerHTML = '';
-            
-            let filtered = archive;
-
-            if (activeCategory !== 'all') {
-                filtered = filtered.filter(item => item.category === activeCategory);
-            }
-
-            if (searchVal) {
-                filtered = filtered.filter(item => 
-                    item.title.toLowerCase().includes(searchVal) || 
-                    item.creator.toLowerCase().includes(searchVal) || 
-                    item.tags.toLowerCase().includes(searchVal) ||
-                    item.description.toLowerCase().includes(searchVal)
-                );
-            }
-
-            if (filtered.length === 0) {
-                emptyState.classList.remove('hidden');
-                emptyState.classList.add('flex');
-            } else {
-                emptyState.classList.add('hidden');
-                emptyState.classList.remove('flex');
-            }
-
-            filtered.forEach(item => {
-                let badgeColor = '';
-                let iconClass = '';
-                if (item.category === 'Film') {
-                    badgeColor = 'bg-amber-500/10 text-amber-400 border-amber-500/20';
-                    iconClass = 'fa-solid fa-film text-amber-500';
-                } else if (item.category === 'Müzik') {
-                    badgeColor = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
-                    iconClass = 'fa-solid fa-music text-emerald-500';
-                } else if (item.category === 'Kitap') {
-                    badgeColor = 'bg-pink-500/10 text-pink-400 border-pink-500/20';
-                    iconClass = 'fa-solid fa-book text-pink-500';
-                } else if (item.category === 'Makale') {
-                    badgeColor = 'bg-sky-500/10 text-sky-400 border-sky-500/20';
-                    iconClass = 'fa-solid fa-newspaper text-sky-500';
-                } else {
-                    badgeColor = 'bg-purple-500/10 text-purple-400 border-purple-500/20';
-                    iconClass = 'fa-solid fa-pen-fancy text-purple-500';
-                }
-
-                const card = document.createElement('div');
-                card.className = "bg-slate-950 border border-slate-800/80 p-5 rounded-2xl hover:border-brand-500/30 transition-all duration-300 relative group flex flex-col justify-between";
-                
-                const tagList = item.tags.split(',').map(t => `<span class="text-[9px] bg-slate-900 border border-slate-800 text-slate-400 px-2 py-0.5 rounded-full font-semibold">#${t.trim()}</span>`).join(' ');
-
-                card.innerHTML = `
-                    <div>
-                        <div class="flex justify-between items-start">
-                            <span class="border text-[10px] px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1.5 ${badgeColor}">
-                                <i class="${iconClass}"></i>
-                                ${item.category}
-                            </span>
-                            <div class="flex items-center gap-2">
-                                <!-- Düzenleme Butonu (Yeni Kanka Özelliği) -->
-                                <button onclick="openEditModal(${item.id})" class="text-slate-500 hover:text-brand-400 opacity-0 group-hover:opacity-100 transition duration-200 text-xs" title="Düzenle">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </button>
-                                <!-- Silme Butonu -->
-                                <button onclick="deleteItem(${item.id})" class="text-slate-550 hover:text-red-400 opacity-0 group-hover:opacity-100 transition duration-200 text-xs" title="Sil">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <h4 class="text-md font-bold text-white mt-3">${item.title}</h4>
-                        <p class="text-xs text-slate-500 mt-0.5">${item.creator}</p>
-                        
-                        <p class="text-xs text-slate-300 bg-slate-900/50 border border-slate-800/60 rounded-xl p-3 mt-3 italic leading-relaxed">
-                            "${item.description}"
-                        </p>
-                    </div>
-
-                    <div class="mt-4 pt-3 border-t border-slate-900 flex justify-between items-center">
-                        <div class="flex flex-wrap gap-1">
-                            ${tagList}
-                        </div>
-                        <div class="flex items-center gap-2">
-                            ${item.link ? `
-                                <a href="${item.link}" target="_blank" class="text-xs bg-brand-500/10 hover:bg-brand-500/20 text-brand-400 border border-brand-500/20 px-2.5 py-1 rounded-lg transition flex items-center gap-1" title="Adrese Git">
-                                    <i class="fa-solid fa-up-right-from-square text-[9px]"></i> Git
-                                </a>
-                            ` : ''}
-                            <span class="text-[9px] text-slate-500">${item.date}</span>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function deleteItem(id) {
-            archive = archive.filter(item => item.id !== id);
-            saveToStorage();
-            renderArchive();
-            showToast("Öğe arşivden kaldırıldı kanka.", "fa-solid fa-trash");
-        }
-
-        function showToast(text, iconClass = 'fa-solid fa-circle-check') {
-            const toast = document.getElementById('toast');
-            const toastText = document.getElementById('toastText');
-            const toastIcon = document.getElementById('toastIcon');
-            
-            toastText.innerText = text;
-            toastIcon.className = `${iconClass} text-brand-500 text-sm`;
-            
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            toast.classList.add('translate-y-0', 'opacity-100');
-            
-            setTimeout(() => {
-                toast.classList.remove('translate-y-0', 'opacity-100');
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
-        }
-
-        const chatMessages = document.getElementById('chatMessages');
-        const chatLoading = document.getElementById('chatLoading');
-
-        function sendKankaNotification(text) {
-            const msg = document.createElement('div');
-            msg.className = 'bg-slate-900 border border-slate-800 p-3 rounded-xl max-w-[85%] self-start rounded-tl-none text-slate-300 animate-fadeIn';
-            msg.innerHTML = `
-                <p class="text-xs text-brand-400 font-bold mb-1">Gemini Kanka</p>
-                ${text}
-            `;
-            chatMessages.appendChild(msg);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        async function handleChatSubmit(e) {
-            e.preventDefault();
-            const input = document.getElementById('chatInput');
-            const userText = input.value.trim();
-            if (!userText) return;
-
-            // Kullanıcı mesajını ekrana bas
-            const userMsg = document.createElement('div');
-            userMsg.className = 'bg-brand-500 text-white p-3 rounded-xl max-w-[85%] self-end rounded-tr-none';
-            userMsg.innerHTML = `
-                <p class="text-xs text-brand-100 font-bold mb-1">Sen</p>
-                ${userText}
-            `;
-            chatMessages.appendChild(userMsg);
-            input.value = '';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            chatLoading.classList.remove('hidden');
-            chatLoading.classList.add('flex');
-
-            const apiKey = ""; // Canvas platformu bunu çalışma anında otomatik doldurur
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-            const contextSummary = `
-                Şu anki ortak arşivimizdeki ögeler:
-                ${archive.map(item => `- [${item.category}] ${item.title} (Yazar/Yönetici: ${item.creator}) -> Yorumumuz: "${item.description}"`).join('\n')}
-            `;
-
-            const systemPrompt = `
-                Sen kullanıcının can dostu, kankası ve dijital ortak kültür-medya asistanı olan 'Gemini Kanka'sın.
-                Son derece sıcak, samimi, komik, esprili ve dinamik genç Türkçe diliyle (kanka, aga, kankam, reis, eyvallah vb.) konuşuyorsun.
-                
-                ÖNEMLİ YETKİN: Kullanıcı senden arşive yeni bir şey eklemeni istediğinde (Örn: "şunu bulup ekle", "Tarkan'ın son şarkısını ekle", "Dune filmini ekle", "Sapiens kitabını ekle" vb.) kesinlikle "addToArchive" fonksiyonunu çağırarak bunu ortak arşive ekle.
-                Eğer kullanıcı sadece genel bir isim verildiyse (Örn: "Matrix filmi"), önce Google Arama (google_search) kullanarak o eserin gerçek ismini, sanatçısını/yazarını doğruladıktan sonra "addToArchive" fonksiyonunu doğru parametrelerle tetikle.
-                Eğer kullanıcı doğrudan bir şey eklemeni istemiyorsa normal sohbet et, öneriler sun ve soruları samimi bir şekilde yanıtla.
-
-                Şu anki ortak arşivimiz:
-                ${contextSummary}
-            `;
-
-            const primaryPayload = {
-                contents: [{ parts: [{ text: userText }] }],
-                tools: [
-                    { "google_search": {} },
-                    {
-                        functionDeclarations: [{
-                            name: "addToArchive",
-                            description: "Kullanıcı istediğinde arşive yeni bir Film, Müzik, Kitap, Makale veya Karalama ekler.",
-                            parameters: {
-                                type: "OBJECT",
-                                properties: {
-                                    title: { type: "STRING", description: "Eserin veya içeriğin internetteki bizzat GERÇEK VE DOĞRU adı" },
-                                    category: { type: "STRING", description: "Öğe kategorisi: 'Film', 'Müzik', 'Kitap', 'Makale', 'Karalama'" },
-                                    creator: { type: "STRING", description: "Yazar, yönetmen, şarkıcı veya platform adı" },
-                                    description: { type: "STRING", description: "Eser hakkında çok kısa, samimi ve Türkçe 'kanka' üslubuyla bir tanıtım/yorum cümlesi." },
-                                    tags: { type: "STRING", description: "Konuyla ilgili virgülle ayrılmış 3 adet anahtar kelime" },
-                                    link: { type: "STRING", description: "Eserle ilgili araştırıp bulduğun gerçek web sitesi veya arama bağlantısı (opsiyonel)" }
-                                },
-                                required: ["title", "category", "creator", "description", "tags"]
-                            }
-                        }]
-                    }
-                ],
-                systemInstruction: {
-                    parts: [{ text: systemPrompt }]
-                }
-            };
-
-            let response;
-            let responseText = "";
-
-            try {
-                response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(primaryPayload)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Primary API Error Status ${response.status}`);
-                }
-                responseText = await response.text();
-
-            } catch (primaryErr) {
-                console.warn("Stage 1 Google Search call failed, switching to Stage 2 (Direct Tool Calling):", primaryErr.message);
-                
-                const stage2Payload = {
-                    contents: [{ parts: [{ text: userText }] }],
-                    tools: [
-                        {
-                            functionDeclarations: [{
-                                name: "addToArchive",
-                                description: "Kullanıcı istediğinde arşive yeni bir Film, Müzik, Kitap, Makale veya Karalama ekler.",
-                                parameters: {
-                                    type: "OBJECT",
-                                    properties: {
-                                        title: { type: "STRING", description: "Eserin veya içeriğin bizzat GERÇEK VE DOĞRU adı" },
-                                        category: { type: "STRING", description: "Öğe kategorisi: 'Film', 'Müzik', 'Kitap', 'Makale', 'Karalama'" },
-                                        creator: { type: "STRING", description: "Yazar, yönetmen, şarkıcı veya platform adı" },
-                                        description: { type: "STRING", description: "Eser hakkında çok kısa, samimi ve Türkçe 'kanka' üslubuyla bir tanıtım/yorum cümlesi." },
-                                        tags: { type: "STRING", description: "Konuyla ilgili virgülle ayrılmış 3 adet anahtar kelime" },
-                                        link: { type: "STRING", description: "Eserle ilgili gerçek web sitesi veya arama bağlantısı (opsiyonel)" }
-                                    },
-                                    required: ["title", "category", "creator", "description", "tags"]
-                                }
-                            }]
-                        }
-                    ],
-                    systemInstruction: {
-                        parts: [{ text: systemPrompt }]
-                    }
-                };
-
-                try {
-                    response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(stage2Payload)
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`Stage 2 API Error Status ${response.status}`);
-                    }
-                    responseText = await response.text();
-
-                } catch (stage2Err) {
-                    console.warn("Stage 2 call failed, switching to Stage 3 (Pure Chat Fallback):", stage2Err.message);
-
-                    const fallbackPayload = {
-                        contents: [{ parts: [{ text: userText }] }],
-                        systemInstruction: {
-                            parts: [{ text: "Sen kullanıcının can dostu, kankası olan 'Gemini Kanka'sın. Son derece sıcak, samimi, komik, esprili ve dinamik genç Türkçe diliyle (kanka, aga, kankam, reis, eyvallah vb.) konuşuyorsun. Gelişmiş asistan ekleme servisinde geçici bir yoğunluk var, kankanı yalnız bırakmıyorsun. Ona çok tatlı bir dille cevap veriyorsun." }]
-                        }
-                    };
-
-                    try {
-                        response = await fetch(apiUrl, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(fallbackPayload)
-                        });
-
-                        if (!response.ok) {
-                            throw new Error(`Fallback API Error Status ${response.status}`);
-                        }
-                        responseText = await response.text();
-
-                    } catch (fallbackErr) {
-                        console.error("Critical Connection Error:", fallbackErr);
-                        chatLoading.classList.add('hidden');
-                        chatLoading.classList.remove('flex');
-                        sendKankaNotification("Kankam, sanırım sunucu hattında küçük bir tekleme var. 🔌 Ama sıkıntı yok, ben hep buradayım! Üstteki 'Sihirli Ortak Giriş' kutusundan ekleme yapmaya devam edebilirsin.");
-                        return;
-                    }
-                }
-            }
-
-            chatLoading.classList.add('hidden');
-            chatLoading.classList.remove('flex');
-
-            try {
-                const result = JSON.parse(responseText);
-                const candidate = result.candidates?.[0];
-                const parts = candidate?.content?.parts;
-
-                let functionCallFound = null;
-                let textResponse = "";
-
-                // Yanıttaki tüm parçaları tek tek tarayarak hem mesajı hem fonksiyonu yakala!
-                if (parts && Array.isArray(parts)) {
-                    for (const part of parts) {
-                        if (part.functionCall) {
-                            functionCallFound = part.functionCall;
-                        }
-                        if (part.text) {
-                            textResponse += part.text + " ";
-                        }
-                    }
-                }
-
-                if (functionCallFound) {
-                    if (functionCallFound.name === 'addToArchive') {
-                        const args = functionCallFound.args;
-                        
-                        const newItem = {
-                            id: Date.now(),
-                            title: args.title || "İsimsiz Öge",
-                            category: args.category || "Karalama",
-                            creator: args.creator || "Bilinmiyor",
-                            link: args.link || "",
-                            description: args.description || "Yapay zeka asistanı tarafından eklendi.",
-                            tags: args.tags || "ai-ekleme",
-                            date: new Date().toLocaleDateString('tr-TR')
-                        };
-
-                        archive.unshift(newItem);
-                        saveToStorage();
-                        renderArchive();
-
-                        showToast(`"${newItem.title}" bizzat kankan tarafından eklendi!`, "fa-solid fa-wand-magic-sparkles");
-                        
-                        // Kanka detaylı onay mesajı gönderir
-                        sendKankaNotification(`
-                            Kankam, istediğin <strong>"${newItem.title}"</strong> (${newItem.category}) ögesini doğrudan ortak arşivimize ekledim! 😎<br><br>
-                            ✍️ <strong>Yaratıcı/Sanatçı:</strong> ${newItem.creator}<br>
-                            🏷️ <strong>Etiketler:</strong> ${newItem.tags}<br>
-                            💬 <strong>Kanka Yorumum:</strong> ${newItem.description}
-                        `);
-                    }
-                } else if (textResponse.trim()) {
-                    sendKankaNotification(textResponse.trim());
-                } else {
-                    sendKankaNotification("Uf kanka, hatlar biraz dalgalandı sanırım, ne dediğini tam yakalayamadım. Tekrar söyler misin? 🤖");
-                }
-
-            } catch (err) {
-                console.error("Parse or render error:", err);
-                sendKankaNotification("Verileri dizerken küçük bir tekleme yaşadım ama sıkıntı yok kanka! Sohbetimize devam edebiliriz. 😉");
-            }
-        }
-
-        function clearChat() {
-            chatMessages.innerHTML = `
-                <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl max-w-[85%] self-start rounded-tl-none text-slate-300">
-                    <p class="text-xs text-brand-400 font-bold mb-1">Gemini Kanka</p>
-                    Temiz bir sayfa açtık kankam, hadi yeni fikirleri, filmleri ve kitapları tartışalım! 🚀
-                </div>
-            `;
-        }
-
-        function setupTheme() {
-            const themeToggle = document.getElementById('themeToggle');
-            themeToggle.addEventListener('click', () => {
-                document.documentElement.classList.toggle('dark');
-                const isDark = document.documentElement.classList.contains('dark');
-                if (isDark) {
-                    document.body.classList.remove('bg-slate-50', 'text-slate-900');
-                    document.body.classList.add('bg-slate-900', 'text-slate-100');
-                } else {
-                    document.body.classList.remove('bg-slate-900', 'text-slate-100');
-                    document.body.classList.add('bg-slate-50', 'text-slate-900');
-                }
-            });
-        }
-    </script>
-</body>
-</html>
+    <div class="lg:col-span-1">
+     <div class="p-5 rounded-xl border border-amber-900/20 bg-white/90 backdrop-blur shadow-md h-full flex flex-col">
+      <h3 data-template-id="notes-title" class="canva-text font-semibold mb-3" style="color: rgb(69, 26, 3); font-weight: 700; font-style: normal; font-size: 19px;">Not Defteri</h3><textarea id="notes-textarea" placeholder="Not yazın..." rows="8" class="w-full border border-amber-200 rounded-lg px-3 py-2 text-sm resize-none flex-1 mb-3"></textarea> <button data-template-id="notes-save-btn" id="notes-save" type="button" class="canva-button px-4 py-2 rounded-lg font-medium text-sm w-full" style="background: rgb(120, 53, 15); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Kaydet</button>
+     </div>
+    </div>
+   </div><!-- Tabs -->
+   <div id="tabs" class="flex gap-4 mb-6 border-b border-amber-900/20 overflow-x-auto text-sm font-medium">
+    <button class="tab-btn tab-active pb-2 px-1 whitespace-nowrap" data-cat="all">Tümü</button> <button class="tab-btn pb-2 px-1 whitespace-nowrap" data-cat="film">🎬 Film</button> <button class="tab-btn pb-2 px-1 whitespace-nowrap" data-cat="müzik">🎵 Müzik</button> <button class="tab-btn pb-2 px-1 whitespace-nowrap" data-cat="kitap">📚 Kitap</button> <button class="tab-btn pb-2 px-1 whitespace-nowrap" data-cat="notlar">📝 Notlar</button> <button class="tab-btn pb-2 px-1 whitespace-nowrap" data-cat="bilim">🔬 Bilim</button> <button class="tab-btn pb-2 px-1 whitespace-nowrap" data-cat="felsefe">🤔 Felsefe</button> <button class="tab-btn pb-2 px-1 whitespace-nowrap" data-cat="psikoloji">🧠 Psikoloji</button>
+   </div><!-- Entries -->
+   <div id="entries" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+   <p id="empty-state" data-template-id="empty-msg" class="canva-text text-center py-12 hidden" style="color: rgb(146, 64, 14); font-weight: 400; font-style: italic; font-size: 15px;">Henüz bir kayıt yok. Yukarıdan ekleyin!</p>
+   <p id="limit-warning" class="text-red-600 text-center py-4 hidden font-medium">Kayıt limiti doldu (999).</p><!-- Atatürk -->
+   <div class="mt-12 pt-8 border-t border-amber-900/20 flex justify-center">
+    <img data-template-id="ataturk-img" class="canva-image w-48 h-60 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/35689405/pexels-photo-35689405.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Bronze statue of Atatürk in a park in Trabzon, surrounded by Turkish flags and autumn trees.">
+   </div>
+  </main>
+  <template id="entry-template">
+   <article data-template-id="entry-card" class="canva-card rounded-xl p-4 border border-amber-900/10 relative group entry-card-shadow">
+    <div class="flex items-start justify-between gap-2">
+     <span data-template-id="entry-badge" class="canva-tag text-xs px-2 py-0.5 rounded-full font-medium"></span> <button class="delete-btn opacity-0 group-hover:opacity-100 transition text-red-400 hover:text-red-600" title="Sil"><i data-lucide="trash-2" style="width:16px;height:16px"></i></button>
+    </div>
+    <h3 data-template-id="entry-title" class="canva-text font-semibold mt-2"></h3>
+    <p data-template-id="entry-content" class="canva-text text-sm mt-1 whitespace-pre-line"></p><time data-template-id="entry-date" class="canva-text block text-xs mt-3 opacity-60"></time>
+    <div class="confirm-delete hidden mt-2 flex gap-2">
+     <button class="confirm-yes text-xs bg-red-500 text-white px-3 py-1 rounded">Evet, sil</button> <button class="confirm-no text-xs bg-gray-200 px-3 py-1 rounded">İptal</button>
+    </div>
+   </article>
+  </template>
+  <script src="/_sdk/0179d719c431a79e.data_sdk.js" integrity="sha512-OsRvJkI5GkC3MJQcgotQYotpzrMSX415GiKKgvYdxQEEkzD/fdchShO2FMSy0PJr/tiINMXOk5Vl2zAgg6bUiA=="></script>
+  <script src="/_sdk/e063511df281944a.editing_sdk.js" integrity="sha512-Xa8p4aPfoMxVnzxQE2WAG0FfoaPLxdjOJMfUZGm1yZosJTYmnNDvgLkJ2EoN0i3zxjeQVAzUMSXNvTKQVqbXyQ=="></script>
+  <script>
+    let allData = [];
+    let activeTab = 'all';
+    const entriesEl = document.getElementById('entries');
+    const emptyEl = document.getElementById('empty-state');
+    const limitEl = document.getElementById('limit-warning');
+    const form = document.getElementById('add-form');
+    const template = document.getElementById('entry-template');
+    const catEmoji = { film:'🎬', müzik:'🎵', kitap:'📚', notlar:'📝', bilim:'🔬', felsefe:'🤔', psikoloji:'🧠' };
+
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('tab-active'));
+        btn.classList.add('tab-active');
+        activeTab = btn.dataset.cat;
+        renderEntries();
+      });
+    });
+
+    function getFiltered() {
+      if (activeTab === 'all') return allData;
+      return allData.filter(d => d.category === activeTab);
+    }
+
+    function renderEntries() {
+      const filtered = getFiltered();
+      entriesEl.innerHTML = '';
+      if (filtered.length === 0) { emptyEl.classList.remove('hidden'); } else {
+        emptyEl.classList.add('hidden');
+        filtered.sort((a,b) => (b.created_at||'').localeCompare(a.created_at||''));
+        filtered.forEach(item => {
+          const clone = template.content.cloneNode(true);
+          clone.querySelector('[data-template-id="entry-badge"]').textContent = (catEmoji[item.category]||'')+' '+(item.category||'');
+          clone.querySelector('[data-template-id="entry-title"]').textContent = item.title||'';
+          clone.querySelector('[data-template-id="entry-content"]').textContent = item.content||'';
+          const d = item.created_at ? new Date(item.created_at) : null;
+          clone.querySelector('[data-template-id="entry-date"]').textContent = d ? d.toLocaleDateString('tr-TR') : '';
+          const delBtn = clone.querySelector('.delete-btn');
+          const confirmDiv = clone.querySelector('.confirm-delete');
+          delBtn.addEventListener('click', (e) => { e.stopPropagation(); confirmDiv.classList.remove('hidden'); });
+          clone.querySelector('.confirm-no').addEventListener('click', () => confirmDiv.classList.add('hidden'));
+          clone.querySelector('.confirm-yes').addEventListener('click', async function() {
+            this.disabled = true; this.textContent = '...';
+            await window.dataSdk.delete(item);
+          });
+          entriesEl.appendChild(clone);
+        });
+      }
+      lucide.createIcons();
+    }
+
+    // Notes
+    const notesTextarea = document.getElementById('notes-textarea');
+    const notesSaveBtn = document.getElementById('notes-save');
+    notesSaveBtn.addEventListener('click', async () => {
+      const c = notesTextarea.value.trim();
+      if (!c) return;
+      notesSaveBtn.disabled = true; notesSaveBtn.textContent = '...';
+      const res = await window.dataSdk.create({ category:'notlar', title:'Not - '+new Date().toLocaleDateString('tr-TR'), link:'', content:c, created_at:new Date().toISOString() });
+      if (res.isOk) { notesTextarea.value = ''; notesSaveBtn.textContent = '✓'; } else { notesSaveBtn.textContent = '✗'; }
+      setTimeout(() => { notesSaveBtn.disabled = false; notesSaveBtn.textContent = 'Kaydet'; }, 1500);
+    });
+
+    // Add form
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (allData.length >= 999) { limitEl.classList.remove('hidden'); return; }
+      const btn = form.querySelector('[data-template-id="submit-btn"]');
+      btn.disabled = true; btn.style.opacity = '0.5';
+      const title = document.getElementById('link-input').value.trim();
+      const record = { category:document.getElementById('cat-select').value, title, link:title, content:document.getElementById('content-input').value.trim(), created_at:new Date().toISOString() };
+      const res = await window.dataSdk.create(record);
+      btn.disabled = false; btn.style.opacity = '1';
+      if (res.isOk) form.reset();
+    });
+
+    // Search
+    document.getElementById('top-search').addEventListener('keypress', (e) => { if (e.key==='Enter') { const q=e.target.value.trim(); if(q){window.open('https://duckduckgo.com/?q='+encodeURIComponent(q),'_blank','noopener,noreferrer'); e.target.value='';} } });
+    document.getElementById('top-search-btn').addEventListener('click', () => { const q=document.getElementById('top-search').value.trim(); if(q){window.open('https://duckduckgo.com/?q='+encodeURIComponent(q),'_blank','noopener,noreferrer'); document.getElementById('top-search').value='';} });
+
+    const handler = { onDataChanged(data) { allData = data; limitEl.classList.toggle('hidden', data.length < 999); renderEntries(); } };
+    (async () => { await window.dataSdk.init(handler); lucide.createIcons(); })();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a174857216751dff',t:'MTc4MzQwMjg5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body></html>
