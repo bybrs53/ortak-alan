@@ -404,46 +404,58 @@
   <!-- Bağımsız Veri SDK'sı Fallback Tanımlaması -->
   <script>
     if (!window.dataSdk) {
-      console.info("Platform dataSdk yüklü değil; akıllı lokal/bellek tabanlı veri katmanı devreye sokuldu.");
+      console.info("Platform dataSdk yüklü değil; akıllı kalıcı lokal veri katmanı (localStorage) devreye sokuldu.");
+      
+      const LOCAL_KEY = 'ortak_paylasim_arsiv_verisi';
+      const defaultMockData = [
+        { 
+          id: "1", 
+          category: "film", 
+          title: "Interstellar (Yıldızlararası)", 
+          link: "https://www.imdb.com/title/tt0816692/", 
+          content: "Zaman, bükülebilen bir boyuttur ama geriye doğru genişletilemez. Nolan'ın şaheseri.", 
+          created_at: "2026-07-06T12:00:00.000Z" 
+        },
+        { 
+          id: "2", 
+          category: "kitap", 
+          title: "Nutuk - Gazi Mustafa Kemal Atatürk", 
+          link: "https://www.dr.com.tr", 
+          content: "Bağımsızlık mücadelemizi ve cumhuriyetin kuruluş felsefesini bizzat liderinden okumak paha biçilemez.", 
+          created_at: "2026-07-05T10:30:00.000Z" 
+        },
+        { 
+          id: "3", 
+          category: "bilim", 
+          title: "James Webb Teleskobu Keşifleri", 
+          link: "https://nasa.gov", 
+          content: "Derin kızılötesi evren taramalarıyla, kozmolojiyi ve galaksilerin ilk oluşum teorilerini kökten değiştiren olağanüstü veriler.", 
+          created_at: "2026-07-04T08:15:00.000Z" 
+        },
+        { 
+          id: "4", 
+          category: "felsefe", 
+          title: "Mağara Alegorisi ve Gerçeklik Üzerine", 
+          link: "", 
+          content: "Platon'un Devlet kitabındaki mağara alegorisi, modern algı yönetimi ve medyanın simüle ettiği dünyayı anlamak için hâlâ en güçlü araç.", 
+          created_at: "2026-07-03T14:20:00.000Z" 
+        }
+      ];
+
+      // LocalStorage'dan yükle veya varsayılanları getir
+      let localStoreData = localStorage.getItem(LOCAL_KEY);
+      let parsedInitialData = localStoreData ? JSON.parse(localStoreData) : defaultMockData;
+
+      // Tarayıcıda ilk yükleme ise varsayılan verileri hemen localStorage'a kaydet
+      if (!localStoreData) {
+        localStorage.setItem(LOCAL_KEY, JSON.stringify(defaultMockData));
+      }
+
       window.dataSdk = {
-        _data: [
-          { 
-            id: "1", 
-            category: "film", 
-            title: "Interstellar (Yıldızlararası)", 
-            link: "https://www.imdb.com/title/tt0816692/", 
-            content: "Zaman, bükülebilen bir boyuttur ama geriye doğru genişletilemez. Nolan'ın şaheseri.", 
-            created_at: "2026-07-06T12:00:00.000Z" 
-          },
-          { 
-            id: "2", 
-            category: "kitap", 
-            title: "Nutuk - Gazi Mustafa Kemal Atatürk", 
-            link: "https://www.dr.com.tr", 
-            content: "Bağımsızlık mücadelemizi ve cumhuriyetin kuruluş felsefesini bizzat liderinden okumak paha biçilemez.", 
-            created_at: "2026-07-05T10:30:00.000Z" 
-          },
-          { 
-            id: "3", 
-            category: "bilim", 
-            title: "James Webb Teleskobu Keşifleri", 
-            link: "https://nasa.gov", 
-            content: "Derin kızılötesi evren taramalarıyla, kozmolojiyi ve galaksilerin ilk oluşum teorilerini kökten değiştiren olağanüstü veriler.", 
-            created_at: "2026-07-04T08:15:00.000Z" 
-          },
-          { 
-            id: "4", 
-            category: "felsefe", 
-            title: "Mağara Alegorisi ve Gerçeklik Üzerine", 
-            link: "", 
-            content: "Platon'un Devlet kitabındaki mağara alegorisi, modern algı yönetimi ve medyanın simüle ettiği dünyayı anlamak için hâlâ en güçlü araç.", 
-            created_at: "2026-07-03T14:20:00.000Z" 
-          }
-        ],
+        _data: parsedInitialData,
         _handlers: [],
         async init(handler) {
           this._handlers.push(handler);
-          // Gerekli tetiklemeyi gecikmeli yaparak asenkron davranışı simüle et
           setTimeout(() => {
             this._trigger();
           }, 50);
@@ -459,11 +471,22 @@
             created_at: record.created_at || new Date().toISOString()
           };
           this._data.push(newRecord);
+          // LocalStorage güncelle
+          localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
           this._trigger();
           return { isOk: true, data: newRecord };
         },
         async delete(item) {
           this._data = this._data.filter(d => d.id !== item.id);
+          // LocalStorage güncelle
+          localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
+          this._trigger();
+          return { isOk: true };
+        },
+        // Dosya yüklemelerinde tüm listeyi tek seferde kaydetmek için yardımcı fonksiyon
+        async saveAll(newData) {
+          this._data = newData;
+          localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
           this._trigger();
           return { isOk: true };
         }
@@ -936,8 +959,13 @@
         try {
           const imported = JSON.parse(evt.target.result);
           if (Array.isArray(imported)) {
-            window.dataSdk._data = imported;
-            window.dataSdk._trigger();
+            // Eğer saveAll fonksiyonumuz varsa kalıcı kaydet, yoksa direkt güncelle
+            if (window.dataSdk && typeof window.dataSdk.saveAll === 'function') {
+              window.dataSdk.saveAll(imported);
+            } else {
+              window.dataSdk._data = imported;
+              window.dataSdk._trigger();
+            }
             showToast("Arşiv yedekleri başarıyla yüklendi!");
           } else {
             showToast("Geçersiz yedek dosyası formatı!", "error");
