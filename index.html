@@ -39,12 +39,10 @@
 </head>
 <body data-template-id="__page-root" class="min-h-screen w-full relative pb-12 overflow-x-hidden" style="background: rgb(44, 26, 14);">
   
-  <!-- GİRİŞ SİSTEMİ ÇEKMECELERİ VE BACKDROP -->
   <div id="drawer-backdrop" class="fixed inset-0 bg-black/60 z-40 hidden transition-opacity duration-300" onclick="closeAllDrawers()"></div>
 
   <!-- SOL PANEL: TOMRİS GİRİŞİ VE GİZLİ SOHBETİ -->
   <div id="tomris-drawer" class="fixed left-0 top-0 bottom-0 w-[380px] max-w-full bg-[#1b120c] border-r border-amber-900/30 text-amber-100 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
-    <!-- Header -->
     <div class="p-5 border-b border-amber-900/20 bg-amber-950/40 flex justify-between items-center">
       <div class="flex items-center gap-2">
         <span class="text-2xl">👑</span>
@@ -58,14 +56,13 @@
       </button>
     </div>
 
-    <!-- Content (Giriş Yapılmadıysa) -->
+    <!-- Giriş Yapılmadıysa -->
     <div id="tomris-locked" class="p-6 flex-1 flex flex-col justify-center items-center text-center">
       <div class="w-16 h-16 rounded-full bg-amber-900/20 flex items-center justify-center text-amber-500 mb-4 border border-amber-500/20">
         <i data-lucide="lock" class="w-8 h-8"></i>
       </div>
       <h4 class="text-base font-bold text-amber-300 mb-2">Hakanlığın Gizli Kapısı</h4>
       <p class="text-xs text-amber-200/50 mb-6 max-w-[240px]">Tomris Hatun'un kişisel mesaj kutusuna erişmek için devlet sırrı anahtarını girin.</p>
-      
       <div class="w-full max-w-[260px] space-y-3">
         <input type="password" id="tomris-key-input" placeholder="Giriş Anahtarı (Key)" class="w-full bg-[#271b12] border border-amber-800/40 rounded-lg px-4 py-2 text-center text-sm text-white placeholder-amber-700/50 focus:outline-none focus:ring-2 focus:ring-amber-500 font-mono">
         <button onclick="loginTomris()" class="w-full py-2.5 bg-amber-700 hover:bg-amber-600 active:scale-95 text-white font-bold text-xs rounded-lg uppercase tracking-wider transition shadow-md">Geçidi Aç</button>
@@ -73,9 +70,8 @@
       <p id="tomris-error" class="text-red-400 text-xs mt-3 hidden">Geçersiz Devlet Anahtarı!</p>
     </div>
 
-    <!-- Content (Giriş Yapıldıysa) -->
+    <!-- Giriş Yapıldıysa -->
     <div id="tomris-unlocked" class="flex-1 flex flex-col justify-between hidden overflow-hidden">
-      <!-- Chat Header Info -->
       <div class="px-4 py-2.5 bg-emerald-950/20 border-b border-amber-900/10 flex justify-between items-center text-xs">
         <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Çevrimiçi (Hakan Yetkisi)
@@ -84,16 +80,10 @@
           <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Çıkış
         </button>
       </div>
-
-      <!-- Messages Stream -->
-      <div id="tomris-chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 flex flex-col bg-[#140c08]">
-        <!-- Mesajlar dinamik listelenecek -->
-      </div>
-
-      <!-- Chat Input Area -->
+      <div id="tomris-chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 flex flex-col bg-[#140c08]"></div>
       <div class="p-4 border-t border-amber-900/20 bg-amber-950/20">
         <div class="flex gap-2">
-          <input type="text" id="tomris-msg-input" placeholder="Sultan Baybars'a mesaj gönder..." class="flex-1 bg-[#271b12] border border-amber-800/40 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-amber-500">
+          <input type="text" id="tomris-msg-input" placeholder="Sultan Baybars'a gizli mesaj gönder..." class="flex-1 bg-[#271b12] border border-amber-800/40 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-amber-500">
           <button onclick="sendSecretMessage('Tomris')" class="p-2.5 bg-amber-700 hover:bg-amber-600 rounded-lg text-white transition active:scale-95">
             <i data-lucide="send" class="w-4 h-4"></i>
           </button>
@@ -102,9 +92,7 @@
     </div>
   </div>
 
-  <!-- SAĞ PANEL: BAYBARS GİRİŞİ VE GİZLİ SOHBETİ -->
   <div id="baybars-drawer" class="fixed right-0 top-0 bottom-0 w-[380px] max-w-full bg-[#0c1424] border-l border-blue-900/30 text-blue-100 z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
-    <!-- Header -->
     <div class="p-5 border-b border-blue-900/20 bg-blue-950/40 flex justify-between items-center">
       <div class="flex items-center gap-2">
         <span class="text-2xl">⚔️</span>
@@ -118,14 +106,13 @@
       </button>
     </div>
 
-    <!-- Content (Giriş Yapılmadıysa) -->
+    <!-- Giriş Yapılmadıysa -->
     <div id="baybars-locked" class="p-6 flex-1 flex flex-col justify-center items-center text-center">
       <div class="w-16 h-16 rounded-full bg-blue-900/20 flex items-center justify-center text-blue-500 mb-4 border border-blue-500/20">
         <i data-lucide="lock" class="w-8 h-8"></i>
       </div>
       <h4 class="text-base font-bold text-blue-300 mb-2">Memlük Kalesinin Kapısı</h4>
       <p class="text-xs text-blue-200/50 mb-6 max-w-[240px]">Sultan Baybars'ın kişisel mesaj kutusuna erişmek için saltanat sırrı anahtarını girin.</p>
-      
       <div class="w-full max-w-[260px] space-y-3">
         <input type="password" id="baybars-key-input" placeholder="Giriş Anahtarı (Key)" class="w-full bg-[#131d31] border border-blue-800/40 rounded-lg px-4 py-2 text-center text-sm text-white placeholder-blue-700/50 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono">
         <button onclick="loginBaybars()" class="w-full py-2.5 bg-blue-700 hover:bg-blue-600 active:scale-95 text-white font-bold text-xs rounded-lg uppercase tracking-wider transition shadow-md">Kaleyi Aç</button>
@@ -133,9 +120,8 @@
       <p id="baybars-error" class="text-red-400 text-xs mt-3 hidden">Geçersiz Saltanat Anahtarı!</p>
     </div>
 
-    <!-- Content (Giriş Yapıldıysa) -->
+    <!-- Giriş Yapıldıysa -->
     <div id="baybars-unlocked" class="flex-1 flex flex-col justify-between hidden overflow-hidden">
-      <!-- Chat Header Info -->
       <div class="px-4 py-2.5 bg-emerald-950/20 border-b border-blue-900/10 flex justify-between items-center text-xs">
         <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Çevrimiçi (Sultan Yetkisi)
@@ -144,13 +130,7 @@
           <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Çıkış
         </button>
       </div>
-
-      <!-- Messages Stream -->
-      <div id="baybars-chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 flex flex-col bg-[#080d18]">
-        <!-- Mesajlar dinamik listelenecek -->
-      </div>
-
-      <!-- Chat Input Area -->
+      <div id="baybars-chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 flex flex-col bg-[#080d18]"></div>
       <div class="p-4 border-t border-blue-900/20 bg-blue-950/20">
         <div class="flex gap-2">
           <input type="text" id="baybars-msg-input" placeholder="Tomris Hatun'a gizli mesaj gönder..." class="flex-1 bg-[#131d31] border border-blue-800/40 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-blue-500">
@@ -176,103 +156,106 @@
     <span id="baybars-status-dot" class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
   </button>
 
-
-  <!-- Sol Kenar Bayrakları (Tarihsel Devletler) -->
+  <!-- Sol Kenar Bayrakları -->
   <div class="fixed left-0 top-0 bottom-0 w-20 flex flex-col justify-evenly items-center py-4 pointer-events-auto hidden lg:flex bg-gradient-to-r from-amber-950/30 to-transparent z-10">
-    <div class="flag-container relative group cursor-help" title="Büyük Hun İmparatorluğu">
-      <img data-template-id="flag-hunnic" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/15843091/pexels-photo-15843091.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Büyük Hun İmparatorluğu">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/15843091/pexels-photo-15843091.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Büyük Hun İmparatorluğu</span>
     </div>
-    <div class="flag-container relative group cursor-help" title="Batı Hun İmparatorluğu">
-      <img data-template-id="flag-western-hun" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/35327476/pexels-photo-35327476.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Batı Hun İmparatorluğu">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/35327476/pexels-photo-35327476.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Batı Hun İmparatorluğu</span>
     </div>
-    <div class="flag-container relative group cursor-help" title="Avrupa Hun İmparatorluğu">
-      <img data-template-id="flag-european-hun" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/35327476/pexels-photo-35327476.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Avrupa Hun İmparatorluğu">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/35327476/pexels-photo-35327476.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Avrupa Hun İmparatorluğu</span>
     </div>
-    <div class="flag-container relative group cursor-help" title="Ak Hun İmparatorluğu">
-      <img data-template-id="flag-white-hun" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/32283256/pexels-photo-32283256.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Ak Hun İmparatorluğu">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/32283256/pexels-photo-32283256.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Ak Hun İmparatorluğu</span>
     </div>
-    <div class="flag-container relative group cursor-help" title="Göktürk Kağanlığı">
-      <img data-template-id="flag-gokturk" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/34673585/pexels-photo-34673585.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Göktürk Kağanlığı">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/34673585/pexels-photo-34673585.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Göktürk Kağanlığı</span>
     </div>
-    <div class="flag-container relative group cursor-help" title="Avar Kağanlığı">
-      <img data-template-id="flag-avar" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/35444195/pexels-photo-35444195.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Avar Kağanlığı">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/35444195/pexels-photo-35444195.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Avar Kağanlığı</span>
     </div>
-    <div class="flag-container relative group cursor-help" title="Hazar Kağanlığı">
-      <img data-template-id="flag-khazar" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/34673585/pexels-photo-34673585.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Hazar Kağanlığı">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/34673585/pexels-photo-34673585.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Hazar Kağanlığı</span>
     </div>
-    <div class="flag-container relative group cursor-help" title="Uygur Kağanlığı">
-      <img data-template-id="flag-uyghur" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/35624591/pexels-photo-35624591.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Uygur Kağanlığı">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/35624591/pexels-photo-35624591.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Uygur Kağanlığı</span>
     </div>
   </div>
 
-  <!-- Sağ Kenar Bayrakları (Tarihsel Devletler) -->
+  <!-- Sağ Kenar Bayrakları -->
   <div class="fixed right-0 top-0 bottom-0 w-20 flex flex-col justify-evenly items-center py-4 pointer-events-auto hidden lg:flex bg-gradient-to-l from-amber-950/30 to-transparent z-10">
-    <div class="flag-container relative group cursor-help" title="Karahanlı Devleti">
-      <img data-template-id="flag-karakhanid" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/38207941/pexels-photo-38207941.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Karahanlı Devleti">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/38207941/pexels-photo-38207941.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Karahanlı Devleti</span>
     </div>
-    <div class="flag-container relative group cursor-help" title="Gazneli Devleti">
-      <img data-template-id="flag-ghaznavid" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gazneli Devleti">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Gazneli Devleti</span>
     </div>
-    <div class="flag-container relative group cursor-help" title="Büyük Selçuklu İmparatorluğu">
-      <img data-template-id="flag-seljuk" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/32795501/pexels-photo-32795501.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Büyük Selçuklu İmparatorluğu">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/32795501/pexels-photo-32795501.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Büyük Selçuklu İmparatorluğu</span>
     </div>
-    <div class="flag-container relative group cursor-help" title="Harzemşahlar Devleti">
-      <img data-template-id="flag-khwarezmian" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Harzemşahlar Devleti">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Harzemşahlar Devleti</span>
     </div>
-    <div class="flag-container relative group cursor-help" title="Altın Orda Devleti">
-      <img data-template-id="flag-golden-horde" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/6466768/pexels-photo-6466768.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Altın Orda Devleti">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/6466768/pexels-photo-6466768.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Altın Orda Devleti</span>
     </div>
-    <div class="flag-container relative group cursor-help" title="Timur İmparatorluğu">
-      <img data-template-id="flag-timurid" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Timur İmparatorluğu">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Timur İmparatorluğu</span>
     </div>
-    <div class="flag-container relative group cursor-help" title="Babür İmparatorluğu">
-      <img data-template-id="flag-mughal" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/34219796/pexels-photo-34219796.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Babür İmparatorluğu">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/34219796/pexels-photo-34219796.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Babür İmparatorluğu</span>
     </div>
-    <div class="flag-container relative group cursor-help" title="Osmanlı İmparatorluğu">
-      <img data-template-id="flag-ottoman" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/7384333/pexels-photo-7384333.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Osmanlı İmparatorluğu">
+    <div class="flag-container relative group cursor-help">
+      <img class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" src="https://images.pexels.com/photos/7384333/pexels-photo-7384333.jpeg?auto=compress&cs=tinysrgb&w=400">
       <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Osmanlı İmparatorluğu</span>
     </div>
   </div>
 
   <!-- Hero Header -->
   <header class="relative overflow-hidden h-72">
-    <img data-template-id="hero-img" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://images.pexels.com/photos/1996333/pexels-photo-1996333.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="A majestic white horse gallops gracefully.">
+    <img data-template-id="hero-img" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://images.pexels.com/photos/1996333/pexels-photo-1996333.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="Majestic horse">
     <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-[#2c1a0e]"></div>
     <div class="relative p-6 max-w-4xl mx-auto h-full flex flex-col justify-end pb-8">
       <h1 data-template-id="page-title" class="heading-font text-white font-bold text-4xl sm:text-5xl drop-shadow-md">Ortak Paylaşım Alanı</h1>
       <p data-template-id="page-subtitle" class="mt-2 text-amber-300 font-medium text-sm sm:text-base flex items-center gap-2">
-        <span>ÖZGÜRLÜK ARŞİVİ</span> 🐴
+        <span>Film, müzik, kitap, notlar ve fikirlerinizi kaydedin</span> 🐴
       </p>
       
-      <!-- Arama ve Yedekleme Çubuğu -->
+      <!-- Arama, Yedekleme ve Eşitleme Çubuğu -->
       <div class="mt-6 flex flex-wrap gap-2 max-w-2xl">
         <div class="relative flex-1 min-w-[200px]">
-          <input id="top-search" type="text" class="w-full border border-amber-950/40 bg-white/95 rounded-lg pl-10 pr-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition shadow" placeholder="Arşivde ara (DuckDuckGo için Enter)...">
+          <input id="top-search" type="text" class="w-full border border-amber-950/40 bg-white/95 rounded-lg pl-10 pr-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition shadow" placeholder="Arşivde ara...">
           <i data-lucide="search" class="absolute left-3.5 top-3 w-4.5 h-4.5 text-gray-500"></i>
         </div>
-        <button id="top-search-btn" type="button" class="px-4 py-2.5 rounded-lg text-sm font-semibold bg-amber-800 hover:bg-amber-900 text-white flex items-center gap-2 transition active:scale-95 shadow" title="DuckDuckGo'da Ara">
+        <button id="top-search-btn" type="button" class="px-4 py-2.5 rounded-lg text-sm font-semibold bg-amber-800 hover:bg-amber-900 text-white flex items-center gap-2 transition active:scale-95 shadow">
           Ara
         </button>
-        <button id="export-btn" type="button" class="px-3.5 py-2.5 rounded-lg text-sm font-semibold bg-amber-950/80 hover:bg-amber-900 text-amber-100 border border-amber-800/30 flex items-center gap-1.5 transition active:scale-95" title="Verileri JSON dosyası olarak indir">
+        <button onclick="openSyncModal()" type="button" class="px-3.5 py-2.5 rounded-lg text-sm font-semibold bg-emerald-800 hover:bg-emerald-950 text-white flex items-center gap-1.5 transition active:scale-95 border border-emerald-700/50" title="Cihazlar arası anlık eşitle">
+          <i data-lucide="cloud" class="w-4 h-4"></i>
+          <span id="sync-btn-text">Bulut Eşitle</span>
+        </button>
+        <button id="export-btn" type="button" class="px-3.5 py-2.5 rounded-lg text-sm font-semibold bg-amber-950/80 hover:bg-amber-900 text-amber-100 border border-amber-800/30 flex items-center gap-1.5 transition active:scale-95" title="JSON yedeği indir">
           <i data-lucide="download" class="w-4 h-4"></i>
           <span class="hidden sm:inline">Yedekle</span>
         </button>
-        <button id="import-btn" type="button" class="px-3.5 py-2.5 rounded-lg text-sm font-semibold bg-amber-950/80 hover:bg-amber-900 text-amber-100 border border-amber-800/30 flex items-center gap-1.5 transition active:scale-95" title="JSON yedeği yükle">
+        <button id="import-btn" type="button" class="px-3.5 py-2.5 rounded-lg text-sm font-semibold bg-amber-950/80 hover:bg-amber-900 text-amber-100 border border-amber-800/30 flex items-center gap-1.5 transition active:scale-95" title="Yedek yükle">
           <i data-lucide="upload" class="w-4 h-4"></i>
           <span class="hidden sm:inline">Yükle</span>
         </button>
@@ -281,12 +264,66 @@
     </div>
   </header>
 
+  <!-- EŞİTLEME POPUP MODAL -->
+  <div id="sync-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm transition-all duration-300">
+    <div class="bg-[#1b120c] border border-amber-900/40 text-amber-100 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 relative">
+       <button onclick="closeSyncModal()" class="absolute right-4 top-4 p-1 rounded-lg hover:bg-amber-900/30 text-amber-400 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+       </button>
+       
+       <div class="pb-2 border-b border-amber-900/20">
+          <h3 class="font-bold heading-font text-amber-400 text-lg flex items-center gap-2">
+            <i data-lucide="cloud" class="w-5 h-5 text-amber-400"></i> Cihazlar Arası Eşitleme
+          </h3>
+          <p class="text-[10px] text-amber-300/50 uppercase tracking-wider">Anlık Bulut Senkronizasyonu</p>
+       </div>
+
+       <!-- Oda Yoksa (Bağlı Değilse) -->
+       <div id="sync-off-content" class="space-y-4">
+          <p class="text-xs text-amber-200/70 leading-relaxed">
+             Herhangi bir cihazdan (telefon, tablet veya başka bir bilgisayar) girdiğinizde verilerinizin, notlarınızın ve Tomris & Baybars sohbetlerinizin **anlık ve eş zamanlı** olması için bir oda kurun veya odaya bağlanın.
+          </p>
+          <div class="p-4 bg-amber-950/30 rounded-xl border border-amber-900/20 text-center">
+             <button onclick="createNewSyncRoom()" id="create-room-btn" class="px-5 py-2.5 bg-amber-700 hover:bg-amber-600 rounded-lg text-xs font-bold text-white transition active:scale-95 shadow-md flex items-center gap-2 mx-auto">
+                <i data-lucide="plus" class="w-4 h-4"></i> Yeni Bulut Odası Oluştur
+             </button>
+          </div>
+          <div class="text-center text-[10px] uppercase font-bold tracking-widest text-amber-500/60 my-2">— VEYA BAŞKA CİHAZA BAĞLANIN —</div>
+          <div class="space-y-2">
+             <label class="block text-[10px] uppercase font-bold text-amber-300">Mevcut Oda Kodu</label>
+             <div class="flex gap-2">
+                <input type="text" id="join-room-input" placeholder="Örn: a8b2d..." class="flex-1 bg-[#271b12] border border-amber-800/40 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-amber-500 font-mono text-center tracking-widest uppercase">
+                <button onclick="joinSyncRoom()" id="join-room-btn" class="px-4 py-2 bg-amber-800 hover:bg-amber-900 rounded-lg text-xs font-bold text-white transition">Katıl</button>
+             </div>
+          </div>
+       </div>
+
+       <!-- Oda Varsa (Bağlıysa) -->
+       <div id="sync-on-content" class="space-y-4 hidden">
+          <div class="p-4 bg-emerald-950/20 border border-emerald-900/30 rounded-xl text-center space-y-2">
+             <span class="inline-flex items-center gap-1.5 text-xs text-emerald-400 font-semibold bg-emerald-950/50 px-2.5 py-1 rounded-full">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Bulut Senkronizasyonu Aktif
+             </span>
+             <p class="text-[11px] text-amber-200/60">Bu cihaz buluta bağlıdır. Bilgisayardan yazdıklarınız telefonda anında görünür.</p>
+          </div>
+          <div class="space-y-1">
+             <span class="text-[10px] uppercase font-bold text-amber-400 block">Bu Cihazın Oda Kodu:</span>
+             <div class="flex items-center gap-2 bg-[#271b12] border border-amber-800/40 rounded-lg p-2.5 font-mono text-sm justify-between">
+                <span id="active-room-code" class="text-white select-all font-bold tracking-widest"></span>
+                <button onclick="copyRoomCode()" class="text-amber-400 hover:text-amber-200 p-1.5 rounded hover:bg-amber-900/30" title="Kopyala">
+                   <i data-lucide="copy" class="w-4 h-4"></i>
+                </button>
+             </div>
+             <p class="text-[10px] text-amber-300/40 italic">Bu kodu telefonunuza girerek verilerinizi anında eşitleyebilirsiniz.</p>
+          </div>
+          <button onclick="disconnectSyncRoom()" class="w-full py-2 bg-red-950 hover:bg-red-900 text-red-200 border border-red-900/20 text-xs font-bold rounded-lg transition active:scale-95">Bulut Bağlantısını Kes</button>
+       </div>
+    </div>
+  </div>
+
   <!-- Ana Çalışma Alanı -->
   <main class="max-w-4xl mx-auto p-4 sm:p-6 lg:px-8 relative z-10">
-    
-    <!-- Giriş Formu ve Not Defteri Paneli -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-      
       <!-- Yeni Kayıt Formu -->
       <div class="md:col-span-2">
         <form id="add-form" class="p-5 rounded-2xl border border-amber-900/10 bg-white/95 backdrop-blur shadow-xl">
@@ -312,7 +349,7 @@
             </div>
           </div>
           <div class="mb-4">
-            <label data-template-id="label-content" for="content-input" class="block text-xs font-semibold uppercase text-amber-900 mb-1.5">Açıklama / Kişisel Not</label>
+            <label data-template-id="label-content" for="content-input" class="block text-xs font-semibold uppercase text-amber-900 mb-1.5">Açıklama / Not</label>
             <textarea id="content-input" rows="3" class="w-full border border-amber-200/80 bg-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-800 resize-none" placeholder="İçerik hakkında düşüncelerinizi ekleyin..."></textarea>
           </div>
           <button data-template-id="submit-btn" type="submit" class="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-amber-800 hover:bg-amber-900 text-white font-bold text-sm transition shadow-md active:scale-95 flex items-center justify-center gap-2">
@@ -371,7 +408,7 @@
 
   <!-- Arşiv Kartı Şablonu -->
   <template id="entry-template">
-    <article data-template-id="entry-card" class="rounded-2xl p-5 border border-amber-950/20 bg-[#faf6f0] text-gray-800 relative group entry-card-shadow flex flex-col justify-between">
+    <article data-template-id="entry-card" class="rounded-2xl p-5 border border-amber-950/20 bg-[#faf6f0] text-gray-800 relative group entry-card-shadow flex flex-col justify-between animate-fade-in">
       <div>
         <div class="flex items-start justify-between gap-2 border-b border-amber-900/10 pb-2 mb-3">
           <span data-template-id="entry-badge" class="text-xs px-2.5 py-1 rounded-full font-semibold bg-amber-100 text-amber-900 border border-amber-200"></span>
@@ -398,31 +435,11 @@
     </article>
   </template>
 
-  <!-- Modern Bildirim Toast -->
-  <div id="custom-toast" class="fixed bottom-6 right-6 px-4 py-3 rounded-xl shadow-2xl text-sm font-medium z-50 transform translate-y-10 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-2"></div>
-
-  <!-- Bağımsız Veri SDK'sı & Firebase Entegrasyon Modülü -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc, collection, query, onSnapshot, addDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-    // Global parametreler (Firebase ve Uygulama ID tanımlamaları)
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-    let db, auth;
-
-    // Firebase Hizmetlerini Başlatma
-    try {
-      const firebaseConfig = JSON.parse(__firebase_config);
-      const app = initializeApp(firebaseConfig);
-      auth = getAuth(app);
-      db = getFirestore(app);
-      console.info("Firebase Firestore başarıyla başlatıldı.");
-    } catch (err) {
-      console.error("Firebase yapılandırması yüklenemedi. Offline LocalStorage moduna geçiliyor.", err);
-    }
-
+  <!-- Akıllı Çevrimdışı ve Bulut Entegrasyonu (CORS Uyumlu npoint API) -->
+  <script>
     const LOCAL_KEY = 'ortak_paylasim_arsiv_verisi';
+    const ROOM_KEY = 'ortak_paylasim_sync_room_id';
+
     const defaultMockData = [
       { 
         id: "1", 
@@ -458,67 +475,29 @@
       }
     ];
 
-    // Data SDK Yapılandırması (Real-time Cloud Database)
     window.dataSdk = {
       _data: [],
       _handlers: [],
-      _usingFirestore: false,
+      _syncRoomId: null,
+      _syncIntervalId: null,
 
       async init(handler) {
         this._handlers.push(handler);
         
-        if (db && auth) {
-          try {
-            // RULE 3: Auth Before Queries (Token önceliği)
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-              await signInWithCustomToken(auth, __initial_auth_token);
-            } else {
-              await signInAnonymously(auth);
-            }
-            
-            onAuthStateChanged(auth, (user) => {
-              if (!user) return; // Auth Guard
-              
-              this._usingFirestore = true;
-              
-              // RULE 1: Strict Paths
-              const entriesCol = collection(db, 'artifacts', appId, 'public', 'data', 'entries');
-              
-              // Gerçek zamanlı Firestore dinleyici bağlantısı
-              onSnapshot(entriesCol, (snapshot) => {
-                const dataList = [];
-                snapshot.forEach((docSnap) => {
-                  dataList.push({
-                    id: docSnap.id,
-                    ...docSnap.data()
-                  });
-                });
-                
-                // Firestore boş ise mock verileri otomatik buluta yükle
-                if (dataList.length === 0) {
-                  this.saveAll(defaultMockData);
-                } else {
-                  this._data = dataList;
-                  this._trigger();
-                }
-              }, (error) => {
-                console.error("Firestore bağlantı hatası, yerel belleğe geçiliyor:", error);
-                this._fallbackToLocal();
-              });
-            });
-            return { isOk: true };
-          } catch (authErr) {
-            console.warn("Firestore kimlik doğrulaması başarısız, LocalStorage aktifleşti:", authErr);
-            this._fallbackToLocal();
-          }
-        } else {
-          this._fallbackToLocal();
+        // Eşitleme oda kodunu yükle
+        this._syncRoomId = localStorage.getItem(ROOM_KEY);
+        
+        // Önce yerel verileri hafızadan oku
+        this._fallbackToLocal();
+
+        // Eğer oda kodu varsa bulut eşitlemesini otomatik başlat
+        if (this._syncRoomId) {
+          this.startSyncPolling();
         }
         return { isOk: true };
       },
 
       _fallbackToLocal() {
-        this._usingFirestore = false;
         let localStoreData = localStorage.getItem(LOCAL_KEY);
         this._data = localStoreData ? JSON.parse(localStoreData) : defaultMockData;
         if (!localStoreData) {
@@ -533,77 +512,126 @@
 
       async create(record) {
         const cleanRecord = {
+          id: Math.random().toString(36).substr(2, 9),
           ...record,
           created_at: record.created_at || new Date().toISOString()
         };
 
-        if (this._usingFirestore && db && auth.currentUser) {
-          try {
-            // RULE 1: Strict Paths
-            const entriesCol = collection(db, 'artifacts', appId, 'public', 'data', 'entries');
-            const docRef = await addDoc(entriesCol, cleanRecord);
-            return { isOk: true, data: { id: docRef.id, ...cleanRecord } };
-          } catch (err) {
-            console.error("Firestore veri yazma hatası:", err);
-          }
-        }
-
-        // Çevrimdışı/Hata durumunda LocalStorage Fallback
-        const localId = Math.random().toString(36).substr(2, 9);
-        const newRecord = { id: localId, ...cleanRecord };
-        this._data.push(newRecord);
+        this._data.push(cleanRecord);
         localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
         this._trigger();
-        return { isOk: true, data: newRecord };
+
+        // Bulut odası aktifse veriyi buluta gönder
+        if (this._syncRoomId) {
+          await this.pushToCloud();
+        }
+
+        return { isOk: true, data: cleanRecord };
       },
 
       async delete(item) {
-        if (this._usingFirestore && db && auth.currentUser) {
-          try {
-            // RULE 1: Strict Paths
-            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'entries', item.id);
-            await deleteDoc(docRef);
-            return { isOk: true };
-          } catch (err) {
-            console.error("Firestore veri silme hatası:", err);
-          }
-        }
-
-        // Çevrimdışı/Hata durumunda LocalStorage Fallback
         this._data = this._data.filter(d => d.id !== item.id);
         localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
         this._trigger();
+
+        if (this._syncRoomId) {
+          await this.pushToCloud();
+        }
+
         return { isOk: true };
       },
 
       async saveAll(newData) {
-        if (this._usingFirestore && db && auth.currentUser) {
-          try {
-            // RULE 1: Strict Paths
-            for (const item of newData) {
-              const itemToSave = { ...item };
-              const itemId = item.id || Math.random().toString(36).substr(2, 9);
-              delete itemToSave.id;
-              const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'entries', itemId);
-              await setDoc(docRef, itemToSave);
-            }
-            return { isOk: true };
-          } catch (err) {
-            console.error("Firestore toplu yükleme hatası:", err);
-          }
-        }
-
-        // Çevrimdışı/Hata durumunda LocalStorage Fallback
         this._data = newData;
         localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
         this._trigger();
+
+        if (this._syncRoomId) {
+          await this.pushToCloud();
+        }
+
         return { isOk: true };
+      },
+
+      // BULUT ODASINA VERİ YAZMA
+      async pushToCloud() {
+        if (!this._syncRoomId) return;
+        try {
+          await fetch(`https://api.npoint.io/${this._syncRoomId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(this._data)
+          });
+        } catch (e) {
+          console.error("Buluta veri yazma başarısız:", e);
+        }
+      },
+
+      // BULUT ODASINDAN VERİ ÇEKME & MERGE
+      async pullFromCloud() {
+        if (!this._syncRoomId) return;
+        try {
+          const res = await fetch(`https://api.npoint.io/${this._syncRoomId}`);
+          if (!res.ok) return;
+          const remoteData = await res.json();
+          
+          if (Array.isArray(remoteData)) {
+            // İki taraftaki verileri birleştirerek kaybı engelle
+            const merged = this.mergeData(this._data, remoteData);
+            
+            // Eğer yeni bir veri geldiyse arayüzü çiz
+            if (JSON.stringify(this._data) !== JSON.stringify(merged)) {
+              this._data = merged;
+              localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
+              this._trigger();
+            }
+          }
+        } catch (e) {
+          console.error("Bulut verisi çekilemedi:", e);
+        }
+      },
+
+      // Akıllı Veri Birleştirme (Kayıpları engeller)
+      mergeData(local, remote) {
+        const mergedMap = new Map();
+        local.forEach(item => mergedMap.set(item.id, item));
+        
+        remote.forEach(item => {
+          if (!mergedMap.has(item.id)) {
+            mergedMap.set(item.id, item);
+          } else {
+            // Eğer aynı ID varsa zamanı en güncel olanı tut
+            const existing = mergedMap.get(item.id);
+            const existingTime = existing.created_at ? new Date(existing.created_at) : 0;
+            const remoteTime = item.created_at ? new Date(item.created_at) : 0;
+            if (remoteTime > existingTime) {
+              mergedMap.set(item.id, item);
+            }
+          }
+        });
+        return Array.from(mergedMap.values());
+      },
+
+      startSyncPolling() {
+        if (this._syncIntervalId) clearInterval(this._syncIntervalId);
+        // Her 4 saniyede bir buluttaki değişiklikleri kontrol et
+        this._syncIntervalId = setInterval(() => {
+          this.pullFromCloud();
+        }, 4000);
+        this.pullFromCloud();
+      },
+
+      stopSyncPolling() {
+        if (this._syncIntervalId) {
+          clearInterval(this._syncIntervalId);
+          this._syncIntervalId = null;
+        }
       }
     };
+  </script>
 
-    // -------------------------------------------------------------
-    // UYGULAMA ETKİLEŞİM KATMANI VE REAKTİF ARAYÜZ
-    // -------------------------------------------------------------
+  <!-- Uygulama Arayüz Kontrol Katmanı -->
+  <script>
     let allData = [];
     let activeTab = 'all';
     
@@ -626,7 +654,7 @@
       psikoloji: '🧠' 
     };
 
-    // Toast Bildirim Sistemi (Modal / Bildirim Balonu)
+    // Toast Bildirimleri
     function showToast(message, type = 'success') {
       const toast = document.getElementById('custom-toast');
       toast.textContent = message;
@@ -643,13 +671,139 @@
       }, 3000);
     }
 
-    // Yan Çekmece Kontrolleri (Tomris & Baybars)
+    // MODAL VE BULUT EŞİTLEME ETKİLEŞİMLERİ
+    function openSyncModal() {
+      document.getElementById('sync-modal').classList.remove('hidden');
+      updateSyncUI();
+    }
+
+    function closeSyncModal() {
+      document.getElementById('sync-modal').classList.add('hidden');
+    }
+
+    // Yeni Oda Oluşturma
+    async function createNewSyncRoom() {
+      const btn = document.getElementById('create-room-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Oluşturuluyor...';
+      lucide.createIcons();
+
+      try {
+        const res = await fetch('https://api.npoint.io/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(window.dataSdk._data)
+        });
+        const result = await res.json();
+        if (result.id) {
+          window.dataSdk._syncRoomId = result.id;
+          localStorage.setItem(ROOM_KEY, result.id);
+          window.dataSdk.startSyncPolling();
+          
+          updateSyncUI();
+          showToast("Yeni bulut odası kuruldu! Bu kodu diğer cihazlarınıza girin.");
+        } else {
+          showToast("Oda oluşturulurken bir hata oluştu!", "error");
+        }
+      } catch(e) {
+        showToast("Sunucuyla bağlantı kurulamadı!", "error");
+      }
+      btn.disabled = false;
+      btn.innerHTML = '<i data-lucide="plus" class="w-4 h-4"></i> Yeni Bulut Odası Oluştur';
+      lucide.createIcons();
+    }
+
+    // Mevcut Odaya Katılma
+    async function joinSyncRoom() {
+      const input = document.getElementById('join-room-input');
+      const roomId = input.value.trim().toLowerCase();
+      const btn = document.getElementById('join-room-btn');
+
+      if (!roomId) {
+        showToast("Lütfen geçerli bir Oda Kodu yazın!", "error");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = '...';
+
+      try {
+        const res = await fetch(`https://api.npoint.io/${roomId}`);
+        if (!res.ok) {
+          showToast("Bu oda koduna ait bir bulut odası bulunamadı!", "error");
+          btn.disabled = false;
+          btn.textContent = 'Katıl';
+          return;
+        }
+        const remoteData = await res.json();
+        
+        if (Array.isArray(remoteData)) {
+          // Buluttaki verileri indir ve yerel verilerle birleştir
+          const merged = window.dataSdk.mergeData(window.dataSdk._data, remoteData);
+          window.dataSdk._data = merged;
+          localStorage.setItem(LOCAL_KEY, JSON.stringify(merged));
+          
+          window.dataSdk._syncRoomId = roomId;
+          localStorage.setItem(ROOM_KEY, roomId);
+          window.dataSdk.startSyncPolling();
+          
+          input.value = '';
+          updateSyncUI();
+          showToast("Odaya başarıyla bağlanıldı ve veriler eşitlendi!", "success");
+        }
+      } catch(e) {
+        showToast("Bağlanırken bir hata oluştu!", "error");
+      }
+      btn.disabled = false;
+      btn.textContent = 'Katıl';
+    }
+
+    // Bulut Bağlantısını Kesme
+    function disconnectSyncRoom() {
+      window.dataSdk.stopSyncPolling();
+      window.dataSdk._syncRoomId = null;
+      localStorage.removeItem(ROOM_KEY);
+      updateSyncUI();
+      showToast("Bulut bağlantısı kesildi. Verileriniz artık sadece bu cihazda kalacak.");
+    }
+
+    // Oda Kodunu Panoya Kopyalama
+    function copyRoomCode() {
+      const code = document.getElementById('active-room-code').textContent;
+      const el = document.createElement('textarea');
+      el.value = code;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      showToast("Oda kodu panoya kopyalandı!");
+    }
+
+    // Senkronizasyon Durumuna Göre Arayüzü Güncelleme
+    function updateSyncUI() {
+      const hasRoom = !!window.dataSdk._syncRoomId;
+      const offContent = document.getElementById('sync-off-content');
+      const onContent = document.getElementById('sync-on-content');
+      const activeCode = document.getElementById('active-room-code');
+      const btnText = document.getElementById('sync-btn-text');
+
+      if (hasRoom) {
+        offContent.classList.add('hidden');
+        onContent.classList.remove('hidden');
+        activeCode.textContent = window.dataSdk._syncRoomId.toUpperCase();
+        btnText.textContent = "Bağlantı Açık (Oda: " + window.dataSdk._syncRoomId.substring(0, 4).toUpperCase() + ")";
+      } else {
+        offContent.classList.remove('hidden');
+        onContent.classList.add('hidden');
+        btnText.textContent = "Bulut Eşitle";
+      }
+    }
+
+    // Çekmece İşlemleri
     function toggleTomrisDrawer() {
       const drawer = document.getElementById('tomris-drawer');
       const backdrop = document.getElementById('drawer-backdrop');
-      
       closeAllDrawersExcept('tomris');
-      
       drawer.classList.toggle('-translate-x-full');
       if (!drawer.classList.contains('-translate-x-full')) {
         backdrop.classList.remove('hidden');
@@ -661,9 +815,7 @@
     function toggleBaybarsDrawer() {
       const drawer = document.getElementById('baybars-drawer');
       const backdrop = document.getElementById('drawer-backdrop');
-      
       closeAllDrawersExcept('baybars');
-      
       drawer.classList.toggle('translate-x-full');
       if (!drawer.classList.contains('translate-x-full')) {
         backdrop.classList.remove('hidden');
@@ -802,17 +954,10 @@
       }
     }
 
-    // Filtrelenmiş Verileri Al (Sohbetleri arşivden gizle)
     function getFiltered() {
       const publicData = allData.filter(d => d.category !== 'sohbet');
       if (activeTab === 'all') return publicData;
       return publicData.filter(d => d.category === activeTab);
-    }
-
-    // HTML Kaçış Karakteri Temizleme
-    function escapeHTML(str) {
-      if (!str) return '';
-      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
     // Akıllı URL Formatlama ve Başlık Temizleme
@@ -840,7 +985,7 @@
         
         const finalHref = targetUrl.startsWith('http') ? targetUrl : 'https://' + targetUrl;
         titleEl.innerHTML = `
-          <a href="${finalHref}" target="_blank" rel="noopener noreferrer" class="text-amber-900 hover:text-amber-700 underline flex items-center gap-1.5 break-all group/link">
+          <a href="${finalHref}" target="_blank" rel="noopener noreferrer" class="text-amber-900 hover:text-amber-700 underline flex items-center gap-1.5 break-all group/link font-bold">
             <span>${escapeHTML(cleanDisplayTitle)}</span>
             <i data-lucide="external-link" class="w-3.5 h-3.5 inline text-amber-700 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition duration-150"></i>
           </a>
@@ -850,7 +995,7 @@
       }
     }
 
-    // Genel Arşiv Kartlarını Çizme
+    // Arşiv Kartlarını Çizme (Render)
     function renderEntries() {
       const filtered = getFiltered();
       const searchQuery = document.getElementById('top-search').value.toLowerCase().trim();
@@ -1055,7 +1200,7 @@
       e.target.value = '';
     });
 
-    // Inline Click Olay Köprüleri (Modülün Global Kapsama Atanması)
+    // Global Kapsam Atamaları
     window.toggleTomrisDrawer = toggleTomrisDrawer;
     window.toggleBaybarsDrawer = toggleBaybarsDrawer;
     window.closeAllDrawers = closeAllDrawers;
@@ -1064,6 +1209,12 @@
     window.loginBaybars = loginBaybars;
     window.logoutBaybars = logoutBaybars;
     window.sendSecretMessage = sendSecretMessage;
+    window.openSyncModal = openSyncModal;
+    window.closeSyncModal = closeSyncModal;
+    window.createNewSyncRoom = createNewSyncRoom;
+    window.joinSyncRoom = joinSyncRoom;
+    window.disconnectSyncRoom = disconnectSyncRoom;
+    window.copyRoomCode = copyRoomCode;
 
     // Dinleyiciler
     document.getElementById('tomris-key-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') loginTomris(); });
@@ -1073,13 +1224,13 @@
     document.getElementById('top-search-btn').addEventListener('click', () => { executeExternalSearch(); });
     searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { executeExternalSearch(); } });
 
-    // SDK Altyapısını Başlatma
+    // SDK Başlatma
     const handler = { 
       onDataChanged(data) { 
         allData = data; 
         limitEl.classList.toggle('hidden', data.length < 999); 
         renderEntries(); 
-        renderSecretChats(); // Hükümdar mesajlarını çiz
+        renderSecretChats(); 
       } 
     };
 
