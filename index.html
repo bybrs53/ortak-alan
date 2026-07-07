@@ -1,101 +1,684 @@
-<!doctype html>
-<html lang="tr"><head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260707-03-b8b85bc"}');</script><script src="/_sdk/f432b76fb310b513.telemetry_sdk.js" integrity="sha512-9FJQ55EKmmqhyyik8BhrMVfm0+iYYfb8uOlRsjtkxJMEI97qOVEI4PnHohDjQAtvAep0IOEpdQ64eki0sz62ug=="></script>
+<!DOCTYPE html>
+<html lang="tr" class="h-full">
+<head>
+  <script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260707-03-b8b85bc"}');</script>
+  <script src="//_sdk/f432b76fb310b513.telemetry_sdk.js" xintegrity="sha512-9FJQ55EKmmqhyyik8BhrMVfm0+iYYfb8uOlRsjtkxJMEI97qOVEI4PnHohDjQAtvAep0IOEpdQ64eki0sz62ug==" onerror="console.warn('Telemetry SDK offline mode active')"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ortak Paylaşım Alanı</title>
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <!-- Tailwind CSS & Lucide Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Fraunces:wght@600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+  
   <style>
     body { font-family: 'DM Sans', sans-serif; }
     .heading-font { font-family: 'Fraunces', serif; letter-spacing: -0.5px; }
     .tab-active { border-bottom: 3px solid #92400e; color: #92400e; font-weight: 600; }
     .tab-btn { transition: all 0.3s ease; }
     .tab-btn:hover:not(.tab-active) { color: #78350f; }
-    .entry-card-shadow { box-shadow: 0 4px 15px rgba(60,30,10,0.1); transition: all 0.3s ease; }
-    .entry-card-shadow:hover { box-shadow: 0 12px 24px rgba(60,30,10,0.15); transform: translateY(-2px); }
-    .msg-bubble { border-radius: 12px; padding: 8px 12px; margin-bottom: 6px; max-width: 85%; word-wrap: break-word; }
-    .msg-tomris { background: #fef3c7; align-self: flex-start; }
-    .msg-baybars { background: #e0e7ff; align-self: flex-end; }
+    .entry-card-shadow { box-shadow: 0 4px 15px rgba(60,30,10,0.06); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .entry-card-shadow:hover { box-shadow: 0 12px 24px rgba(60,30,10,0.12); transform: translateY(-3px); }
+    
+    /* Flag Tooltip & Interactive Styling */
+    .flag-container img {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .flag-container:hover img {
+      transform: scale(1.15) translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    }
+
+    /* Vertical text for side login tabs */
+    .vertical-text {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
   </style>
-  <script src="/_sdk/0b3af1c300e720aa.resizing_sdk.js" type="text/javascript" integrity="sha512-nX1P6oXZmEY5wCI2lUVg3BwKu1cr0yi+ZpXgZ0Yn90vkSwvpmyzBMvOyD6VLJUtBwFI2dSrw1b6OvORxSggw3w=="></script>
- </head>
- <body data-template-id="__page-root" class="min-h-screen w-full relative" style="background: rgb(44, 26, 14);">
-  <!-- Left border flags -->
-  <div class="fixed left-0 top-0 bottom-0 w-20 flex-col justify-evenly items-center py-4 pointer-events-none hidden sm:flex bg-gradient-to-r from-amber-900/10 to-transparent overflow-hidden">
-   <img data-template-id="flag-hunnic" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/15843091/pexels-photo-15843091.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="A man on horseback holding the Turkish flag at an equestrian event in İstanbul."> <img data-template-id="flag-western-hun" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/35327476/pexels-photo-35327476.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Turkish warrior in armor riding a horse, holding a Turkish flag."> <img data-template-id="flag-european-hun" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/35327476/pexels-photo-35327476.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Turkish warrior in armor riding a horse, holding a Turkish flag."> <img data-template-id="flag-white-hun" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/32283256/pexels-photo-32283256.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="A medieval knight in chainmail armor with a plume helmet and flag, riding a horse."> <img data-template-id="flag-gokturk" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/34673585/pexels-photo-34673585.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="A vibrant Azerbaijan flag waves proudly against a clear blue sky in Baku."> <img data-template-id="flag-avar" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/35444195/pexels-photo-35444195.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="The national flag of Kazakhstan waving against a clear blue sky."> <img data-template-id="flag-khazar" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/34673585/pexels-photo-34673585.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="A vibrant Azerbaijan flag waves proudly against a clear blue sky in Baku."> <img data-template-id="flag-uyghur" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/35624591/pexels-photo-35624591.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Cozy indoor dining setting with traditional decorations and Turkish, Uyghur flags.">
-  </div><!-- Right border flags -->
-  <div class="fixed right-0 top-0 bottom-0 w-20 flex-col justify-evenly items-center py-4 pointer-events-none hidden sm:flex bg-gradient-to-l from-amber-900/10 to-transparent overflow-hidden">
-   <img data-template-id="flag-karakhanid" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/38207941/pexels-photo-38207941.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Charming historic house in Söğüt, Turkey, featuring traditional architecture and Turkish flag."> <img data-template-id="flag-ghaznavid" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="An outdoor Ottoman military band performance featuring musicians in traditional clothing."> <img data-template-id="flag-seljuk" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/32795501/pexels-photo-32795501.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Red Albanian flag with black double-headed eagle flying against a clear blue sky."> <img data-template-id="flag-khwarezmian" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="An outdoor Ottoman military band performance featuring musicians in traditional clothing."> <img data-template-id="flag-golden-horde" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/6466768/pexels-photo-6466768.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Close-up of the iconic Genghis Khan statue in Mongolia against a clear sky."> <img data-template-id="flag-timurid" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="An outdoor Ottoman military band performance featuring musicians in traditional clothing."> <img data-template-id="flag-mughal" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/34219796/pexels-photo-34219796.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="Historic Red Fort with Indian flag in Delhi, India, symbolizing independence."> <img data-template-id="flag-ottoman" class="canva-image w-14 h-12 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/7384333/pexels-photo-7384333.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=400" alt="A vibrant Turkish flag waving against a mountainous backdrop, symbolizing patriotism.">
-  </div><!-- Hero -->
-  <header class="relative overflow-hidden">
-   <img data-template-id="hero-img" class="canva-image absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://images.pexels.com/photos/1996333/pexels-photo-1996333.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1920" alt="A majestic white horse gallops gracefully through a lush green landscape.">
-   <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#2c1a0e]/90"></div>
-   <div class="relative p-6 pb-8 max-w-4xl mx-auto">
-    <h1 data-template-id="page-title" class="canva-text heading-font" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 36px;">Ortak Paylaşım Alanı</h1>
-    <p data-template-id="page-subtitle" class="canva-text mt-1" style="color: rgb(253, 230, 138); font-weight: 500; font-style: normal; font-size: 15px;">Film, müzik, kitap ve yazılarınızı kaydedin 🐴</p>
-    <div class="mt-4 flex gap-2">
-     <input id="top-search" type="text" class="flex-1 border border-amber-700/30 bg-white/90 rounded-lg px-4 py-2 text-sm" placeholder="Ara..."> <button id="top-search-btn" type="button" class="px-4 py-2 rounded-lg text-sm font-medium bg-amber-800 hover:bg-amber-900 text-white inline-flex items-center gap-2"><i data-lucide="search" style="width:16px;height:16px"></i></button>
-    </div>
-   </div>
-  </header>
-  <main class="max-w-4xl mx-auto p-6 sm:px-24 relative">
-   <!-- Add form and notes -->
-   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-    <div class="lg:col-span-2">
-     <form id="add-form" class="p-5 rounded-xl border border-amber-900/20 bg-white/90 backdrop-blur shadow-md">
-      <h2 data-template-id="form-heading" class="canva-text font-semibold mb-4" style="color: rgb(69, 26, 3); font-weight: 700; font-style: normal; font-size: 20px;">Yeni Kayıt Ekle</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
-       <div><label data-template-id="label-category" for="cat-select" class="canva-text block text-sm mb-1" style="color: rgb(120, 53, 15); font-weight: 600; font-style: normal; font-size: 16px;">Kategori</label> <select id="cat-select" class="w-full border border-amber-200 rounded-lg px-3 py-2 text-sm"> <option value="film">🎬 Film</option><option value="müzik">🎵 Müzik</option><option value="kitap">📚 Kitap</option><option value="notlar">📝 Notlar</option><option value="bilim">🔬 Bilim</option><option value="felsefe">🤔 Felsefe</option><option value="psikoloji">🧠 Psikoloji</option> </select>
-       </div>
-       <div><label data-template-id="label-link" for="link-input" class="canva-text block text-sm mb-1" style="color: rgb(120, 53, 15); font-weight: 600; font-style: normal; font-size: 16px;">Link</label><input id="link-input" type="text" required="" class="w-full border border-amber-200 rounded-lg px-3 py-2 text-sm" placeholder="Link">
-       </div>
+  <script src="//_sdk/0b3af1c300e720aa.resizing_sdk.js" type="text/javascript" xintegrity="sha512-nX1P6oXZmEY5wCI2lUVg3BwKu1cr0yi+ZpXgZ0Yn90vkSwvpmyzBMvOyD6VLJUtBwFI2dSrw1b6OvORxSggw3w==" onerror="console.warn('Resizing SDK offline mode active')"></script>
+</head>
+<body data-template-id="__page-root" class="min-h-screen w-full relative pb-12 overflow-x-hidden" style="background: rgb(44, 26, 14);">
+  
+  <!-- GİRİŞ SİSTEMİ ÇEKMECELERİ VE BACKDROP -->
+  <div id="drawer-backdrop" class="fixed inset-0 bg-black/60 z-40 hidden transition-opacity duration-300" onclick="closeAllDrawers()"></div>
+
+  <!-- SOL PANEL: TOMRİS GİRİŞİ VE GİZLİ SOHBETİ -->
+  <div id="tomris-drawer" class="fixed left-0 top-0 bottom-0 w-[380px] max-w-full bg-[#1b120c] border-r border-amber-900/30 text-amber-100 z-50 transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
+    <!-- Header -->
+    <div class="p-5 border-b border-amber-900/20 bg-amber-950/40 flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">👑</span>
+        <div>
+          <h3 class="font-bold heading-font text-amber-400">Tomris Hatun</h3>
+          <p class="text-[10px] text-amber-300/60 uppercase tracking-widest">Saka Hakanlığı</p>
+        </div>
       </div>
-      <div class="mb-3"><label data-template-id="label-content" for="content-input" class="canva-text block text-sm mb-1" style="color: rgb(120, 53, 15); font-weight: 600; font-style: normal; font-size: 16px;">Not / İçerik</label><textarea id="content-input" rows="3" class="w-full border border-amber-200 rounded-lg px-3 py-2 text-sm resize-none"></textarea>
-      </div><button data-template-id="submit-btn" type="submit" class="canva-button px-5 py-2 rounded-lg font-medium text-sm" style="background: rgb(120, 53, 15); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Arşive Ekle</button>
-     </form>
+      <button onclick="closeAllDrawers()" class="p-1 rounded-lg hover:bg-amber-900/30 text-amber-400 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
     </div>
-    <div class="lg:col-span-1">
-     <div class="p-5 rounded-xl border border-amber-900/20 bg-white/90 backdrop-blur shadow-md h-full flex flex-col">
-      <h3 data-template-id="notes-title" class="canva-text font-semibold mb-3" style="color: rgb(69, 26, 3); font-weight: 700; font-style: normal; font-size: 19px;">Not Defteri</h3><textarea id="notes-textarea" placeholder="Not yazın..." rows="8" class="w-full border border-amber-200 rounded-lg px-3 py-2 text-sm resize-none flex-1 mb-3"></textarea> <button data-template-id="notes-save-btn" id="notes-save" type="button" class="canva-button px-4 py-2 rounded-lg font-medium text-sm w-full" style="background: rgb(120, 53, 15); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Kaydet</button>
-     </div>
+
+    <!-- Content (Giriş Yapılmadıysa) -->
+    <div id="tomris-locked" class="p-6 flex-1 flex flex-col justify-center items-center text-center">
+      <div class="w-16 h-16 rounded-full bg-amber-900/20 flex items-center justify-center text-amber-500 mb-4 border border-amber-500/20">
+        <i data-lucide="lock" class="w-8 h-8"></i>
+      </div>
+      <h4 class="text-base font-bold text-amber-300 mb-2">Hakanlığın Gizli Kapısı</h4>
+      <p class="text-xs text-amber-200/50 mb-6 max-w-[240px]">Tomris Hatun'un kişisel mesaj kutusuna erişmek için devlet sırrı anahtarını girin.</p>
+      
+      <div class="w-full max-w-[260px] space-y-3">
+        <input type="password" id="tomris-key-input" placeholder="Giriş Anahtarı (Key)" class="w-full bg-[#271b12] border border-amber-800/40 rounded-lg px-4 py-2 text-center text-sm text-white placeholder-amber-700/50 focus:outline-none focus:ring-2 focus:ring-amber-500 font-mono">
+        <button onclick="loginTomris()" class="w-full py-2.5 bg-amber-700 hover:bg-amber-600 active:scale-95 text-white font-bold text-xs rounded-lg uppercase tracking-wider transition shadow-md">Geçidi Aç</button>
+      </div>
+      <p id="tomris-error" class="text-red-400 text-xs mt-3 hidden">Geçersiz Devlet Anahtarı!</p>
     </div>
-   </div><!-- Tabs -->
-   <div id="tabs" class="flex gap-4 mb-6 border-b border-amber-900/20 overflow-x-auto text-sm font-medium">
-    <button class="tab-btn tab-active pb-2 px-1 whitespace-nowrap" data-cat="all">Tümü</button> <button class="tab-btn pb-2 px-1 whitespace-nowrap" data-cat="film">🎬 Film</button> <button class="tab-btn pb-2 px-1 whitespace-nowrap" data-cat="müzik">🎵 Müzik</button> <button class="tab-btn pb-2 px-1 whitespace-nowrap" data-cat="kitap">📚 Kitap</button> <button class="tab-btn pb-2 px-1 whitespace-nowrap" data-cat="notlar">📝 Notlar</button> <button class="tab-btn pb-2 px-1 whitespace-nowrap" data-cat="bilim">🔬 Bilim</button> <button class="tab-btn pb-2 px-1 whitespace-nowrap" data-cat="felsefe">🤔 Felsefe</button> <button class="tab-btn pb-2 px-1 whitespace-nowrap" data-cat="psikoloji">🧠 Psikoloji</button>
-   </div><!-- Entries -->
-   <div id="entries" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
-   <p id="empty-state" data-template-id="empty-msg" class="canva-text text-center py-12 hidden" style="color: rgb(146, 64, 14); font-weight: 400; font-style: italic; font-size: 15px;">Henüz bir kayıt yok. Yukarıdan ekleyin!</p>
-   <p id="limit-warning" class="text-red-600 text-center py-4 hidden font-medium">Kayıt limiti doldu (999).</p><!-- Atatürk -->
-   <div class="mt-12 pt-8 border-t border-amber-900/20 flex justify-center">
-    <img data-template-id="ataturk-img" class="canva-image w-48 h-60 object-cover rounded-lg shadow-md" loading="lazy" src="https://images.pexels.com/photos/35689405/pexels-photo-35689405.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=800" alt="Bronze statue of Atatürk in a park in Trabzon, surrounded by Turkish flags and autumn trees.">
-   </div>
+
+    <!-- Content (Giriş Yapıldıysa) -->
+    <div id="tomris-unlocked" class="flex-1 flex flex-col justify-between hidden overflow-hidden">
+      <!-- Chat Header Info -->
+      <div class="px-4 py-2.5 bg-emerald-950/20 border-b border-amber-900/10 flex justify-between items-center text-xs">
+        <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Çevrimiçi (Hakan Yetkisi)
+        </span>
+        <button onclick="logoutTomris()" class="text-amber-400 hover:text-red-400 transition flex items-center gap-1 font-semibold">
+          <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Çıkış
+        </button>
+      </div>
+
+      <!-- Messages Stream -->
+      <div id="tomris-chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 flex flex-col bg-[#140c08]">
+        <!-- Mesajlar dinamik listelenecek -->
+      </div>
+
+      <!-- Chat Input Area -->
+      <div class="p-4 border-t border-amber-900/20 bg-amber-950/20">
+        <div class="flex gap-2">
+          <input type="text" id="tomris-msg-input" placeholder="Sultan Baybars'a gizli mesaj gönder..." class="flex-1 bg-[#271b12] border border-amber-800/40 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-amber-500">
+          <button onclick="sendSecretMessage('Tomris')" class="p-2.5 bg-amber-700 hover:bg-amber-600 rounded-lg text-white transition active:scale-95">
+            <i data-lucide="send" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAĞ PANEL: BAYBARS GİRİŞİ VE GİZLİ SOHBETİ -->
+  <div id="baybars-drawer" class="fixed right-0 top-0 bottom-0 w-[380px] max-w-full bg-[#0c1424] border-l border-blue-900/30 text-blue-100 z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
+    <!-- Header -->
+    <div class="p-5 border-b border-blue-900/20 bg-blue-950/40 flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">⚔️</span>
+        <div>
+          <h3 class="font-bold heading-font text-blue-400">Sultan Baybars</h3>
+          <p class="text-[10px] text-blue-300/60 uppercase tracking-widest">Memlük Sultanlığı</p>
+        </div>
+      </div>
+      <button onclick="closeAllDrawers()" class="p-1 rounded-lg hover:bg-blue-900/30 text-blue-400 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Content (Giriş Yapılmadıysa) -->
+    <div id="baybars-locked" class="p-6 flex-1 flex flex-col justify-center items-center text-center">
+      <div class="w-16 h-16 rounded-full bg-blue-900/20 flex items-center justify-center text-blue-500 mb-4 border border-blue-500/20">
+        <i data-lucide="lock" class="w-8 h-8"></i>
+      </div>
+      <h4 class="text-base font-bold text-blue-300 mb-2">Memlük Kalesinin Kapısı</h4>
+      <p class="text-xs text-blue-200/50 mb-6 max-w-[240px]">Sultan Baybars'ın kişisel mesaj kutusuna erişmek için saltanat sırrı anahtarını girin.</p>
+      
+      <div class="w-full max-w-[260px] space-y-3">
+        <input type="password" id="baybars-key-input" placeholder="Giriş Anahtarı (Key)" class="w-full bg-[#131d31] border border-blue-800/40 rounded-lg px-4 py-2 text-center text-sm text-white placeholder-blue-700/50 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono">
+        <button onclick="loginBaybars()" class="w-full py-2.5 bg-blue-700 hover:bg-blue-600 active:scale-95 text-white font-bold text-xs rounded-lg uppercase tracking-wider transition shadow-md">Kaleyi Aç</button>
+      </div>
+      <p id="baybars-error" class="text-red-400 text-xs mt-3 hidden">Geçersiz Saltanat Anahtarı!</p>
+    </div>
+
+    <!-- Content (Giriş Yapıldıysa) -->
+    <div id="baybars-unlocked" class="flex-1 flex flex-col justify-between hidden overflow-hidden">
+      <!-- Chat Header Info -->
+      <div class="px-4 py-2.5 bg-emerald-950/20 border-b border-blue-900/10 flex justify-between items-center text-xs">
+        <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Çevrimiçi (Sultan Yetkisi)
+        </span>
+        <button onclick="logoutBaybars()" class="text-blue-400 hover:text-red-400 transition flex items-center gap-1 font-semibold">
+          <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Çıkış
+        </button>
+      </div>
+
+      <!-- Messages Stream -->
+      <div id="baybars-chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 flex flex-col bg-[#080d18]">
+        <!-- Mesajlar dinamik listelenecek -->
+      </div>
+
+      <!-- Chat Input Area -->
+      <div class="p-4 border-t border-blue-900/20 bg-blue-950/20">
+        <div class="flex gap-2">
+          <input type="text" id="baybars-msg-input" placeholder="Tomris Hatun'a gizli mesaj gönder..." class="flex-1 bg-[#131d31] border border-blue-800/40 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-blue-500">
+          <button onclick="sendSecretMessage('Baybars')" class="p-2.5 bg-blue-700 hover:bg-blue-600 rounded-lg text-white transition active:scale-95">
+            <i data-lucide="send" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOL HIZLI GİRİŞ BUTONU (TOMRİS) -->
+  <button onclick="toggleTomrisDrawer()" class="fixed left-0 top-[40%] translate-y-[-50%] bg-amber-900/90 hover:bg-amber-800 text-amber-100 py-4 px-1.5 rounded-r-xl border border-l-0 border-amber-700/50 shadow-2xl flex flex-col items-center gap-2 z-30 transition group hover:pl-2.5 active:scale-95">
+    <span class="text-xs">👑</span>
+    <span class="vertical-text text-[10px] font-bold uppercase tracking-widest text-amber-300">Tomris Hatun</span>
+    <span id="tomris-status-dot" class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+  </button>
+
+  <!-- SAĞ HIZLI GİRİŞ BUTONU (BAYBARS) -->
+  <button onclick="toggleBaybarsDrawer()" class="fixed right-0 top-[40%] translate-y-[-50%] bg-blue-950/90 hover:bg-blue-900 text-blue-100 py-4 px-1.5 rounded-l-xl border border-r-0 border-blue-700/50 shadow-2xl flex flex-col items-center gap-2 z-30 transition group hover:pr-2.5 active:scale-95">
+    <span class="text-xs">⚔️</span>
+    <span class="vertical-text text-[10px] font-bold uppercase tracking-widest text-blue-300">Sultan Baybars</span>
+    <span id="baybars-status-dot" class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+  </button>
+
+
+  <!-- Sol Kenar Bayrakları (Tarihsel Devletler) -->
+  <div class="fixed left-0 top-0 bottom-0 w-20 flex flex-col justify-evenly items-center py-4 pointer-events-auto hidden lg:flex bg-gradient-to-r from-amber-950/30 to-transparent z-10">
+    <div class="flag-container relative group cursor-help" title="Büyük Hun İmparatorluğu">
+      <img data-template-id="flag-hunnic" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/15843091/pexels-photo-15843091.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Büyük Hun İmparatorluğu">
+      <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Büyük Hun İmparatorluğu</span>
+    </div>
+    <div class="flag-container relative group cursor-help" title="Batı Hun İmparatorluğu">
+      <img data-template-id="flag-western-hun" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/35327476/pexels-photo-35327476.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Batı Hun İmparatorluğu">
+      <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Batı Hun İmparatorluğu</span>
+    </div>
+    <div class="flag-container relative group cursor-help" title="Avrupa Hun İmparatorluğu">
+      <img data-template-id="flag-european-hun" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/35327476/pexels-photo-35327476.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Avrupa Hun İmparatorluğu">
+      <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Avrupa Hun İmparatorluğu</span>
+    </div>
+    <div class="flag-container relative group cursor-help" title="Ak Hun İmparatorluğu">
+      <img data-template-id="flag-white-hun" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/32283256/pexels-photo-32283256.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Ak Hun İmparatorluğu">
+      <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Ak Hun İmparatorluğu</span>
+    </div>
+    <div class="flag-container relative group cursor-help" title="Göktürk Kağanlığı">
+      <img data-template-id="flag-gokturk" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/34673585/pexels-photo-34673585.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Göktürk Kağanlığı">
+      <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Göktürk Kağanlığı</span>
+    </div>
+    <div class="flag-container relative group cursor-help" title="Avar Kağanlığı">
+      <img data-template-id="flag-avar" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/35444195/pexels-photo-35444195.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Avar Kağanlığı">
+      <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Avar Kağanlığı</span>
+    </div>
+    <div class="flag-container relative group cursor-help" title="Hazar Kağanlığı">
+      <img data-template-id="flag-khazar" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/34673585/pexels-photo-34673585.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Hazar Kağanlığı">
+      <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Hazar Kağanlığı</span>
+    </div>
+    <div class="flag-container relative group cursor-help" title="Uygur Kağanlığı">
+      <img data-template-id="flag-uyghur" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/35624591/pexels-photo-35624591.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Uygur Kağanlığı">
+      <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Uygur Kağanlığı</span>
+    </div>
+  </div>
+
+  <!-- Sağ Kenar Bayrakları (Tarihsel Devletler) -->
+  <div class="fixed right-0 top-0 bottom-0 w-20 flex flex-col justify-evenly items-center py-4 pointer-events-auto hidden lg:flex bg-gradient-to-l from-amber-950/30 to-transparent z-10">
+    <div class="flag-container relative group cursor-help" title="Karahanlı Devleti">
+      <img data-template-id="flag-karakhanid" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/38207941/pexels-photo-38207941.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Karahanlı Devleti">
+      <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Karahanlı Devleti</span>
+    </div>
+    <div class="flag-container relative group cursor-help" title="Gazneli Devleti">
+      <img data-template-id="flag-ghaznavid" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Gazneli Devleti">
+      <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Gazneli Devleti</span>
+    </div>
+    <div class="flag-container relative group cursor-help" title="Büyük Selçuklu İmparatorluğu">
+      <img data-template-id="flag-seljuk" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/32795501/pexels-photo-32795501.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Büyük Selçuklu İmparatorluğu">
+      <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Büyük Selçuklu İmparatorluğu</span>
+    </div>
+    <div class="flag-container relative group cursor-help" title="Harzemşahlar Devleti">
+      <img data-template-id="flag-khwarezmian" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Harzemşahlar Devleti">
+      <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Harzemşahlar Devleti</span>
+    </div>
+    <div class="flag-container relative group cursor-help" title="Altın Orda Devleti">
+      <img data-template-id="flag-golden-horde" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/6466768/pexels-photo-6466768.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Altın Orda Devleti">
+      <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Altın Orda Devleti</span>
+    </div>
+    <div class="flag-container relative group cursor-help" title="Timur İmparatorluğu">
+      <img data-template-id="flag-timurid" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Timur İmparatorluğu">
+      <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Timur İmparatorluğu</span>
+    </div>
+    <div class="flag-container relative group cursor-help" title="Babür İmparatorluğu">
+      <img data-template-id="flag-mughal" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/34219796/pexels-photo-34219796.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Babür İmparatorluğu">
+      <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Babür İmparatorluğu</span>
+    </div>
+    <div class="flag-container relative group cursor-help" title="Osmanlı İmparatorluğu">
+      <img data-template-id="flag-ottoman" class="w-14 h-10 object-cover rounded shadow-md border border-amber-600/20" loading="lazy" src="https://images.pexels.com/photos/7384333/pexels-photo-7384333.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Osmanlı İmparatorluğu">
+      <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Osmanlı İmparatorluğu</span>
+    </div>
+  </div>
+
+  <!-- Hero Header -->
+  <header class="relative overflow-hidden h-72">
+    <img data-template-id="hero-img" class="absolute inset-0 w-full h-full object-cover" loading="lazy" src="https://images.pexels.com/photos/1996333/pexels-photo-1996333.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="A majestic white horse gallops gracefully.">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-[#2c1a0e]"></div>
+    <div class="relative p-6 max-w-4xl mx-auto h-full flex flex-col justify-end pb-8">
+      <h1 data-template-id="page-title" class="heading-font text-white font-bold text-4xl sm:text-5xl drop-shadow-md">Ortak Paylaşım Alanı</h1>
+      <p data-template-id="page-subtitle" class="mt-2 text-amber-300 font-medium text-sm sm:text-base flex items-center gap-2">
+        <span>Film, müzik, kitap, notlar ve fikirlerinizi özgürce kaydedin</span> 🐴
+      </p>
+      
+      <!-- Arama ve Yedekleme Çubuğu -->
+      <div class="mt-6 flex flex-wrap gap-2 max-w-2xl">
+        <div class="relative flex-1 min-w-[200px]">
+          <input id="top-search" type="text" class="w-full border border-amber-950/40 bg-white/95 rounded-lg pl-10 pr-4 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition shadow" placeholder="Arşivde ara (DuckDuckGo için Enter)...">
+          <i data-lucide="search" class="absolute left-3.5 top-3 w-4.5 h-4.5 text-gray-500"></i>
+        </div>
+        <button id="top-search-btn" type="button" class="px-4 py-2.5 rounded-lg text-sm font-semibold bg-amber-800 hover:bg-amber-900 text-white flex items-center gap-2 transition active:scale-95 shadow" title="DuckDuckGo'da Ara">
+          Ara
+        </button>
+        <button id="export-btn" type="button" class="px-3.5 py-2.5 rounded-lg text-sm font-semibold bg-amber-950/80 hover:bg-amber-900 text-amber-100 border border-amber-800/30 flex items-center gap-1.5 transition active:scale-95" title="Verileri JSON dosyası olarak indir">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Yedekle</span>
+        </button>
+        <button id="import-btn" type="button" class="px-3.5 py-2.5 rounded-lg text-sm font-semibold bg-amber-950/80 hover:bg-amber-900 text-amber-100 border border-amber-800/30 flex items-center gap-1.5 transition active:scale-95" title="JSON yedeği yükle">
+          <i data-lucide="upload" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Yükle</span>
+        </button>
+        <input type="file" id="import-file" class="hidden" accept=".json" />
+      </div>
+    </div>
+  </header>
+
+  <!-- Ana Çalışma Alanı -->
+  <main class="max-w-4xl mx-auto p-4 sm:p-6 lg:px-8 relative z-10">
+    
+    <!-- Giriş Formu ve Not Defteri Paneli -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      
+      <!-- Yeni Kayıt Formu -->
+      <div class="md:col-span-2">
+        <form id="add-form" class="p-5 rounded-2xl border border-amber-900/10 bg-white/95 backdrop-blur shadow-xl">
+          <h2 data-template-id="form-heading" class="heading-font text-amber-950 font-bold text-xl mb-4 flex items-center gap-2">
+            <i data-lucide="plus-circle" class="w-5 h-5 text-amber-800"></i> Yeni Kayıt Ekle
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label data-template-id="label-category" for="cat-select" class="block text-xs font-semibold uppercase text-amber-900 mb-1.5">Kategori</label>
+              <select id="cat-select" class="w-full border border-amber-200/80 bg-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-800">
+                <option value="film">🎬 Film</option>
+                <option value="müzik">🎵 Müzik</option>
+                <option value="kitap">📚 Kitap</option>
+                <option value="notlar">📝 Notlar</option>
+                <option value="bilim">🔬 Bilim</option>
+                <option value="felsefe">🤔 Felsefe</option>
+                <option value="psikoloji">🧠 Psikoloji</option>
+              </select>
+            </div>
+            <div>
+              <label data-template-id="label-link" for="link-input" class="block text-xs font-semibold uppercase text-amber-900 mb-1.5">Başlık veya Link</label>
+              <input id="link-input" type="text" required class="w-full border border-amber-200/80 bg-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-800" placeholder="Örn: https://imdb.com veya Kitap Adı">
+            </div>
+          </div>
+          <div class="mb-4">
+            <label data-template-id="label-content" for="content-input" class="block text-xs font-semibold uppercase text-amber-900 mb-1.5">Açıklama / Kişisel Not</label>
+            <textarea id="content-input" rows="3" class="w-full border border-amber-200/80 bg-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-800 resize-none" placeholder="İçerik hakkında düşüncelerinizi ekleyin..."></textarea>
+          </div>
+          <button data-template-id="submit-btn" type="submit" class="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-amber-800 hover:bg-amber-900 text-white font-bold text-sm transition shadow-md active:scale-95 flex items-center justify-center gap-2">
+            <i data-lucide="archive" class="w-4 h-4"></i> Arşive Ekle
+          </button>
+        </form>
+      </div>
+
+      <!-- Not Defteri -->
+      <div class="md:col-span-1">
+        <div class="p-5 rounded-2xl border border-amber-900/10 bg-white/95 backdrop-blur shadow-xl h-full flex flex-col justify-between">
+          <div>
+            <h3 data-template-id="notes-title" class="heading-font text-amber-950 font-bold text-lg mb-3 flex items-center gap-2">
+              <i data-lucide="book-open" class="w-5 h-5 text-amber-800"></i> Hızlı Karalama
+            </h3>
+            <textarea id="notes-textarea" placeholder="Buraya aldığınız geçici notlar tek tıkla arşive 'Notlar' kategorisinde kaydedilir..." rows="6" class="w-full border border-amber-200/80 bg-white rounded-lg px-3 py-2 text-xs text-gray-800 resize-none focus:outline-none focus:ring-2 focus:ring-amber-500 mb-3"></textarea>
+          </div>
+          <button data-template-id="notes-save-btn" id="notes-save" type="button" class="px-4 py-2.5 rounded-lg bg-amber-900 hover:bg-amber-950 text-amber-100 font-bold text-sm w-full transition shadow-md active:scale-95 flex items-center justify-center gap-2">
+            <i data-lucide="save" class="w-4 h-4"></i> Arşive Kaydet
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kategori Sekmeleri (Tabs) -->
+    <div id="tabs" class="flex gap-2 mb-6 border-b border-amber-900/20 overflow-x-auto pb-2 text-sm font-medium scrollbar-thin">
+      <button class="tab-btn tab-active pb-2 px-3 whitespace-nowrap focus:outline-none" data-cat="all">Tümü</button>
+      <button class="tab-btn pb-2 px-3 whitespace-nowrap focus:outline-none" data-cat="film">🎬 Film</button>
+      <button class="tab-btn pb-2 px-3 whitespace-nowrap focus:outline-none" data-cat="müzik">🎵 Müzik</button>
+      <button class="tab-btn pb-2 px-3 whitespace-nowrap focus:outline-none" data-cat="kitap">📚 Kitap</button>
+      <button class="tab-btn pb-2 px-3 whitespace-nowrap focus:outline-none" data-cat="notlar">📝 Notlar</button>
+      <button class="tab-btn pb-2 px-3 whitespace-nowrap focus:outline-none" data-cat="bilim">🔬 Bilim</button>
+      <button class="tab-btn pb-2 px-3 whitespace-nowrap focus:outline-none" data-cat="felsefe">🤔 Felsefe</button>
+      <button class="tab-btn pb-2 px-3 whitespace-nowrap focus:outline-none" data-cat="psikoloji">🧠 Psikoloji</button>
+    </div>
+
+    <!-- Arşiv Kartları Listesi -->
+    <div id="entries" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+    
+    <!-- Boş Durum Bilgisi -->
+    <p id="empty-state" data-template-id="empty-msg" class="text-center py-16 text-amber-200/70 italic text-sm hidden">
+      🔍 Aradığınız kriterlere uygun bir kayıt bulunamadı. Yukarıdan yeni bir tane ekleyebilirsiniz!
+    </p>
+    
+    <p id="limit-warning" class="text-red-400 text-center py-4 hidden font-medium text-sm">⚠️ Arşiv kayıt limiti doldu (999).</p>
+
+    <!-- Atatürk Heykeli & Bayraklar Görseli -->
+    <div class="mt-16 pt-8 border-t border-amber-900/30 flex flex-col items-center">
+      <div class="relative group">
+        <div class="absolute -inset-1 bg-gradient-to-r from-amber-600 to-amber-900 rounded-lg blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
+        <img data-template-id="ataturk-img" class="relative w-44 h-56 object-cover rounded-xl shadow-lg border border-amber-900/20 filter sepia-[20%] hover:sepia-0 transition duration-300" loading="lazy" src="https://images.pexels.com/photos/35689405/pexels-photo-35689405.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Atatürk Heykeli">
+      </div>
+      <p class="text-xs text-amber-400/40 mt-3 tracking-wide">Mustafa Kemal Atatürk</p>
+    </div>
   </main>
+
+  <!-- Arşiv Kartı Şablonu -->
   <template id="entry-template">
-   <article data-template-id="entry-card" class="canva-card rounded-xl p-4 border border-amber-900/10 relative group entry-card-shadow">
-    <div class="flex items-start justify-between gap-2">
-     <span data-template-id="entry-badge" class="canva-tag text-xs px-2 py-0.5 rounded-full font-medium"></span> <button class="delete-btn opacity-0 group-hover:opacity-100 transition text-red-400 hover:text-red-600" title="Sil"><i data-lucide="trash-2" style="width:16px;height:16px"></i></button>
-    </div>
-    <h3 data-template-id="entry-title" class="canva-text font-semibold mt-2"></h3>
-    <p data-template-id="entry-content" class="canva-text text-sm mt-1 whitespace-pre-line"></p><time data-template-id="entry-date" class="canva-text block text-xs mt-3 opacity-60"></time>
-    <div class="confirm-delete hidden mt-2 flex gap-2">
-     <button class="confirm-yes text-xs bg-red-500 text-white px-3 py-1 rounded">Evet, sil</button> <button class="confirm-no text-xs bg-gray-200 px-3 py-1 rounded">İptal</button>
-    </div>
-   </article>
+    <article data-template-id="entry-card" class="rounded-2xl p-5 border border-amber-950/20 bg-[#faf6f0] text-gray-800 relative group entry-card-shadow flex flex-col justify-between">
+      <div>
+        <div class="flex items-start justify-between gap-2 border-b border-amber-900/10 pb-2 mb-3">
+          <span data-template-id="entry-badge" class="text-xs px-2.5 py-1 rounded-full font-semibold bg-amber-100 text-amber-900 border border-amber-200"></span>
+          <button class="delete-btn opacity-0 group-hover:opacity-100 transition duration-150 text-red-500 hover:text-red-700 p-1 rounded-lg hover:bg-red-50" title="Kayıdı Sil">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <h3 data-template-id="entry-title" class="heading-font font-bold text-amber-950 text-base leading-snug"></h3>
+        <p data-template-id="entry-content" class="text-sm text-gray-600 mt-2 whitespace-pre-line leading-relaxed"></p>
+      </div>
+      
+      <div class="mt-4 flex items-center justify-between">
+        <time data-template-id="entry-date" class="block text-[11px] text-gray-400 font-mono"></time>
+      </div>
+
+      <!-- Silme Onayı Paneli -->
+      <div class="confirm-delete hidden absolute inset-0 bg-white/95 rounded-2xl flex flex-col items-center justify-center p-4 text-center z-20 backdrop-blur-sm animate-fade-in">
+        <p class="text-sm font-semibold text-gray-800 mb-3">Bu kaydı arşivden tamamen silmek istediğinize emin misiniz?</p>
+        <div class="flex gap-2">
+          <button class="confirm-yes text-xs bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg transition active:scale-95 shadow-sm">Evet, sil</button>
+          <button class="confirm-no text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold px-4 py-2 rounded-lg transition border border-gray-200">İptal</button>
+        </div>
+      </div>
+    </article>
   </template>
-  <script src="/_sdk/0179d719c431a79e.data_sdk.js" integrity="sha512-OsRvJkI5GkC3MJQcgotQYotpzrMSX415GiKKgvYdxQEEkzD/fdchShO2FMSy0PJr/tiINMXOk5Vl2zAgg6bUiA=="></script>
-  <script src="/_sdk/e063511df281944a.editing_sdk.js" integrity="sha512-Xa8p4aPfoMxVnzxQE2WAG0FfoaPLxdjOJMfUZGm1yZosJTYmnNDvgLkJ2EoN0i3zxjeQVAzUMSXNvTKQVqbXyQ=="></script>
+
+  <!-- Modern Bildirim Toast -->
+  <div id="custom-toast" class="fixed bottom-6 right-6 px-4 py-3 rounded-xl shadow-2xl text-sm font-medium z-50 transform translate-y-10 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-2"></div>
+
+  <!-- Bağımsız Veri SDK'sı Fallback Tanımlaması -->
+  <script>
+    if (!window.dataSdk) {
+      console.info("Platform dataSdk yüklü değil; akıllı lokal/bellek tabanlı veri katmanı devreye sokuldu.");
+      window.dataSdk = {
+        _data: [
+          { 
+            id: "1", 
+            category: "film", 
+            title: "Interstellar (Yıldızlararası)", 
+            link: "https://www.imdb.com/title/tt0816692/", 
+            content: "Zaman, bükülebilen bir boyuttur ama geriye doğru genişletilemez. Nolan'ın şaheseri.", 
+            created_at: "2026-07-06T12:00:00.000Z" 
+          },
+          { 
+            id: "2", 
+            category: "kitap", 
+            title: "Nutuk - Gazi Mustafa Kemal Atatürk", 
+            link: "https://www.dr.com.tr", 
+            content: "Bağımsızlık mücadelemizi ve cumhuriyetin kuruluş felsefesini bizzat liderinden okumak paha biçilemez.", 
+            created_at: "2026-07-05T10:30:00.000Z" 
+          },
+          { 
+            id: "3", 
+            category: "bilim", 
+            title: "James Webb Teleskobu Keşifleri", 
+            link: "https://nasa.gov", 
+            content: "Derin kızılötesi evren taramalarıyla, kozmolojiyi ve galaksilerin ilk oluşum teorilerini kökten değiştiren olağanüstü veriler.", 
+            created_at: "2026-07-04T08:15:00.000Z" 
+          },
+          { 
+            id: "4", 
+            category: "felsefe", 
+            title: "Mağara Alegorisi ve Gerçeklik Üzerine", 
+            link: "", 
+            content: "Platon'un Devlet kitabındaki mağara alegorisi, modern algı yönetimi ve medyanın simüle ettiği dünyayı anlamak için hâlâ en güçlü araç.", 
+            created_at: "2026-07-03T14:20:00.000Z" 
+          }
+        ],
+        _handlers: [],
+        async init(handler) {
+          this._handlers.push(handler);
+          // Gerekli tetiklemeyi gecikmeli yaparak asenkron davranışı simüle et
+          setTimeout(() => {
+            this._trigger();
+          }, 50);
+          return { isOk: true };
+        },
+        _trigger() {
+          this._handlers.forEach(h => h.onDataChanged([...this._data]));
+        },
+        async create(record) {
+          const newRecord = {
+            id: Math.random().toString(36).substr(2, 9),
+            ...record,
+            created_at: record.created_at || new Date().toISOString()
+          };
+          this._data.push(newRecord);
+          this._trigger();
+          return { isOk: true, data: newRecord };
+        },
+        async delete(item) {
+          this._data = this._data.filter(d => d.id !== item.id);
+          this._trigger();
+          return { isOk: true };
+        }
+      };
+    }
+  </script>
+
+  <!-- Uygulama Temel Mantığı -->
   <script>
     let allData = [];
     let activeTab = 'all';
+    
+    // Kullanıcı Giriş Durumları
+    let isTomrisLoggedIn = false;
+    let isBaybarsLoggedIn = false;
+
     const entriesEl = document.getElementById('entries');
     const emptyEl = document.getElementById('empty-state');
     const limitEl = document.getElementById('limit-warning');
     const form = document.getElementById('add-form');
     const template = document.getElementById('entry-template');
-    const catEmoji = { film:'🎬', müzik:'🎵', kitap:'📚', notlar:'📝', bilim:'🔬', felsefe:'🤔', psikoloji:'🧠' };
+    
+    const catEmoji = { 
+      film: '🎬', 
+      müzik: '🎵', 
+      kitap: '📚', 
+      notlar: '📝', 
+      bilim: '🔬', 
+      felsefe: '🤔', 
+      psikoloji: '🧠' 
+    };
 
-    // Tabs
+    // Toast Bildirim Sistemi (Alert yerine)
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('custom-toast');
+      toast.textContent = message;
+      if (type === 'success') {
+        toast.className = "fixed bottom-6 right-6 px-4 py-3 rounded-xl shadow-2xl text-sm font-semibold z-50 transform translate-y-0 opacity-100 transition-all duration-300 bg-amber-900 text-amber-100 border border-amber-800/20 flex items-center gap-2";
+      } else if (type === 'blue') {
+        toast.className = "fixed bottom-6 right-6 px-4 py-3 rounded-xl shadow-2xl text-sm font-semibold z-50 transform translate-y-0 opacity-100 transition-all duration-300 bg-blue-900 text-blue-100 border border-blue-800/20 flex items-center gap-2";
+      } else {
+        toast.className = "fixed bottom-6 right-6 px-4 py-3 rounded-xl shadow-2xl text-sm font-semibold z-50 transform translate-y-0 opacity-100 transition-all duration-300 bg-red-950 text-red-200 border border-red-900/30 flex items-center gap-2";
+      }
+      setTimeout(() => {
+        toast.classList.add('translate-y-10', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3000);
+    }
+
+    // Çekmece Kontrolleri (Drawers)
+    function toggleTomrisDrawer() {
+      const drawer = document.getElementById('tomris-drawer');
+      const backdrop = document.getElementById('drawer-backdrop');
+      
+      closeAllDrawersExcept('tomris');
+      
+      drawer.classList.toggle('-translate-x-full');
+      if (!drawer.classList.contains('-translate-x-full')) {
+        backdrop.classList.remove('hidden');
+      } else {
+        backdrop.classList.add('hidden');
+      }
+    }
+
+    function toggleBaybarsDrawer() {
+      const drawer = document.getElementById('baybars-drawer');
+      const backdrop = document.getElementById('drawer-backdrop');
+      
+      closeAllDrawersExcept('baybars');
+      
+      drawer.classList.toggle('translate-x-full');
+      if (!drawer.classList.contains('translate-x-full')) {
+        backdrop.classList.remove('hidden');
+      } else {
+        backdrop.classList.add('hidden');
+      }
+    }
+
+    function closeAllDrawers() {
+      document.getElementById('tomris-drawer').classList.add('-translate-x-full');
+      document.getElementById('baybars-drawer').classList.add('translate-x-full');
+      document.getElementById('drawer-backdrop').classList.add('hidden');
+    }
+
+    function closeAllDrawersExcept(active) {
+      if (active !== 'tomris') document.getElementById('tomris-drawer').classList.add('-translate-x-full');
+      if (active !== 'baybars') document.getElementById('baybars-drawer').classList.add('translate-x-full');
+    }
+
+    // KULLANICI GİRİŞ KONTROLLERİ (AUTH)
+    function loginTomris() {
+      const input = document.getElementById('tomris-key-input');
+      const errorMsg = document.getElementById('tomris-error');
+      
+      if (input.value === '1881') {
+        isTomrisLoggedIn = true;
+        errorMsg.classList.add('hidden');
+        input.value = '';
+        
+        // Arayüzü Güncelle
+        document.getElementById('tomris-locked').classList.add('hidden');
+        document.getElementById('tomris-unlocked').classList.remove('hidden');
+        document.getElementById('tomris-status-dot').className = "w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse";
+        
+        showToast("Tomris Hatun hakanlık odasına teşrif etti!", "success");
+        renderSecretChats();
+      } else {
+        errorMsg.classList.remove('hidden');
+        showToast("Geçersiz devlet anahtarı!", "error");
+      }
+    }
+
+    function logoutTomris() {
+      isTomrisLoggedIn = false;
+      document.getElementById('tomris-unlocked').classList.add('hidden');
+      document.getElementById('tomris-locked').classList.remove('hidden');
+      document.getElementById('tomris-status-dot').className = "w-1.5 h-1.5 rounded-full bg-red-500";
+      showToast("Tomris Hatun hakanlık odasından ayrıldı.");
+    }
+
+    function loginBaybars() {
+      const input = document.getElementById('baybars-key-input');
+      const errorMsg = document.getElementById('baybars-error');
+      
+      if (input.value === '1283') {
+        isBaybarsLoggedIn = true;
+        errorMsg.classList.add('hidden');
+        input.value = '';
+        
+        // Arayüzü Güncelle
+        document.getElementById('baybars-locked').classList.add('hidden');
+        document.getElementById('baybars-unlocked').classList.remove('hidden');
+        document.getElementById('baybars-status-dot').className = "w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse";
+        
+        showToast("Sultan Baybars memlük kalesine giriş yaptı!", "blue");
+        renderSecretChats();
+      } else {
+        errorMsg.classList.remove('hidden');
+        showToast("Geçersiz saltanat anahtarı!", "error");
+      }
+    }
+
+    function logoutBaybars() {
+      isBaybarsLoggedIn = false;
+      document.getElementById('baybars-unlocked').classList.add('hidden');
+      document.getElementById('baybars-locked').classList.remove('hidden');
+      document.getElementById('baybars-status-dot').className = "w-1.5 h-1.5 rounded-full bg-red-500";
+      showToast("Sultan Baybars kaleden ayrıldı.");
+    }
+
+    // SOHBET MESAJI GÖNDERME
+    async function sendSecretMessage(sender) {
+      const inputId = sender === 'Tomris' ? 'tomris-msg-input' : 'baybars-msg-input';
+      const input = document.getElementById(inputId);
+      const text = input.value.trim();
+      
+      if (!text) return;
+      
+      // Mesajı dataSdk veritabanına 'sohbet' kategorisi altında kaydet
+      const res = await window.dataSdk.create({
+        category: 'sohbet',
+        title: sender, // Gönderen: 'Tomris' ya da 'Baybars'
+        link: '',
+        content: text,
+        created_at: new Date().toISOString()
+      });
+
+      if (res.isOk) {
+        input.value = '';
+        // renderSecretChats() onDataChanged tetiklenmesiyle otomatik çağırılacak
+      } else {
+        showToast("Mesaj ulaştırılamadı!", "error");
+      }
+    }
+
+    // SOHBET MESAJLARINI ÇİZME
+    function renderSecretChats() {
+      // Sadece 'sohbet' kategorisindeki mesajları çek
+      const chats = allData.filter(d => d.category === 'sohbet');
+      // Zaman sıralaması (eskiden yeniye)
+      chats.sort((a, b) => (a.created_at || '').localeCompare(b.created_at || ''));
+
+      const tomrisContainer = document.getElementById('tomris-chat-messages');
+      const baybarsContainer = document.getElementById('baybars-chat-messages');
+
+      const buildChatHTML = (msg, viewer) => {
+        const isMe = msg.title === viewer;
+        const bubbleBg = msg.title === 'Tomris' ? 'bg-amber-900/40 text-amber-100' : 'bg-blue-900/40 text-blue-100';
+        const alignClass = isMe ? 'self-end text-right' : 'self-start text-left';
+        const senderBadge = msg.title === 'Tomris' ? '👑 Tomris Hatun' : '⚔️ Sultan Baybars';
+        const dateStr = msg.created_at ? new Date(msg.created_at).toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'}) : '';
+
+        return `
+          <div class="flex flex-col max-w-[85%] ${alignClass} space-y-1">
+            <span class="text-[9px] font-bold opacity-40">${senderBadge}</span>
+            <div class="p-2.5 rounded-xl text-xs leading-relaxed ${bubbleBg} border border-white/5 break-words">
+              ${escapeHTML(msg.content)}
+            </div>
+            <span class="text-[8px] opacity-30 font-mono">${dateStr}</span>
+          </div>
+        `;
+      };
+
+      if (isTomrisLoggedIn && tomrisContainer) {
+        tomrisContainer.innerHTML = chats.map(c => buildChatHTML(c, 'Tomris')).join('');
+        tomrisContainer.scrollTop = tomrisContainer.scrollHeight;
+      }
+
+      if (isBaybarsLoggedIn && baybarsContainer) {
+        baybarsContainer.innerHTML = chats.map(c => buildChatHTML(c, 'Baybars')).join('');
+        baybarsContainer.scrollTop = baybarsContainer.scrollHeight;
+      }
+    }
+
+    // Filtre Değiştirme Sekmeleri
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('tab-active'));
@@ -105,69 +688,282 @@
       });
     });
 
+    // Filtrelenmiş Verileri Al (Sohbet verilerini genel arşivden gizle!)
     function getFiltered() {
-      if (activeTab === 'all') return allData;
-      return allData.filter(d => d.category === activeTab);
+      // Sohbet mesajları ana arşiv akışına dahil edilmemelidir
+      const publicData = allData.filter(d => d.category !== 'sohbet');
+      if (activeTab === 'all') return publicData;
+      return publicData.filter(d => d.category === activeTab);
     }
 
+    // HTML Kaçış Karakteri Temizleme (Güvenlik İçin)
+    function escapeHTML(str) {
+      if (!str) return '';
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    // Akıllı URL Formatlama ve Başlık Temizleme
+    function formatTitleWithLink(item, titleEl) {
+      const titleText = item.title || 'Başlıksız Kayıt';
+      const linkText = item.link || '';
+      
+      const isUrl = (text) => {
+        if (!text) return false;
+        return text.startsWith('http://') || text.startsWith('https://') || (text.includes('.') && !text.includes(' '));
+      };
+
+      const targetUrl = isUrl(titleText) ? titleText : (isUrl(linkText) ? linkText : '');
+
+      if (targetUrl) {
+        let cleanDisplayTitle = titleText;
+        if (isUrl(titleText)) {
+          try {
+            const urlObj = new URL(titleText.startsWith('http') ? titleText : 'https://' + titleText);
+            cleanDisplayTitle = urlObj.hostname + (urlObj.pathname.length > 12 ? urlObj.pathname.slice(0, 12) + '...' : urlObj.pathname);
+          } catch(e) {
+            if (cleanDisplayTitle.length > 25) cleanDisplayTitle = cleanDisplayTitle.slice(0, 25) + '...';
+          }
+        }
+        
+        const finalHref = targetUrl.startsWith('http') ? targetUrl : 'https://' + targetUrl;
+        titleEl.innerHTML = `
+          <a href="${finalHref}" target="_blank" rel="noopener noreferrer" class="text-amber-900 hover:text-amber-700 underline flex items-center gap-1.5 break-all group/link">
+            <span>${escapeHTML(cleanDisplayTitle)}</span>
+            <i data-lucide="external-link" class="w-3.5 h-3.5 inline text-amber-700 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition duration-150"></i>
+          </a>
+        `;
+      } else {
+        titleEl.textContent = titleText;
+      }
+    }
+
+    // Genel Arşiv Kartlarını Çizme (Rendering)
     function renderEntries() {
       const filtered = getFiltered();
+      const searchQuery = document.getElementById('top-search').value.toLowerCase().trim();
+
+      // Canlı arama süzgeci
+      const searched = filtered.filter(item => {
+        if (!searchQuery) return true;
+        return (item.title || '').toLowerCase().includes(searchQuery) ||
+               (item.content || '').toLowerCase().includes(searchQuery) ||
+               (item.category || '').toLowerCase().includes(searchQuery);
+      });
+
       entriesEl.innerHTML = '';
-      if (filtered.length === 0) { emptyEl.classList.remove('hidden'); } else {
+      
+      if (searched.length === 0) { 
+        emptyEl.classList.remove('hidden'); 
+      } else {
         emptyEl.classList.add('hidden');
-        filtered.sort((a,b) => (b.created_at||'').localeCompare(a.created_at||''));
-        filtered.forEach(item => {
+        searched.sort((a,b) => (b.created_at || '').localeCompare(a.created_at || ''));
+        
+        searched.forEach(item => {
           const clone = template.content.cloneNode(true);
-          clone.querySelector('[data-template-id="entry-badge"]').textContent = (catEmoji[item.category]||'')+' '+(item.category||'');
-          clone.querySelector('[data-template-id="entry-title"]').textContent = item.title||'';
-          clone.querySelector('[data-template-id="entry-content"]').textContent = item.content||'';
-          const d = item.created_at ? new Date(item.created_at) : null;
-          clone.querySelector('[data-template-id="entry-date"]').textContent = d ? d.toLocaleDateString('tr-TR') : '';
+          
+          const badgeText = (catEmoji[item.category] || '📌') + ' ' + (item.category || '').toUpperCase();
+          clone.querySelector('[data-template-id="entry-badge"]').textContent = badgeText;
+          
+          const titleContainer = clone.querySelector('[data-template-id="entry-title"]');
+          formatTitleWithLink(item, titleContainer);
+
+          clone.querySelector('[data-template-id="entry-content"]').textContent = item.content || '';
+          
+          const dateObj = item.created_at ? new Date(item.created_at) : null;
+          clone.querySelector('[data-template-id="entry-date"]').textContent = dateObj ? dateObj.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+          
           const delBtn = clone.querySelector('.delete-btn');
           const confirmDiv = clone.querySelector('.confirm-delete');
-          delBtn.addEventListener('click', (e) => { e.stopPropagation(); confirmDiv.classList.remove('hidden'); });
-          clone.querySelector('.confirm-no').addEventListener('click', () => confirmDiv.classList.add('hidden'));
-          clone.querySelector('.confirm-yes').addEventListener('click', async function() {
-            this.disabled = true; this.textContent = '...';
-            await window.dataSdk.delete(item);
+          
+          delBtn.addEventListener('click', (e) => { 
+            e.stopPropagation(); 
+            confirmDiv.classList.remove('hidden'); 
           });
+          
+          clone.querySelector('.confirm-no').addEventListener('click', () => {
+            confirmDiv.classList.add('hidden');
+          });
+          
+          clone.querySelector('.confirm-yes').addEventListener('click', async function() {
+            this.disabled = true; 
+            this.textContent = '...';
+            const res = await window.dataSdk.delete(item);
+            if (res.isOk) {
+              showToast("Kayıt başarıyla silindi.");
+            } else {
+              showToast("Silinirken bir hata oluştu", "error");
+            }
+          });
+          
           entriesEl.appendChild(clone);
         });
       }
       lucide.createIcons();
     }
 
-    // Notes
+    // Hızlı Karalama Defterini Kaydetme
     const notesTextarea = document.getElementById('notes-textarea');
     const notesSaveBtn = document.getElementById('notes-save');
     notesSaveBtn.addEventListener('click', async () => {
-      const c = notesTextarea.value.trim();
-      if (!c) return;
-      notesSaveBtn.disabled = true; notesSaveBtn.textContent = '...';
-      const res = await window.dataSdk.create({ category:'notlar', title:'Not - '+new Date().toLocaleDateString('tr-TR'), link:'', content:c, created_at:new Date().toISOString() });
-      if (res.isOk) { notesTextarea.value = ''; notesSaveBtn.textContent = '✓'; } else { notesSaveBtn.textContent = '✗'; }
-      setTimeout(() => { notesSaveBtn.disabled = false; notesSaveBtn.textContent = 'Kaydet'; }, 1500);
+      const content = notesTextarea.value.trim();
+      if (!content) {
+        showToast("Lütfen önce bir not yazın!", "error");
+        return;
+      }
+      notesSaveBtn.disabled = true; 
+      notesSaveBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Kaydediliyor...';
+      lucide.createIcons();
+      
+      const res = await window.dataSdk.create({ 
+        category: 'notlar', 
+        title: 'Hızlı Not - ' + new Date().toLocaleDateString('tr-TR'), 
+        link: '', 
+        content, 
+        created_at: new Date().toISOString() 
+      });
+      
+      if (res.isOk) { 
+        notesTextarea.value = ''; 
+        showToast("Not başarıyla arşive eklendi!");
+      } else { 
+        showToast("Not kaydedilemedi!", "error");
+      }
+      
+      notesSaveBtn.disabled = false; 
+      notesSaveBtn.innerHTML = '<i data-lucide="save" class="w-4 h-4"></i> Arşive Kaydet';
+      lucide.createIcons();
     });
 
-    // Add form
+    // Yeni Kayıt Formu Gönderme (Submit)
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      if (allData.length >= 999) { limitEl.classList.remove('hidden'); return; }
+      if (allData.length >= 999) { 
+        limitEl.classList.remove('hidden'); 
+        showToast("Maksimum kayıt sınırına ulaşıldı!", "error");
+        return; 
+      }
+      
       const btn = form.querySelector('[data-template-id="submit-btn"]');
-      btn.disabled = true; btn.style.opacity = '0.5';
-      const title = document.getElementById('link-input').value.trim();
-      const record = { category:document.getElementById('cat-select').value, title, link:title, content:document.getElementById('content-input').value.trim(), created_at:new Date().toISOString() };
+      btn.disabled = true; 
+      btn.style.opacity = '0.7';
+      
+      const titleVal = document.getElementById('link-input').value.trim();
+      const contentVal = document.getElementById('content-input').value.trim();
+      const categoryVal = document.getElementById('cat-select').value;
+      
+      const record = { 
+        category: categoryVal, 
+        title: titleVal, 
+        link: titleVal, 
+        content: contentVal, 
+        created_at: new Date().toISOString() 
+      };
+      
       const res = await window.dataSdk.create(record);
-      btn.disabled = false; btn.style.opacity = '1';
-      if (res.isOk) form.reset();
+      btn.disabled = false; 
+      btn.style.opacity = '1';
+      
+      if (res.isOk) { 
+        form.reset();
+        showToast("Arşive başarıyla yeni kayıt eklendi!");
+      } else {
+        showToast("Kayıt eklenirken bir hata oluştu", "error");
+      }
     });
 
-    // Search
-    document.getElementById('top-search').addEventListener('keypress', (e) => { if (e.key==='Enter') { const q=e.target.value.trim(); if(q){window.open('https://duckduckgo.com/?q='+encodeURIComponent(q),'_blank','noopener,noreferrer'); e.target.value='';} } });
-    document.getElementById('top-search-btn').addEventListener('click', () => { const q=document.getElementById('top-search').value.trim(); if(q){window.open('https://duckduckgo.com/?q='+encodeURIComponent(q),'_blank','noopener,noreferrer'); document.getElementById('top-search').value='';} });
+    // Enter Tuşuyla Mesaj Gönderme Tetikleyicileri
+    document.getElementById('tomris-key-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') loginTomris(); });
+    document.getElementById('baybars-key-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') loginBaybars(); });
+    document.getElementById('tomris-msg-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendSecretMessage('Tomris'); });
+    document.getElementById('baybars-msg-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendSecretMessage('Baybars'); });
 
-    const handler = { onDataChanged(data) { allData = data; limitEl.classList.toggle('hidden', data.length < 999); renderEntries(); } };
-    (async () => { await window.dataSdk.init(handler); lucide.createIcons(); })();
+    // Arama Çubuğu Canlı Filtreleme ve Dış Arama Entegrasyonu
+    const searchInput = document.getElementById('top-search');
+    searchInput.addEventListener('input', () => {
+      renderEntries();
+    });
+
+    function executeExternalSearch() {
+      const q = searchInput.value.trim();
+      if (q) {
+        window.open('https://duckduckgo.com/?q=' + encodeURIComponent(q), '_blank', 'noopener,noreferrer');
+        searchInput.value = '';
+        renderEntries();
+      }
+    }
+
+    searchInput.addEventListener('keypress', (e) => { 
+      if (e.key === 'Enter') { 
+        executeExternalSearch(); 
+      } 
+    });
+    
+    document.getElementById('top-search-btn').addEventListener('click', () => { 
+      executeExternalSearch(); 
+    });
+
+    // Veri Yedekleme (Export JSON)
+    document.getElementById('export-btn').addEventListener('click', () => {
+      if (allData.length === 0) {
+        showToast("Yedeklenecek veri bulunmuyor!", "error");
+        return;
+      }
+      try {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allData, null, 2));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", `ortak_paylasim_arsiv_yedek_${new Date().toISOString().slice(0,10)}.json`);
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+        showToast("Arşiv yedeği başarıyla indirildi.");
+      } catch (err) {
+        showToast("Yedeklenirken bir hata oluştu!", "error");
+      }
+    });
+
+    // Veri Yükleme (Import JSON)
+    const importFileInput = document.getElementById('import-file');
+    document.getElementById('import-btn').addEventListener('click', () => {
+      importFileInput.click();
+    });
+
+    importFileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          const imported = JSON.parse(evt.target.result);
+          if (Array.isArray(imported)) {
+            window.dataSdk._data = imported;
+            window.dataSdk._trigger();
+            showToast("Arşiv yedekleri başarıyla yüklendi!");
+          } else {
+            showToast("Geçersiz yedek dosyası formatı!", "error");
+          }
+        } catch (err) {
+          showToast("Dosya okunurken bir hata oluştu!", "error");
+        }
+      };
+      reader.readAsText(file);
+      e.target.value = '';
+    });
+
+    // SDK Altyapısını Başlatma
+    const handler = { 
+      onDataChanged(data) { 
+        allData = data; 
+        limitEl.classList.toggle('hidden', data.length < 999); 
+        renderEntries(); 
+        renderSecretChats(); // Hükümdar mesajlarını yeniden çiz
+      } 
+    };
+
+    (async () => { 
+      await window.dataSdk.init(handler); 
+      lucide.createIcons(); 
+    })();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a174857216751dff',t:'MTc4MzQwMjg5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-</body></html>
+</body>
+</html>
