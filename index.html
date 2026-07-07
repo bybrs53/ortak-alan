@@ -401,105 +401,212 @@
   <!-- Modern Bildirim Toast -->
   <div id="custom-toast" class="fixed bottom-6 right-6 px-4 py-3 rounded-xl shadow-2xl text-sm font-medium z-50 transform translate-y-10 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-2"></div>
 
-  <!-- Bağımsız Veri SDK'sı Fallback Tanımlaması -->
-  <script>
-    if (!window.dataSdk) {
-      console.info("Platform dataSdk yüklü değil; akıllı kalıcı lokal veri katmanı (localStorage) devreye sokuldu.");
-      
-      const LOCAL_KEY = 'ortak_paylasim_arsiv_verisi';
-      const defaultMockData = [
-        { 
-          id: "1", 
-          category: "film", 
-          title: "Interstellar (Yıldızlararası)", 
-          link: "https://www.imdb.com/title/tt0816692/", 
-          content: "Zaman, bükülebilen bir boyuttur ama geriye doğru genişletilemez. Nolan'ın şaheseri.", 
-          created_at: "2026-07-06T12:00:00.000Z" 
-        },
-        { 
-          id: "2", 
-          category: "kitap", 
-          title: "Nutuk - Gazi Mustafa Kemal Atatürk", 
-          link: "https://www.dr.com.tr", 
-          content: "Bağımsızlık mücadelemizi ve cumhuriyetin kuruluş felsefesini bizzat liderinden okumak paha biçilemez.", 
-          created_at: "2026-07-05T10:30:00.000Z" 
-        },
-        { 
-          id: "3", 
-          category: "bilim", 
-          title: "James Webb Teleskobu Keşifleri", 
-          link: "https://nasa.gov", 
-          content: "Derin kızılötesi evren taramalarıyla, kozmolojiyi ve galaksilerin ilk oluşum teorilerini kökten değiştiren olağanüstü veriler.", 
-          created_at: "2026-07-04T08:15:00.000Z" 
-        },
-        { 
-          id: "4", 
-          category: "felsefe", 
-          title: "Mağara Alegorisi ve Gerçeklik Üzerine", 
-          link: "", 
-          content: "Platon'un Devlet kitabındaki mağara alegorisi, modern algı yönetimi ve medyanın simüle ettiği dünyayı anlamak için hâlâ en güçlü araç.", 
-          created_at: "2026-07-03T14:20:00.000Z" 
-        }
-      ];
+  <!-- Bağımsız Veri SDK'sı & Firebase Entegrasyon Modülü -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, collection, query, onSnapshot, addDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-      // LocalStorage'dan yükle veya varsayılanları getir
-      let localStoreData = localStorage.getItem(LOCAL_KEY);
-      let parsedInitialData = localStoreData ? JSON.parse(localStoreData) : defaultMockData;
+    // Global parametreler (Firebase ve Uygulama ID tanımlamaları)
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+    let db, auth;
 
-      // Tarayıcıda ilk yükleme ise varsayılan verileri hemen localStorage'a kaydet
-      if (!localStoreData) {
-        localStorage.setItem(LOCAL_KEY, JSON.stringify(defaultMockData));
-      }
-
-      window.dataSdk = {
-        _data: parsedInitialData,
-        _handlers: [],
-        async init(handler) {
-          this._handlers.push(handler);
-          setTimeout(() => {
-            this._trigger();
-          }, 50);
-          return { isOk: true };
-        },
-        _trigger() {
-          this._handlers.forEach(h => h.onDataChanged([...this._data]));
-        },
-        async create(record) {
-          const newRecord = {
-            id: Math.random().toString(36).substr(2, 9),
-            ...record,
-            created_at: record.created_at || new Date().toISOString()
-          };
-          this._data.push(newRecord);
-          // LocalStorage güncelle
-          localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
-          this._trigger();
-          return { isOk: true, data: newRecord };
-        },
-        async delete(item) {
-          this._data = this._data.filter(d => d.id !== item.id);
-          // LocalStorage güncelle
-          localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
-          this._trigger();
-          return { isOk: true };
-        },
-        // Dosya yüklemelerinde tüm listeyi tek seferde kaydetmek için yardımcı fonksiyon
-        async saveAll(newData) {
-          this._data = newData;
-          localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
-          this._trigger();
-          return { isOk: true };
-        }
-      };
+    // Firebase Hizmetlerini Başlatma
+    try {
+      const firebaseConfig = JSON.parse(__firebase_config);
+      const app = initializeApp(firebaseConfig);
+      auth = getAuth(app);
+      db = getFirestore(app);
+      console.info("Firebase Firestore başarıyla başlatıldı.");
+    } catch (err) {
+      console.error("Firebase yapılandırması yüklenemedi. Offline LocalStorage moduna geçiliyor.", err);
     }
-  </script>
 
-  <!-- Uygulama Temel Mantığı -->
-  <script>
+    const LOCAL_KEY = 'ortak_paylasim_arsiv_verisi';
+    const defaultMockData = [
+      { 
+        id: "1", 
+        category: "film", 
+        title: "Interstellar (Yıldızlararası)", 
+        link: "https://www.imdb.com/title/tt0816692/", 
+        content: "Zaman, bükülebilen bir boyuttur ama geriye doğru genişletilemez. Nolan'ın şaheseri.", 
+        created_at: "2026-07-06T12:00:00.000Z" 
+      },
+      { 
+        id: "2", 
+        category: "kitap", 
+        title: "Nutuk - Gazi Mustafa Kemal Atatürk", 
+        link: "https://www.dr.com.tr", 
+        content: "Bağımsızlık mücadelemizi ve cumhuriyetin kuruluş felsefesini bizzat liderinden okumak paha biçilemez.", 
+        created_at: "2026-07-05T10:30:00.000Z" 
+      },
+      { 
+        id: "3", 
+        category: "bilim", 
+        title: "James Webb Teleskobu Keşifleri", 
+        link: "https://nasa.gov", 
+        content: "Derin kızılötesi evren taramalarıyla, kozmolojiyi ve galaksilerin ilk oluşum teorilerini kökten değiştiren olağanüstü veriler.", 
+        created_at: "2026-07-04T08:15:00.000Z" 
+      },
+      { 
+        id: "4", 
+        category: "felsefe", 
+        title: "Mağara Alegorisi ve Gerçeklik Üzerine", 
+        link: "", 
+        content: "Platon'un Devlet kitabındaki mağara alegorisi, modern algı yönetimi ve medyanın simüle ettiği dünyayı anlamak için hâlâ en güçlü araç.", 
+        created_at: "2026-07-03T14:20:00.000Z" 
+      }
+    ];
+
+    // Data SDK Yapılandırması (Real-time Cloud Database)
+    window.dataSdk = {
+      _data: [],
+      _handlers: [],
+      _usingFirestore: false,
+
+      async init(handler) {
+        this._handlers.push(handler);
+        
+        if (db && auth) {
+          try {
+            // RULE 3: Auth Before Queries (Token önceliği)
+            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+              await signInWithCustomToken(auth, __initial_auth_token);
+            } else {
+              await signInAnonymously(auth);
+            }
+            
+            onAuthStateChanged(auth, (user) => {
+              if (!user) return; // Auth Guard
+              
+              this._usingFirestore = true;
+              
+              // RULE 1: Strict Paths
+              const entriesCol = collection(db, 'artifacts', appId, 'public', 'data', 'entries');
+              
+              // Gerçek zamanlı Firestore dinleyici bağlantısı
+              onSnapshot(entriesCol, (snapshot) => {
+                const dataList = [];
+                snapshot.forEach((docSnap) => {
+                  dataList.push({
+                    id: docSnap.id,
+                    ...docSnap.data()
+                  });
+                });
+                
+                // Firestore boş ise mock verileri otomatik buluta yükle
+                if (dataList.length === 0) {
+                  this.saveAll(defaultMockData);
+                } else {
+                  this._data = dataList;
+                  this._trigger();
+                }
+              }, (error) => {
+                console.error("Firestore bağlantı hatası, yerel belleğe geçiliyor:", error);
+                this._fallbackToLocal();
+              });
+            });
+            return { isOk: true };
+          } catch (authErr) {
+            console.warn("Firestore kimlik doğrulaması başarısız, LocalStorage aktifleşti:", authErr);
+            this._fallbackToLocal();
+          }
+        } else {
+          this._fallbackToLocal();
+        }
+        return { isOk: true };
+      },
+
+      _fallbackToLocal() {
+        this._usingFirestore = false;
+        let localStoreData = localStorage.getItem(LOCAL_KEY);
+        this._data = localStoreData ? JSON.parse(localStoreData) : defaultMockData;
+        if (!localStoreData) {
+          localStorage.setItem(LOCAL_KEY, JSON.stringify(defaultMockData));
+        }
+        setTimeout(() => this._trigger(), 50);
+      },
+
+      _trigger() {
+        this._handlers.forEach(h => h.onDataChanged([...this._data]));
+      },
+
+      async create(record) {
+        const cleanRecord = {
+          ...record,
+          created_at: record.created_at || new Date().toISOString()
+        };
+
+        if (this._usingFirestore && db && auth.currentUser) {
+          try {
+            // RULE 1: Strict Paths
+            const entriesCol = collection(db, 'artifacts', appId, 'public', 'data', 'entries');
+            const docRef = await addDoc(entriesCol, cleanRecord);
+            return { isOk: true, data: { id: docRef.id, ...cleanRecord } };
+          } catch (err) {
+            console.error("Firestore veri yazma hatası:", err);
+          }
+        }
+
+        // Çevrimdışı/Hata durumunda LocalStorage Fallback
+        const localId = Math.random().toString(36).substr(2, 9);
+        const newRecord = { id: localId, ...cleanRecord };
+        this._data.push(newRecord);
+        localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
+        this._trigger();
+        return { isOk: true, data: newRecord };
+      },
+
+      async delete(item) {
+        if (this._usingFirestore && db && auth.currentUser) {
+          try {
+            // RULE 1: Strict Paths
+            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'entries', item.id);
+            await deleteDoc(docRef);
+            return { isOk: true };
+          } catch (err) {
+            console.error("Firestore veri silme hatası:", err);
+          }
+        }
+
+        // Çevrimdışı/Hata durumunda LocalStorage Fallback
+        this._data = this._data.filter(d => d.id !== item.id);
+        localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
+        this._trigger();
+        return { isOk: true };
+      },
+
+      async saveAll(newData) {
+        if (this._usingFirestore && db && auth.currentUser) {
+          try {
+            // RULE 1: Strict Paths
+            for (const item of newData) {
+              const itemToSave = { ...item };
+              const itemId = item.id || Math.random().toString(36).substr(2, 9);
+              delete itemToSave.id;
+              const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'entries', itemId);
+              await setDoc(docRef, itemToSave);
+            }
+            return { isOk: true };
+          } catch (err) {
+            console.error("Firestore toplu yükleme hatası:", err);
+          }
+        }
+
+        // Çevrimdışı/Hata durumunda LocalStorage Fallback
+        this._data = newData;
+        localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
+        this._trigger();
+        return { isOk: true };
+      }
+    };
+
+    // -------------------------------------------------------------
+    // UYGULAMA ETKİLEŞİM KATMANI VE REAKTİF ARAYÜZ
+    // -------------------------------------------------------------
     let allData = [];
     let activeTab = 'all';
     
-    // Kullanıcı Giriş Durumları
     let isTomrisLoggedIn = false;
     let isBaybarsLoggedIn = false;
 
@@ -519,7 +626,7 @@
       psikoloji: '🧠' 
     };
 
-    // Toast Bildirim Sistemi (Alert yerine)
+    // Toast Bildirim Sistemi (Modal / Bildirim Balonu)
     function showToast(message, type = 'success') {
       const toast = document.getElementById('custom-toast');
       toast.textContent = message;
@@ -536,7 +643,7 @@
       }, 3000);
     }
 
-    // Çekmece Kontrolleri (Drawers)
+    // Yan Çekmece Kontrolleri (Tomris & Baybars)
     function toggleTomrisDrawer() {
       const drawer = document.getElementById('tomris-drawer');
       const backdrop = document.getElementById('drawer-backdrop');
@@ -576,7 +683,7 @@
       if (active !== 'baybars') document.getElementById('baybars-drawer').classList.add('translate-x-full');
     }
 
-    // KULLANICI GİRİŞ KONTROLLERİ (AUTH)
+    // KULLANICI GİRİŞ KONTROLLERİ (TOMRİS 1881 / BAYBARS 1283)
     function loginTomris() {
       const input = document.getElementById('tomris-key-input');
       const errorMsg = document.getElementById('tomris-error');
@@ -586,7 +693,6 @@
         errorMsg.classList.add('hidden');
         input.value = '';
         
-        // Arayüzü Güncelle
         document.getElementById('tomris-locked').classList.add('hidden');
         document.getElementById('tomris-unlocked').classList.remove('hidden');
         document.getElementById('tomris-status-dot').className = "w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse";
@@ -616,7 +722,6 @@
         errorMsg.classList.add('hidden');
         input.value = '';
         
-        // Arayüzü Güncelle
         document.getElementById('baybars-locked').classList.add('hidden');
         document.getElementById('baybars-unlocked').classList.remove('hidden');
         document.getElementById('baybars-status-dot').className = "w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse";
@@ -645,10 +750,9 @@
       
       if (!text) return;
       
-      // Mesajı dataSdk veritabanına 'sohbet' kategorisi altında kaydet
       const res = await window.dataSdk.create({
         category: 'sohbet',
-        title: sender, // Gönderen: 'Tomris' ya da 'Baybars'
+        title: sender,
         link: '',
         content: text,
         created_at: new Date().toISOString()
@@ -656,7 +760,6 @@
 
       if (res.isOk) {
         input.value = '';
-        // renderSecretChats() onDataChanged tetiklenmesiyle otomatik çağırılacak
       } else {
         showToast("Mesaj ulaştırılamadı!", "error");
       }
@@ -664,9 +767,7 @@
 
     // SOHBET MESAJLARINI ÇİZME
     function renderSecretChats() {
-      // Sadece 'sohbet' kategorisindeki mesajları çek
       const chats = allData.filter(d => d.category === 'sohbet');
-      // Zaman sıralaması (eskiden yeniye)
       chats.sort((a, b) => (a.created_at || '').localeCompare(b.created_at || ''));
 
       const tomrisContainer = document.getElementById('tomris-chat-messages');
@@ -701,25 +802,14 @@
       }
     }
 
-    // Filtre Değiştirme Sekmeleri
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('tab-active'));
-        btn.classList.add('tab-active');
-        activeTab = btn.dataset.cat;
-        renderEntries();
-      });
-    });
-
-    // Filtrelenmiş Verileri Al (Sohbet verilerini genel arşivden gizle!)
+    // Filtrelenmiş Verileri Al (Sohbetleri arşivden gizle)
     function getFiltered() {
-      // Sohbet mesajları ana arşiv akışına dahil edilmemelidir
       const publicData = allData.filter(d => d.category !== 'sohbet');
       if (activeTab === 'all') return publicData;
       return publicData.filter(d => d.category === activeTab);
     }
 
-    // HTML Kaçış Karakteri Temizleme (Güvenlik İçin)
+    // HTML Kaçış Karakteri Temizleme
     function escapeHTML(str) {
       if (!str) return '';
       return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -760,12 +850,11 @@
       }
     }
 
-    // Genel Arşiv Kartlarını Çizme (Rendering)
+    // Genel Arşiv Kartlarını Çizme
     function renderEntries() {
       const filtered = getFiltered();
       const searchQuery = document.getElementById('top-search').value.toLowerCase().trim();
 
-      // Canlı arama süzgeci
       const searched = filtered.filter(item => {
         if (!searchQuery) return true;
         return (item.title || '').toLowerCase().includes(searchQuery) ||
@@ -894,12 +983,6 @@
       }
     });
 
-    // Enter Tuşuyla Mesaj Gönderme Tetikleyicileri
-    document.getElementById('tomris-key-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') loginTomris(); });
-    document.getElementById('baybars-key-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') loginBaybars(); });
-    document.getElementById('tomris-msg-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendSecretMessage('Tomris'); });
-    document.getElementById('baybars-msg-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendSecretMessage('Baybars'); });
-
     // Arama Çubuğu Canlı Filtreleme ve Dış Arama Entegrasyonu
     const searchInput = document.getElementById('top-search');
     searchInput.addEventListener('input', () => {
@@ -915,14 +998,14 @@
       }
     }
 
-    searchInput.addEventListener('keypress', (e) => { 
-      if (e.key === 'Enter') { 
-        executeExternalSearch(); 
-      } 
-    });
-    
-    document.getElementById('top-search-btn').addEventListener('click', () => { 
-      executeExternalSearch(); 
+    // Kategori Seçim Butonları
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('tab-active'));
+        btn.classList.add('tab-active');
+        activeTab = btn.dataset.cat;
+        renderEntries();
+      });
     });
 
     // Veri Yedekleme (Export JSON)
@@ -959,13 +1042,7 @@
         try {
           const imported = JSON.parse(evt.target.result);
           if (Array.isArray(imported)) {
-            // Eğer saveAll fonksiyonumuz varsa kalıcı kaydet, yoksa direkt güncelle
-            if (window.dataSdk && typeof window.dataSdk.saveAll === 'function') {
-              window.dataSdk.saveAll(imported);
-            } else {
-              window.dataSdk._data = imported;
-              window.dataSdk._trigger();
-            }
+            window.dataSdk.saveAll(imported);
             showToast("Arşiv yedekleri başarıyla yüklendi!");
           } else {
             showToast("Geçersiz yedek dosyası formatı!", "error");
@@ -978,13 +1055,31 @@
       e.target.value = '';
     });
 
+    // Inline Click Olay Köprüleri (Modülün Global Kapsama Atanması)
+    window.toggleTomrisDrawer = toggleTomrisDrawer;
+    window.toggleBaybarsDrawer = toggleBaybarsDrawer;
+    window.closeAllDrawers = closeAllDrawers;
+    window.loginTomris = loginTomris;
+    window.logoutTomris = logoutTomris;
+    window.loginBaybars = loginBaybars;
+    window.logoutBaybars = logoutBaybars;
+    window.sendSecretMessage = sendSecretMessage;
+
+    // Dinleyiciler
+    document.getElementById('tomris-key-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') loginTomris(); });
+    document.getElementById('baybars-key-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') loginBaybars(); });
+    document.getElementById('tomris-msg-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendSecretMessage('Tomris'); });
+    document.getElementById('baybars-msg-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendSecretMessage('Baybars'); });
+    document.getElementById('top-search-btn').addEventListener('click', () => { executeExternalSearch(); });
+    searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { executeExternalSearch(); } });
+
     // SDK Altyapısını Başlatma
     const handler = { 
       onDataChanged(data) { 
         allData = data; 
         limitEl.classList.toggle('hidden', data.length < 999); 
         renderEntries(); 
-        renderSecretChats(); // Hükümdar mesajlarını yeniden çiz
+        renderSecretChats(); // Hükümdar mesajlarını çiz
       } 
     };
 
