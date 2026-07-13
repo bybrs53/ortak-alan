@@ -385,7 +385,7 @@
   <main class="max-w-4xl mx-auto p-4 sm:p-6 lg:px-8 relative z-10">
 
     <!-- YÖNETİM & ARAMA PANELİ (Search, Export, Import and Sync Controller) -->
-    <div class="mb-8 p-5 rounded-2xl border border-amber-900/10 bg-white/95 backdrop-blur shadow-xl space-y-4">
+    <div class="mb-8 p-5 rounded-2xl border border-amber-900/10 bg-white/95 backdrop-blur shadow-xl space-y-4 animate-fade-in">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h2 class="heading-font text-amber-950 font-bold text-xl flex items-center gap-2">
@@ -420,6 +420,26 @@
           </button>
           <input type="file" id="import-file" class="hidden" accept=".json">
         </div>
+      </div>
+    </div>
+    
+    <!-- ARŞİVCİLER VE HAKANLIK MECLİSİ PANELİ (Yeni Eklenen Canlı Kullanıcı Tablosu) -->
+    <div class="mb-8 p-5 rounded-2xl border border-amber-900/10 bg-white/95 backdrop-blur shadow-xl space-y-4 animate-fade-in">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="heading-font text-amber-950 font-bold text-xl flex items-center gap-2">
+            <i data-lucide="users" class="w-5 h-5 text-amber-800"></i> Hakanlık Meclisi & Arşivciler
+          </h2>
+          <p class="text-xs text-amber-800/60 font-medium">Sisteme kayıtlı ve canlı senkronize edilen devlet arşivcileri.</p>
+        </div>
+        <!-- Kalp Atışı Canlı Göstergesi -->
+        <span class="flex items-center gap-1.5 text-xs bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-xl font-bold border border-emerald-200">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span> Canlı Senkronize
+        </span>
+      </div>
+      
+      <div id="members-list-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <!-- Kullanıcı Kartları Dinamik Olarak Buraya Gelecek -->
       </div>
     </div>
     
@@ -627,6 +647,7 @@
 
   <!-- BİRLEŞTİRİLMİŞ UYGULAMA VE VERİTABANI KONTROL SİSTEMİ -->
   <script>
+    // 1. GLOBAL GEREKSİNİMLERİN ERKEN BAĞLANMASI (ReferenceError & Sequence issues preventer)
     window.handleGateAuthSubmit = function(e) { e.preventDefault(); };
     window.handleAdminCreateMemberSubmit = function(e) { e.preventDefault(); };
     window.toggleTomrisDrawer = function() {};
@@ -1005,14 +1026,14 @@
       }
     };
 
+    // PERSISTENT MEMBERSHIP ENGINE WITH "MECLİS" RENDERING SUPPORT
     window.authSystem = {
       _usersDb: [],
       _activeUser: null,
       _unsubscribeMembers: null,
 
       async init() {
-        const storedUsers = localStorage.getItem(MEMBERS_KEY);
-        this._usersDb = storedUsers ? JSON.parse(storedUsers) : [];
+        this.loadLocalMembers();
         
         const activeOturum = localStorage.getItem(CURRENT_USER_KEY);
         if (activeOturum) {
@@ -1024,6 +1045,24 @@
         }
         
         this.checkAuthGateState();
+        this.renderMembersMeclis();
+      },
+
+      loadLocalMembers() {
+        const storedUsers = localStorage.getItem(MEMBERS_KEY);
+        this._usersDb = storedUsers ? JSON.parse(storedUsers) : [];
+        // Add predefined Hakans to UI representation as members if database has them or not
+        const predefined = [
+          { uid: 'tomris_hakan', displayName: "Tomris Hatun", rank: "Yönetici 👑", joinedAt: "Saka Otağı" },
+          { uid: 'baybars_sultan', displayName: "Sultan Baybars", rank: "Yönetici ⚔️", joinedAt: "Kıpçak Bozkırı" }
+        ];
+        
+        // Merge without duplicate
+        predefined.forEach(p => {
+          if (!this._usersDb.find(u => u.uid === p.uid)) {
+            this._usersDb.unshift(p);
+          }
+        });
       },
 
       startMembersRealtimeListener() {
@@ -1040,8 +1079,14 @@
               });
               
               if (cloudMembers.length > 0) {
-                this._usersDb = cloudMembers;
+                // Ensure predefined are preserved
+                const predefined = [
+                  { uid: 'tomris_hakan', displayName: "Tomris Hatun", rank: "Yönetici 👑", joinedAt: "Saka Otağı" },
+                  { uid: 'baybars_sultan', displayName: "Sultan Baybars", rank: "Yönetici ⚔️", joinedAt: "Kıpçak Bozkırı" }
+                ];
+                this._usersDb = [...predefined, ...cloudMembers.filter(c => c.uid !== 'tomris_hakan' && c.uid !== 'baybars_sultan')];
                 localStorage.setItem(MEMBERS_KEY, JSON.stringify(this._usersDb));
+                this.renderMembersMeclis();
               }
             }, (err) => {
               console.warn("Firestore live members subscription failed (operating locally):", err);
@@ -1113,6 +1158,7 @@
           }
         }
 
+        this.renderMembersMeclis();
         return { isOk: true, user: newUser };
       },
 
@@ -1193,16 +1239,45 @@
         const uRank = document.getElementById('user-rank-badge');
         const uJoin = document.getElementById('user-join-date');
 
-        if (this._activeUser) {
+        if (this._activeUser && uAvatar) {
           uAvatar.textContent = this._activeUser.displayName.charAt(0);
           uName.textContent = this._activeUser.displayName;
           uRank.textContent = this._activeUser.rank;
           uJoin.textContent = `Üye Girişi: ${this._activeUser.joinedAt}`;
         }
+      },
+
+      // DYNAMIC RENDERING OF "MECLİS" MEMBERS LIST
+      renderMembersMeclis() {
+        const grid = document.getElementById('members-list-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        
+        this._usersDb.forEach(u => {
+          const card = document.createElement('div');
+          card.className = "flex items-center gap-3 bg-amber-50/50 border border-amber-900/10 rounded-xl p-3 shadow-sm hover:shadow transition duration-200 animate-fade-in";
+          
+          const isOwner = this._activeUser && this._activeUser.displayName === u.displayName;
+          const ownerRing = isOwner ? 'ring-2 ring-amber-500' : 'border border-amber-900/20';
+
+          card.innerHTML = `
+            <div class="w-10 h-10 rounded-full bg-amber-900 text-amber-100 flex items-center justify-center font-bold font-mono text-sm uppercase ${ownerRing}">
+              ${escapeHTML(u.displayName.charAt(0))}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1">
+                <span class="text-xs font-bold text-amber-950 truncate">${escapeHTML(u.displayName)}</span>
+                ${isOwner ? '<span class="text-[8px] bg-amber-600 text-white px-1.5 py-0.5 rounded-full font-bold">Ben</span>' : ''}
+              </div>
+              <p class="text-[9px] text-amber-800/70 font-semibold truncate uppercase tracking-wider">${escapeHTML(u.rank)}</p>
+              <p class="text-[8px] text-gray-400 font-mono">${escapeHTML(u.joinedAt || 'Canlı Bağlantı')}</p>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
       }
     };
 
-    // CONTROLLERS & INTERACTION MAPPERS
     let allData = [];
     let activeTab = 'all';
     let gateAuthTab = 'login';
@@ -1225,6 +1300,7 @@
       psikoloji: '🧠' 
     };
 
+    // Beautiful UI-Based Custom Toast System
     function showToast(message, type = 'success') {
       const toast = document.getElementById('custom-toast');
       const toastText = document.getElementById('toast-text');
@@ -1248,7 +1324,7 @@
       }, 3550);
     }
 
-    // Gate tab switcher
+    // Gate Tab Switcher
     window.setGateTab = function(tab) {
       gateAuthTab = tab;
       const loginBtn = document.getElementById('gate-tab-login');
@@ -1271,6 +1347,14 @@
         if (hintSpan) hintSpan.classList.add('hidden');
       }
       lucide.createIcons();
+    };
+
+    // 2. CRITICAL BINDINGS ASSIGNED DIRECTLY TO TOP SCOPE (No more logout delay)
+    window.logoutUser = function() {
+      soundEffects.playClick();
+      window.authSystem.logout();
+      showToast("Giriş Kapısı kilitlendi. Güvenle çıkış yapıldı.");
+      renderEntries();
     };
 
     async function handleGateAuthSubmit(event) {
@@ -1352,14 +1436,6 @@
       lucide.createIcons();
     }
     window.handleAdminCreateMemberSubmit = handleAdminCreateMemberSubmit;
-
-    function logoutUser() {
-      soundEffects.playClick();
-      window.authSystem.logout();
-      showToast("Giriş Kapısı kilitlendi. Oturum kapatıldı.");
-      renderEntries();
-    }
-    window.logoutUser = logoutUser;
 
     function openSyncModal() {
       soundEffects.playClick();
@@ -1471,14 +1547,14 @@
       const btnText = document.getElementById('sync-btn-text');
 
       if (hasRoom) {
-        offContent.classList.add('hidden');
-        onContent.classList.remove('hidden');
-        activeCode.textContent = window.dataSdk._syncRoomId;
-        btnText.innerHTML = `<i data-lucide="cloud" class="w-4 h-4 text-emerald-400"></i> ${window.dataSdk._syncRoomId.substring(0, 8)}`;
+        if (offContent) offContent.classList.add('hidden');
+        if (onContent) onContent.classList.remove('hidden');
+        if (activeCode) activeCode.textContent = window.dataSdk._syncRoomId;
+        if (btnText) btnText.innerHTML = `<i data-lucide="cloud" class="w-4 h-4 text-emerald-400"></i> ${window.dataSdk._syncRoomId.substring(0, 8)}`;
       } else {
-        offContent.classList.remove('hidden');
-        onContent.classList.add('hidden');
-        btnText.innerHTML = '<i data-lucide="cloud-lightning" class="w-4 h-4"></i> Bulut Eşitle';
+        if (offContent) offContent.classList.remove('hidden');
+        if (onContent) onContent.classList.add('hidden');
+        if (btnText) btnText.innerHTML = '<i data-lucide="cloud-lightning" class="w-4 h-4"></i> Bulut Eşitle';
       }
       lucide.createIcons();
     }
@@ -1883,6 +1959,23 @@
       };
       reader.readAsText(file);
       e.target.value = '';
+    });
+
+    // 3. BROADCAST STORAGE BUS (Instant Live Multi-Tab Sync on same PC!)
+    window.addEventListener('storage', (e) => {
+      if (e.key === LOCAL_KEY) {
+        window.dataSdk._loadLocalData();
+      }
+      if (e.key === MEMBERS_KEY) {
+        window.authSystem.loadLocalMembers();
+        window.authSystem.renderMembersMeclis();
+      }
+      if (e.key === CURRENT_USER_KEY) {
+        const activeOturum = localStorage.getItem(CURRENT_USER_KEY);
+        window.authSystem._activeUser = activeOturum ? JSON.parse(activeOturum) : null;
+        window.authSystem.checkAuthGateState();
+        renderEntries();
+      }
     });
 
     // Keyboard inputs
