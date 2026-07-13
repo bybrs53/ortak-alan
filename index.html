@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr" class="h-full">
 <head>
-  <script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260707-03-b8b85bc"}');</script>
-  <script src="//_sdk/f432b76fb310b513.telemetry_sdk.js" xintegrity="sha512-9FJQ55EKmmqhyyik8BhrMVfm0+iYYfb8uOlRsjtkxJMEI97qOVEI4PnHohDjQAtvAep0IOEpdQ64eki0sz62ug==" onerror="console.warn('Telemetry SDK offline mode active')"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ortak Paylaşım Alanı | Tarihi & Dijital Arşiv</title>
@@ -12,7 +10,7 @@
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
   
-  <!-- Firebase Compat SDKs (For Real-Time Collaborative Architecture) -->
+  <!-- Firebase Compat SDKs (Çoklu Cihaz ve Gerçek Zamanlı Eşitleme İçin) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -41,7 +39,7 @@
     .entry-card-shadow { box-shadow: 0 4px 15px rgba(60,30,10,0.06); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     .entry-card-shadow:hover { box-shadow: 0 12px 24px rgba(60,30,10,0.18); transform: translateY(-4px); }
     
-    /* Flag Tooltip & Interactive Styling */
+    /* Bayrak Efektleri */
     .flag-container img, .flag-container .flag-fallback {
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -50,13 +48,12 @@
       box-shadow: 0 10px 22px rgba(245, 158, 11, 0.3);
     }
 
-    /* Vertical text for side login tabs */
+    /* Sol/Sağ Buton Yazıları */
     .vertical-text {
       writing-mode: vertical-rl;
       text-orientation: mixed;
     }
     
-    /* Subtle animations */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
@@ -65,9 +62,8 @@
       animation: fadeIn 0.4s ease-out forwards;
     }
   </style>
-  <script src="//_sdk/0b3af1c300e720aa.resizing_sdk.js" type="text/javascript" xintegrity="sha512-nX1P6oXZmEY5wCI2lUVg3BwKu1cr0yi+ZpXgZ0Yn90vkSwvpmyzBMvOyD6VLJUtBwFI2dSrw1b6OvORxSggw3w==" onerror="console.warn('Resizing SDK offline mode active')"></script>
 </head>
-<body data-template-id="__page-root" class="min-h-screen w-full relative pb-16 overflow-x-hidden selection:bg-amber-800 selection:text-amber-100" style="background: linear-gradient(135deg, #1b0f08 0%, #2c1a0e 100%);">
+<body class="min-h-screen w-full relative pb-16 overflow-x-hidden selection:bg-amber-800 selection:text-amber-100" style="background: linear-gradient(135deg, #1b0f08 0%, #2c1a0e 100%);">
   
   <!-- TOAST BİLDİRİM BARI -->
   <div id="custom-toast" class="fixed bottom-6 right-6 px-4 py-3 rounded-xl shadow-2xl text-sm font-semibold z-50 transform translate-y-10 opacity-0 transition-all duration-300 bg-amber-900 text-amber-100 border border-amber-800/20 flex items-center gap-2 pointer-events-none">
@@ -75,9 +71,8 @@
     <span id="toast-text">İşlem Başarılı</span>
   </div>
 
-  <!-- TAM EKRAN GİRİŞ GEÇİDİ (GATED LOGIN SCREEN - MANDATORY RULE) -->
+  <!-- TAM EKRAN GİRİŞ GEÇİDİ (GİRİŞ EKRANI - GİZLİ ŞİFRE REHBERİ KALDIRILDI) -->
   <div id="gate-landing-screen" class="fixed inset-0 z-50 bg-[#160c06] flex items-center justify-center p-4 overflow-y-auto">
-    <!-- Arkaplan Görsel Örtüsü -->
     <div class="absolute inset-0 opacity-10 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/1996333/pexels-photo-1996333.jpeg?auto=compress&cs=tinysrgb&w=1920'); filter: grayscale(100%);"></div>
     
     <div class="relative bg-[#21140b] border border-amber-900/40 text-amber-100 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-6 animate-fade-in z-10">
@@ -111,16 +106,6 @@
             <input type="password" required id="gate-password" placeholder="••••••••" class="w-full bg-[#2e1d10] border border-amber-800/40 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500 tracking-widest">
             <i data-lucide="lock" class="absolute left-3.5 top-3 w-4 h-4 text-amber-500/60"></i>
           </div>
-          <!-- Şifre Yardımcı İpucu -->
-          <div class="bg-amber-950/50 p-2.5 rounded-xl border border-amber-900/30 text-[11px] text-amber-300/80 space-y-1">
-            <p class="font-semibold flex items-center gap-1">
-              <span>💡</span> <span>Yönetici Bilgileri:</span>
-            </p>
-            <ul class="list-disc list-inside text-[10px] text-amber-400/60 pl-1">
-              <li>Tomris Hatun için Şifre: <strong class="text-amber-200">1283</strong></li>
-              <li>Sultan Baybars için Şifre: <strong class="text-amber-200">1283</strong></li>
-            </ul>
-          </div>
         </div>
 
         <button type="submit" id="gate-submit-btn" class="w-full py-3 bg-amber-700 hover:bg-amber-600 active:scale-95 text-white font-bold text-sm rounded-xl uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2">
@@ -130,7 +115,7 @@
       
       <div class="text-center">
         <p class="text-[11px] text-amber-500/60 font-semibold italic bg-amber-955/40 py-2 px-3 rounded-lg border border-amber-900/20">
-          ⚠️ Yeni üye kayıtları yalnızca Tomris Hatun veya Sultan Baybars yetkisiyle yapılabilir.
+          ⚠️ Hakanlık arşiv kayıtlarına yetkisiz erişim kesinlikle yasaktır.
         </p>
       </div>
     </div>
@@ -161,7 +146,7 @@
       <h4 class="text-base font-bold text-amber-300 mb-2 heading-font">Hakanlığın Gizli Kapısı</h4>
       <p class="text-xs text-amber-200/50 mb-6 max-w-[240px] leading-relaxed">Tomris Hatun'un kişisel yazışma arşivine erişmek için devlet sırrı anahtarını girin.</p>
       <div class="w-full max-w-[260px] space-y-3">
-        <input type="password" id="tomris-key-input" placeholder="Sır Anahtarı (Örn: 1283)" class="w-full bg-[#271b12] border border-amber-800/40 rounded-lg px-4 py-2.5 text-center text-sm text-white placeholder-amber-700/50 focus:outline-none focus:ring-2 focus:ring-amber-500 font-mono tracking-widest">
+        <input type="password" id="tomris-key-input" placeholder="Sır Anahtarı" class="w-full bg-[#271b12] border border-amber-800/40 rounded-lg px-4 py-2.5 text-center text-sm text-white placeholder-amber-700/50 focus:outline-none focus:ring-2 focus:ring-amber-500 font-mono tracking-widest">
         <button onclick="window.loginTomris()" class="w-full py-2.5 bg-amber-700 hover:bg-amber-600 active:scale-95 text-white font-bold text-xs rounded-lg uppercase tracking-wider transition shadow-md flex items-center justify-center gap-2">
           <i data-lucide="key-round" class="w-3.5 h-3.5"></i> Geçidi Aç
         </button>
@@ -208,7 +193,7 @@
       <h4 class="text-base font-bold text-blue-300 mb-2 heading-font">Memlük Kalesinin Kapısı</h4>
       <p class="text-xs text-blue-200/50 mb-6 max-w-[240px] leading-relaxed">Sultan Baybars'ın askeri yazışma arşivine erişmek için saltanat sırrı anahtarını girin.</p>
       <div class="w-full max-w-[260px] space-y-3">
-        <input type="password" id="baybars-key-input" placeholder="Sır Anahtarı (Örn: 1283)" class="w-full bg-[#131d31] border border-blue-800/40 rounded-lg px-4 py-2.5 text-center text-sm text-white placeholder-blue-700/50 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono tracking-widest">
+        <input type="password" id="baybars-key-input" placeholder="Sır Anahtarı" class="w-full bg-[#131d31] border border-blue-800/40 rounded-lg px-4 py-2.5 text-center text-sm text-white placeholder-blue-700/50 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono tracking-widest">
         <button onclick="window.loginBaybars()" class="w-full py-2.5 bg-blue-700 hover:bg-blue-600 active:scale-95 text-white font-bold text-xs rounded-lg uppercase tracking-wider transition shadow-md flex items-center justify-center gap-2">
           <i data-lucide="key-round" class="w-3.5 h-3.5"></i> Kaleyi Aç
         </button>
@@ -249,116 +234,52 @@
 
   <!-- Sol Kenar Bayrakları -->
   <div class="fixed left-0 top-0 bottom-0 w-20 flex flex-col justify-evenly items-center py-4 pointer-events-auto hidden lg:flex bg-gradient-to-r from-amber-955/40 to-transparent z-10">
-    <!-- Hun -->
     <div class="flag-container relative group cursor-help">
       <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
         <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/15843091/pexels-photo-15843091.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#78350f', 'HUN')">
       </div>
       <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Büyük Hun İmparatorluğu</span>
     </div>
-    <!-- Batı Hun -->
     <div class="flag-container relative group cursor-help">
       <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
         <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/35327476/pexels-photo-35327476.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#92400e', 'W-HUN')">
       </div>
       <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Batı Hun İmparatorluğu</span>
     </div>
-    <!-- Avrupa Hun -->
     <div class="flag-container relative group cursor-help">
       <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
         <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/35327476/pexels-photo-35327476.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#b45309', 'E-HUN')">
       </div>
       <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Avrupa Hun İmparatorluğu</span>
     </div>
-    <!-- Ak Hun -->
     <div class="flag-container relative group cursor-help">
       <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
         <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/32283256/pexels-photo-32283256.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#d97706', 'AK-HUN')">
       </div>
       <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Ak Hun İmparatorluğu</span>
     </div>
-    <!-- Göktürk -->
     <div class="flag-container relative group cursor-help">
       <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
         <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/34673585/pexels-photo-34673585.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#0284c7', 'TÜRK')">
       </div>
       <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Göktürk Kağanlığı</span>
     </div>
-    <!-- Avar -->
-    <div class="flag-container relative group cursor-help">
-      <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
-        <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/35444195/pexels-photo-35444195.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#4f46e5', 'AVAR')">
-      </div>
-      <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Avar Kağanlığı</span>
-    </div>
-    <!-- Hazar -->
-    <div class="flag-container relative group cursor-help">
-      <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
-        <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/34673585/pexels-photo-34673585.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#0d9488', 'HAZAR')">
-      </div>
-      <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Hazar Kağanlığı</span>
-    </div>
-    <!-- Uygur -->
-    <div class="flag-container relative group cursor-help">
-      <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
-        <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/35624591/pexels-photo-35624591.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#ea580c', 'UYGUR')">
-      </div>
-      <span class="absolute left-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Uygur Kağanlığı</span>
-    </div>
   </div>
 
   <!-- Sağ Kenar Bayrakları -->
   <div class="fixed right-0 top-0 bottom-0 w-20 flex flex-col justify-evenly items-center py-4 pointer-events-auto hidden lg:flex bg-gradient-to-l from-amber-955/40 to-transparent z-10">
-    <!-- Karahanlı -->
     <div class="flag-container relative group cursor-help">
       <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
         <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/38207941/pexels-photo-38207941.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#dc2626', 'KARA')">
       </div>
       <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Karahanlı Devleti</span>
     </div>
-    <!-- Gazneli -->
-    <div class="flag-container relative group cursor-help">
-      <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
-        <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#ca8a04', 'GAZNE')">
-      </div>
-      <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Gazneli Devleti</span>
-    </div>
-    <!-- Selçuklu -->
     <div class="flag-container relative group cursor-help">
       <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
         <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/32795501/pexels-photo-32795501.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#0284c7', 'SELÇUK')">
       </div>
       <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Büyük Selçuklu İmparatorluğu</span>
     </div>
-    <!-- Harzemşah -->
-    <div class="flag-container relative group cursor-help">
-      <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
-        <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#65a30d', 'HARZEM')">
-      </div>
-      <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Harzemşahlar Devleti</span>
-    </div>
-    <!-- Altın Orda -->
-    <div class="flag-container relative group cursor-help">
-      <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
-        <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/6466768/pexels-photo-6466768.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#d97706', 'ORDA')">
-      </div>
-      <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Altın Orda Devleti</span>
-    </div>
-    <!-- Timur -->
-    <div class="flag-container relative group cursor-help">
-      <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
-        <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/12465929/pexels-photo-12465929.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#4f46e5', 'TİMUR')">
-      </div>
-      <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Timur İmparatorluğu</span>
-    </div>
-    <!-- Babür -->
-    <div class="flag-container relative group cursor-help">
-      <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
-        <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/34219796/pexels-photo-34219796.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#16a34a', 'BABÜR')">
-      </div>
-      <span class="absolute right-16 bg-amber-950 text-amber-100 text-[10px] px-2.5 py-1 rounded-lg border border-amber-800/30 shadow-lg opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none whitespace-nowrap z-50">Babür İmparatorluğu</span>
-    </div>
-    <!-- Osmanlı -->
     <div class="flag-container relative group cursor-help">
       <div class="w-14 h-10 rounded overflow-hidden shadow-lg border border-amber-600/35 relative">
         <img class="w-full h-full object-cover" src="https://images.pexels.com/photos/7384333/pexels-photo-7384333.jpeg?auto=compress&cs=tinysrgb&w=400" onerror="loadFallbackFlag(this, '#dc2626', 'OSMANLI')">
@@ -370,7 +291,6 @@
   <!-- Floating Membership Status Bar (Kalıcı Üyelik Arayüzü) -->
   <div class="max-w-4xl mx-auto pt-4 px-4 sm:px-6 lg:px-8 relative z-20 flex justify-end">
     <div id="member-profile-widget" class="bg-[#1b120c]/90 border border-amber-800/30 rounded-xl px-4 py-2 text-amber-100 shadow-2xl flex items-center gap-3 backdrop-blur-md">
-      <!-- State: Logged In -->
       <div id="profile-logged-in" class="flex items-center gap-3">
         <div class="w-8 h-8 rounded-full bg-amber-800 flex items-center justify-center text-amber-100 font-bold border border-amber-500/35 shadow font-mono uppercase" id="user-avatar">
           G
@@ -380,7 +300,7 @@
             <span class="text-xs font-bold text-white leading-none" id="user-display-name">Misafir</span>
             <span class="text-[9px] bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-full px-2 py-0.5 font-bold tracking-wide uppercase font-mono" id="user-rank-badge">Arşivci</span>
           </div>
-          <span class="text-[10px] text-amber-300/50 block font-mono" id="user-join-date">Bağlantı: Çevrimiçi</span>
+          <span class="text-[10px] text-amber-300/50 block font-mono" id="user-join-date">Bağanlantı: Çevrimiçi</span>
         </div>
         <button onclick="window.logoutUser()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-red-950/40 text-red-400 border border-red-900/20 transition-all duration-200 hover:scale-105 active:scale-95 font-semibold text-xs" title="Güvenli Çıkış">
           <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
@@ -393,7 +313,7 @@
   <!-- Ana Çalışma Alanı -->
   <main class="max-w-4xl mx-auto p-4 sm:p-6 lg:px-8 relative z-10">
 
-    <!-- YÖNETİM & ARAMA PANELİ (Search, Export, Import and Sync Controller) -->
+    <!-- YÖNETİM & ARAMA PANELİ -->
     <div class="mb-8 p-5 rounded-2xl border border-amber-900/10 bg-white/95 backdrop-blur shadow-xl space-y-4">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -415,7 +335,6 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
-        <!-- Canlı Arama Girişi -->
         <div class="md:col-span-2 relative">
           <input type="text" id="top-search" placeholder="Arşiv başlığı, içeriği veya kategori ara..." class="w-full border border-amber-200/80 bg-white rounded-xl pl-10 pr-20 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-800">
           <i data-lucide="search" class="absolute left-3.5 top-3.5 w-4 h-4 text-amber-850/50"></i>
@@ -424,7 +343,6 @@
           </button>
         </div>
 
-        <!-- Dosya Yedekleme Araçları -->
         <div class="flex gap-2">
           <button id="export-btn" class="flex-1 py-2.5 rounded-xl border border-amber-200/60 bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold text-xs transition active:scale-95 flex items-center justify-center gap-1.5">
             <i data-lucide="download" class="w-3.5 h-3.5"></i> Dışa Aktar
@@ -437,7 +355,7 @@
       </div>
     </div>
     
-    <!-- HAKANLIK ÜYE YÖNETİM PANELİ (Admin Member Creation Panel - Visible only to Tomris & Baybars) -->
+    <!-- HAKANLIK ÜYE YÖNETİM PANELİ (Yalnızca Tomris & Baybars'a görünür) -->
     <div id="admin-member-management" class="hidden animate-fade-in mb-8">
       <div class="p-5 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-[#2c1a0e] to-[#1b0f08] text-amber-100 shadow-2xl relative overflow-hidden">
         <div class="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
@@ -469,13 +387,13 @@
       </div>
     </div>
 
-    <!-- HAKANLIK MECLİSİ & ARŞİVCİLER (Registered Members list container) -->
+    <!-- HAKANLIK MECLİSİ & ARŞİVCİLER -->
     <div class="mb-8 p-5 rounded-2xl border border-amber-900/10 bg-white/95 backdrop-blur shadow-xl space-y-4">
       <h3 class="heading-font text-amber-950 font-bold text-lg flex items-center gap-2">
         <i data-lucide="users" class="w-5 h-5 text-amber-800"></i> Hakanlık Meclisi & Arşivciler
       </h3>
       <div id="registered-members-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-        <!-- Dynmically Populated members list -->
+        <!-- JS Tarafından Dinamik Doldurulur -->
       </div>
     </div>
 
@@ -483,12 +401,12 @@
       <!-- Yeni Kayıt Formu -->
       <div class="md:col-span-2">
         <form id="add-form" class="p-5 rounded-2xl border border-amber-900/10 bg-white/95 backdrop-blur shadow-xl">
-          <h2 data-template-id="form-heading" class="heading-font text-amber-950 font-bold text-xl mb-4 flex items-center gap-2">
+          <h2 class="heading-font text-amber-950 font-bold text-xl mb-4 flex items-center gap-2">
             <i data-lucide="plus-circle" class="w-5 h-5 text-amber-800"></i> Yeni Kayıt Ekle
           </h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <div>
-              <label data-template-id="label-category" for="cat-select" class="block text-xs font-semibold uppercase text-amber-900 mb-1.5">Kategori</label>
+              <label for="cat-select" class="block text-xs font-semibold uppercase text-amber-900 mb-1.5">Kategori</label>
               <select id="cat-select" class="w-full border border-amber-200/80 bg-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-800">
                 <option value="film">🎬 Film</option>
                 <option value="müzik">🎵 Müzik</option>
@@ -500,15 +418,15 @@
               </select>
             </div>
             <div>
-              <label data-template-id="label-link" for="link-input" class="block text-xs font-semibold uppercase text-amber-900 mb-1.5">Başlık veya Link</label>
+              <label for="link-input" class="block text-xs font-semibold uppercase text-amber-900 mb-1.5">Başlık veya Link</label>
               <input id="link-input" type="text" required class="w-full border border-amber-200/80 bg-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-800" placeholder="Örn: https://imdb.com veya Kitap Adı">
             </div>
           </div>
           <div class="mb-4">
-            <label data-template-id="label-content" for="content-input" class="block text-xs font-semibold uppercase text-amber-900 mb-1.5">Açıklama / Not</label>
+            <label for="content-input" class="block text-xs font-semibold uppercase text-amber-900 mb-1.5">Açıklama / Not</label>
             <textarea id="content-input" rows="3" class="w-full border border-amber-200/80 bg-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 text-gray-800 resize-none" placeholder="İçerik hakkında düşüncelerinizi ekleyin..."></textarea>
           </div>
-          <button data-template-id="submit-btn" type="submit" class="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-amber-800 hover:bg-amber-900 text-white font-bold text-sm transition shadow-md active:scale-95 flex items-center justify-center gap-2">
+          <button type="submit" class="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-amber-800 hover:bg-amber-900 text-white font-bold text-sm transition shadow-md active:scale-95 flex items-center justify-center gap-2">
             <i data-lucide="archive" class="w-4 h-4"></i> Arşive Ekle
           </button>
         </form>
@@ -518,12 +436,12 @@
       <div class="md:col-span-1">
         <div class="p-5 rounded-2xl border border-amber-900/10 bg-white/95 backdrop-blur shadow-xl h-full flex flex-col justify-between">
           <div>
-            <h3 data-template-id="notes-title" class="heading-font text-amber-950 font-bold text-lg mb-3 flex items-center gap-2">
+            <h3 class="heading-font text-amber-950 font-bold text-lg mb-3 flex items-center gap-2">
               <i data-lucide="book-open" class="w-5 h-5 text-amber-800"></i> Hızlı Karalama
             </h3>
             <textarea id="notes-textarea" placeholder="Buraya aldığınız geçici notlar tek tıkla arşive 'Notlar' kategorisinde kaydedilir..." rows="6" class="w-full border border-amber-200/80 bg-white rounded-lg px-3 py-2 text-xs text-gray-800 resize-none focus:outline-none focus:ring-2 focus:ring-amber-500 mb-3"></textarea>
           </div>
-          <button data-template-id="notes-save-btn" id="notes-save" type="button" class="px-4 py-2.5 rounded-lg bg-amber-900 hover:bg-amber-955 text-amber-100 font-bold text-sm w-full transition shadow-md active:scale-95 flex items-center justify-center gap-2">
+          <button id="notes-save" type="button" class="px-4 py-2.5 rounded-lg bg-amber-900 hover:bg-amber-955 text-amber-100 font-bold text-sm w-full transition shadow-md active:scale-95 flex items-center justify-center gap-2">
             <i data-lucide="save" class="w-4 h-4"></i> Arşive Kaydet
           </button>
         </div>
@@ -546,7 +464,7 @@
     <div id="entries" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
     
     <!-- Boş Durum Bilgisi -->
-    <p id="empty-state" data-template-id="empty-msg" class="text-center py-16 text-amber-200/70 italic text-sm hidden">
+    <p id="empty-state" class="text-center py-16 text-amber-200/70 italic text-sm hidden">
       🔍 Aradığınız kriterlere uygun bir kayıt bulunamadı. Yukarıdan yeni bir tane ekleyebilirsiniz!
     </p>
     
@@ -556,7 +474,7 @@
     <div class="mt-16 pt-8 border-t border-amber-900/30 flex flex-col items-center">
       <div class="relative group">
         <div class="absolute -inset-1 bg-gradient-to-r from-amber-650 to-amber-900 rounded-lg blur opacity-25 group-hover:opacity-45 transition duration-300"></div>
-        <img data-template-id="ataturk-img" class="relative w-44 h-56 object-cover rounded-xl shadow-lg border border-amber-900/20 filter sepia-[20%] hover:sepia-0 transition duration-300" loading="lazy" src="https://images.pexels.com/photos/35689405/pexels-photo-35689405.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Atatürk Heykeli">
+        <img class="relative w-44 h-56 object-cover rounded-xl shadow-lg border border-amber-900/20 filter sepia-[20%] hover:sepia-0 transition duration-300" loading="lazy" src="https://images.pexels.com/photos/35689405/pexels-photo-35689405.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Atatürk Heykeli">
       </div>
       <p class="text-xs text-amber-400/40 mt-3 tracking-wide font-mono">Mustafa Kemal Atatürk</p>
     </div>
@@ -618,7 +536,7 @@
 
   <!-- Arşiv Kartı Şablonu -->
   <template id="entry-template">
-    <article data-template-id="entry-card" class="rounded-2xl p-5 border border-amber-955/20 bg-[#faf6f0] text-gray-800 relative group entry-card-shadow flex flex-col justify-between animate-fade-in">
+    <article class="rounded-2xl p-5 border border-amber-955/20 bg-[#faf6f0] text-gray-800 relative group entry-card-shadow flex flex-col justify-between animate-fade-in">
       <div>
         <div class="flex items-start justify-between gap-2 border-b border-amber-900/10 pb-2 mb-3">
           <span data-template-id="entry-badge" class="text-xs px-2.5 py-1 rounded-full font-semibold bg-amber-100 text-amber-900 border border-amber-200"></span>
@@ -628,7 +546,6 @@
         </div>
         <div class="flex flex-col gap-1">
           <h3 data-template-id="entry-title" class="heading-font font-bold text-amber-950 text-base leading-snug"></h3>
-          <!-- Kayıt Sahibi Üye Künyesi -->
           <span data-template-id="entry-owner" class="text-[9px] text-amber-800/60 font-mono tracking-tight hidden"></span>
         </div>
         <p data-template-id="entry-content" class="text-sm text-gray-600 mt-2 whitespace-pre-line leading-relaxed"></p>
@@ -638,7 +555,7 @@
         <time data-template-id="entry-date" class="block text-[11px] text-gray-400 font-mono"></time>
       </div>
 
-      <!-- Silme Onayı Paneli -->
+      <!-- Silme Onayı -->
       <div class="confirm-delete hidden absolute inset-0 bg-white/95 rounded-2xl flex flex-col items-center justify-center p-4 text-center z-20 backdrop-blur-sm animate-fade-in">
         <p class="text-sm font-semibold text-gray-800 mb-3">Bu kaydı arşivden tamamen silmek istediğinize emin misiniz?</p>
         <div class="flex gap-2">
@@ -649,9 +566,8 @@
     </article>
   </template>
 
-  <!-- BİRLEŞTİRİLMİŞ UYGULAMA VE VERİTABANI KONTROL SİSTEMİ -->
   <script>
-    // 1. GLOBAL GEREKSİNİMLERİN ERKEN BAĞLANMASI (ReferenceError & Truncation Önleyici)
+    // 1. Küresel Fonksiyonların Referans Tanımlamaları
     window.handleGateAuthSubmit = function(e) { e.preventDefault(); };
     window.handleAdminCreateMemberSubmit = function(e) { e.preventDefault(); };
     window.toggleTomrisDrawer = function() {};
@@ -679,7 +595,7 @@
     const MEMBERS_KEY = 'ortak_paylasim_kalici_uyeler';
     const CURRENT_USER_KEY = 'ortak_paylasim_aktif_oturum';
 
-    // XSS Protection Helper
+    // XSS Temizleyici
     function escapeHTML(str) {
       if (!str) return '';
       return str.replace(/[&<>'"]/g, 
@@ -687,7 +603,7 @@
       );
     }
 
-    // Audio Engine for micro-interactions
+    // Ses Efektleri Motoru
     const soundEffects = {
       ctx: null,
       init() {
@@ -743,7 +659,7 @@
       }
     };
 
-    // Flag fallbacks
+    // Bayrak Yüklenemezse Çizilecek Şablon
     function loadFallbackFlag(imgEl, colorHex, label) {
       imgEl.onerror = null;
       imgEl.style.display = 'none';
@@ -759,6 +675,7 @@
     }
     window.loadFallbackFlag = loadFallbackFlag;
 
+    // Örnek Arşiv Verileri
     const defaultMockData = [
       { 
         id: "1", 
@@ -803,7 +720,6 @@
       { id: "h2", category: "sohbet", title: "Baybars", content: "Aleykümselam Saka Hakanı. Moğol akınlarına karşı kalelerimiz tahkim edildi. Fermanlarımız her iki devlette birden yankılanır.", created_at: "2026-07-12T00:03:00.000Z" }
     ];
 
-    // FIREBASE PROJECT SETUP (RULE 3 ADHERENT)
     const defaultFirebaseConfig = {
       apiKey: "",
       authDomain: "mock-auth.firebaseapp.com",
@@ -816,7 +732,7 @@
     const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : defaultFirebaseConfig;
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
-    // DATA SDK - FIRESTORE INTEGRATION
+    // GERÇEK ZAMANLI VERİ SENKRONİZASYON SDK
     window.dataSdk = {
       _data: [],
       _handlers: [],
@@ -844,7 +760,6 @@
           this._db = firebase.firestore();
           this._firebaseEnabled = true;
 
-          // Rule 3: Auth Before Queries - await authentication completion
           const userCredential = await this._authenticate();
           this._user = userCredential ? userCredential.user : null;
 
@@ -997,9 +912,7 @@
               });
               this.mergeRemoteData(remoteEntries);
             }, (err) => {
-              console.warn("Firestore live entries subscription failed (switching to secure local sandbox mode):", err);
-              this._firebaseEnabled = false; 
-              showToast("Eşitleme bağlantısı kurulamadı. Çevrimdışı mod devrede.", "error");
+              console.warn("Firestore live entries subscription failed:", err);
             });
         } catch (e) {
           console.warn("Unable to start live entries subscription:", e);
@@ -1041,7 +954,7 @@
       }
     };
 
-    // PERSISTENT MEMBERSHIP ENGINE
+    // ARŞİVCİ & HAKAN KİMLİK DOĞRULAMA SİSTEMİ
     window.authSystem = {
       _usersDb: [],
       _activeUser: null,
@@ -1090,7 +1003,7 @@
                 renderMembersList();
               }
             }, (err) => {
-              console.warn("Firestore live members subscription failed (operating locally):", err);
+              console.warn("Firestore live members subscription failed:", err);
             });
         } catch (e) {
           console.warn("Unable to start live members subscription:", e);
@@ -1117,6 +1030,25 @@
               adminPanel.classList.add('hidden');
             }
           }
+
+          // Çekmece durum senkronizasyonları (Sayfa yenilense dahi açık kalır)
+          if (this._activeUser.uid === 'tomris_hakan') {
+            isTomrisLoggedIn = true;
+            const tLocked = document.getElementById('tomris-locked');
+            if (tLocked) tLocked.classList.add('hidden');
+            const tUnlocked = document.getElementById('tomris-unlocked');
+            if (tUnlocked) tUnlocked.classList.remove('hidden');
+            const tDot = document.getElementById('tomris-status-dot');
+            if (tDot) tDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
+          } else if (this._activeUser.uid === 'baybars_sultan') {
+            isBaybarsLoggedIn = true;
+            const bLocked = document.getElementById('baybars-locked');
+            if (bLocked) bLocked.classList.add('hidden');
+            const bUnlocked = document.getElementById('baybars-unlocked');
+            if (bUnlocked) bUnlocked.classList.remove('hidden');
+            const bDot = document.getElementById('baybars-status-dot');
+            if (bDot) bDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
+          }
         } else {
           if (gate) gate.classList.remove('hidden');
           if (adminPanel) adminPanel.classList.add('hidden');
@@ -1130,7 +1062,7 @@
 
         if (nameClean.toLowerCase() === 'tomris' || nameClean.toLowerCase() === 'tomris hatun' ||
             nameClean.toLowerCase() === 'baybars' || nameClean.toLowerCase() === 'sultan baybars') {
-          return { isOk: false, message: "Tomris ve Baybars hesapları ön tanımlı hakanlık korumalı hesaplardır!" };
+          return { isOk: false, message: "Tomris ve Baybars hesapları korumalı yönetici hesaplarıdır!" };
         }
 
         const userExists = this._usersDb.find(u => u.displayName && u.displayName.toLowerCase() === nameClean.toLowerCase());
@@ -1168,7 +1100,7 @@
         const nameClean = displayName ? displayName.trim().toLowerCase() : '';
         const pwdClean = password ? password.trim() : '';
 
-        // 1. Check for Predefined Nomadic character overrides (Pass: 1283 for both - FIXED & RE-VERIFIED)
+        // Tomris Giriş Doğrulaması (Gizli Şifre: 1283)
         if ((nameClean === 'tomris' || nameClean === 'tomris hatun') && pwdClean === '1283') {
           const tomrisUser = {
             uid: 'tomris_hakan',
@@ -1191,6 +1123,7 @@
           return { isOk: true, user: tomrisUser, autoOpen: 'tomris' };
         }
 
+        // Baybars Giriş Doğrulaması (Gizli Şifre: 1283)
         if ((nameClean === 'baybars' || nameClean === 'sultan baybars') && pwdClean === '1283') {
           const baybarsUser = {
             uid: 'baybars_sultan',
@@ -1213,7 +1146,7 @@
           return { isOk: true, user: baybarsUser, autoOpen: 'baybars' };
         }
 
-        // 2. Regular Registered User Lookup
+        // Genel Üye Giriş Doğrulaması
         const matchedUser = this._usersDb.find(u => {
           if (!u || !u.displayName) return false;
           return u.displayName.toLowerCase() === nameClean && u.password === pwdClean;
@@ -1268,7 +1201,6 @@
       }
     };
 
-    // CONTROLLERS & INTERACTION MAPPERS
     let allData = [];
     let activeTab = 'all';
     let gateAuthTab = 'login';
@@ -1289,7 +1221,7 @@
       psikoloji: '🧠' 
     };
 
-    // Beautiful UI-Based Custom Toast System
+    // Dinamik Toast Bildirim Sistemi
     function showToast(message, type = 'success') {
       const toast = document.getElementById('custom-toast');
       const toastText = document.getElementById('toast-text');
@@ -1314,7 +1246,7 @@
       }, 3550);
     }
 
-    // Set Gated screen Tab (Login / Register)
+    // Giriş/Kayıt Sekme Yönetimi
     function setGateTab(tab) {
       soundEffects.playClick();
       gateAuthTab = tab;
@@ -1337,6 +1269,7 @@
     }
     window.setGateTab = setGateTab;
 
+    // Giriş Form Gönderimi
     async function handleGateAuthSubmit(event) {
       event.preventDefault();
       const username = document.getElementById('gate-username').value;
@@ -1366,6 +1299,7 @@
     }
     window.handleGateAuthSubmit = handleGateAuthSubmit;
 
+    // Admin tarafından yeni üye eklendiğinde
     async function handleAdminCreateMemberSubmit(event) {
       event.preventDefault();
       soundEffects.playClick();
@@ -1408,12 +1342,10 @@
     }
     window.logoutUser = logoutUser;
 
-    // RENDER HAKANLIK MECLİSİ ÜYE LİSTESİ (Dynamic display for both management state and guests)
     function renderMembersList() {
       const membersListEl = document.getElementById('registered-members-list');
       if (!membersListEl) return;
 
-      // Start with the elite managers (Tomris & Baybars)
       let html = `
         <!-- Tomris Hatun -->
         <div class="flex items-center justify-between p-2.5 rounded-xl bg-amber-955/20 border border-amber-900/10">
@@ -1439,7 +1371,6 @@
         </div>
       `;
 
-      // Render other registered members safely
       const uniqueUsers = Array.from(new Set(window.authSystem._usersDb.map(u => u.uid)))
         .map(uid => window.authSystem._usersDb.find(u => u.uid === uid))
         .filter(u => u && u.displayName && u.displayName.toLowerCase() !== 'tomris' && u.displayName.toLowerCase() !== 'baybars');
@@ -1593,7 +1524,6 @@
       lucide.createIcons();
     }
 
-    // Çekmece İşlemleri
     function toggleTomrisDrawer() {
       soundEffects.playClick();
       const drawer = document.getElementById('tomris-drawer');
@@ -1624,6 +1554,7 @@
     }
     window.toggleBaybarsDrawer = toggleBaybarsDrawer;
 
+    // Tomris Çekmece Sır Anahtarı Girişi (Gizli Şifre: 1283)
     function loginTomris() {
       const input = document.getElementById('tomris-key-input');
       const errorMsg = document.getElementById('tomris-error');
@@ -1663,6 +1594,7 @@
     }
     window.logoutTomris = logoutTomris;
 
+    // Baybars Çekmece Sır Anahtarı Girişi (Gizli Şifre: 1283)
     function loginBaybars() {
       const input = document.getElementById('baybars-key-input');
       const errorMsg = document.getElementById('baybars-error');
@@ -1719,7 +1651,6 @@
       if (active !== 'baybars' && baybars) baybars.classList.add('translate-x-full');
     }
 
-    // SOHBET MESAJLARINI ÇİZME
     function renderSecretChats() {
       const chats = window.dataSdk.getSecretChats();
       chats.sort((a, b) => (a.created_at || '').localeCompare(b.created_at || ''));
@@ -1762,7 +1693,7 @@
       return publicData.filter(d => d.category === activeTab);
     }
 
-    // Akıllı URL Formatlama ve Başlık Temizleme
+    // Bağlantıları formatlama
     function formatTitleWithLink(item, titleEl) {
       const titleText = item.title || 'Başlıksız Kayıt';
       const linkText = item.link || '';
@@ -1797,7 +1728,6 @@
       }
     }
 
-    // Arşiv Kartlarını Çizme
     function renderEntries() {
       if (!entriesEl) return;
       const filtered = getFiltered();
@@ -1879,7 +1809,6 @@
       lucide.createIcons();
     }
 
-    // Hızlı Karalama Defterini Kaydetme
     const notesTextarea = document.getElementById('notes-textarea');
     const notesSaveBtn = document.getElementById('notes-save');
     if (notesSaveBtn) {
@@ -1916,7 +1845,6 @@
       });
     }
 
-    // Yeni Kayıt Formu Gönderme (Submit)
     if (form) {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -1926,7 +1854,7 @@
           return; 
         }
         
-        const btn = form.querySelector('[data-template-id="submit-btn"]');
+        const btn = form.querySelector('button[type="submit"]');
         if (btn) {
           btn.disabled = true; 
           btn.style.opacity = '0.7';
@@ -1960,7 +1888,6 @@
       });
     }
 
-    // Arama Çubuğu Canlı Filtreleme ve Dış Arama Entegrasyonu
     const searchInput = document.getElementById('top-search');
     if (searchInput) {
       searchInput.addEventListener('input', () => {
@@ -1979,7 +1906,6 @@
       }
     }
 
-    // Kategori Seçim Butonları
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         soundEffects.playClick();
@@ -1990,7 +1916,6 @@
       });
     });
 
-    // Veri Yedekleme (Export JSON)
     const exportBtn = document.getElementById('export-btn');
     if (exportBtn) {
       exportBtn.addEventListener('click', () => {
@@ -2015,7 +1940,6 @@
       });
     }
 
-    // Veri Yükleme (Import JSON)
     const importFileInput = document.getElementById('import-file');
     const importBtn = document.getElementById('import-btn');
     if (importBtn && importFileInput) {
@@ -2047,7 +1971,7 @@
       });
     }
 
-    // Tarayıcılar ve Sekmeler arası Canlı Çıkış / Oturum Senkronizasyon Veri Yolu (Multi-Tab Sync Bus)
+    // Sekmeler Arası Canlı Veri / Oturum Senkronizasyon Veri Yolu (HTML5 Storage Event)
     window.addEventListener('storage', (e) => {
       if (e.key === CURRENT_USER_KEY) {
         if (!e.newValue) {
@@ -2077,7 +2001,6 @@
       }
     });
 
-    // Global Kapsam Atamaları
     window.toggleTomrisDrawer = toggleTomrisDrawer;
     window.toggleBaybarsDrawer = toggleBaybarsDrawer;
     window.closeAllDrawers = closeAllDrawers;
@@ -2096,7 +2019,6 @@
     window.handleAdminCreateMemberSubmit = handleAdminCreateMemberSubmit;
     window.logoutUser = logoutUser;
 
-    // Klavye & Arama Dinleyicileri
     const tomrisKeyInput = document.getElementById('tomris-key-input');
     if (tomrisKeyInput) tomrisKeyInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') loginTomris(); });
     const baybarsKeyInput = document.getElementById('baybars-key-input');
@@ -2105,7 +2027,6 @@
     if (searchBtn) searchBtn.addEventListener('click', () => { executeExternalSearch(); });
     if (searchInput) searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { executeExternalSearch(); } });
 
-    // SDK Başlatma
     const handler = { 
       onDataChanged(data) { 
         allData = data; 
@@ -2118,17 +2039,14 @@
     };
 
     (async () => { 
-      // Initialize systems in proper sequence conforming to Rule 3 (Auth must finish first)
       await window.dataSdk.init(handler); 
       await window.authSystem.init();
 
-      // Trigger actual real-time synced listeners only when database is initialized, authenticated, and has credentials
       if (window.dataSdk._firebaseEnabled && window.dataSdk._user) {
         window.dataSdk.startRealtimeSync();
         window.authSystem.startMembersRealtimeListener();
       }
 
-      // Initial Meclis rendering
       renderMembersList();
       lucide.createIcons(); 
     })();
