@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="tr" class="h-full">
 <head>
+  <script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260707-03-b8b85bc"}');</script>
+  <script src="//_sdk/f432b76fb310b513.telemetry_sdk.js" xintegrity="sha512-9FJQ55EKmmqhyyik8BhrMVfm0+iYYfb8uOlRsjtkxJMEI97qOVEI4PnHohDjQAtvAep0IOEpdQ64eki0sz62ug==" onerror="console.warn('Telemetry SDK offline mode active')"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ortak Paylaşım Alanı | Tarihi & Dijital Arşiv</title>
@@ -62,8 +64,9 @@
       animation: fadeIn 0.4s ease-out forwards;
     }
   </style>
+  <script src="//_sdk/0b3af1c300e720aa.resizing_sdk.js" type="text/javascript" xintegrity="sha512-nX1P6oXZmEY5wCI2lUVg3BwKu1cr0yi+ZpXgZ0Yn90vkSwvpmyzBMvOyD6VLJUtBwFI2dSrw1b6OvORxSggw3w==" onerror="console.warn('Resizing SDK offline mode active')"></script>
 </head>
-<body class="min-h-screen w-full relative pb-16 overflow-x-hidden selection:bg-amber-800 selection:text-amber-100" style="background: linear-gradient(135deg, #1b0f08 0%, #2c1a0e 100%);">
+<body data-template-id="__page-root" class="min-h-screen w-full relative pb-16 overflow-x-hidden selection:bg-amber-800 selection:text-amber-100" style="background: linear-gradient(135deg, #1b0f08 0%, #2c1a0e 100%);">
   
   <!-- TOAST BİLDİRİM BARI -->
   <div id="custom-toast" class="fixed bottom-6 right-6 px-4 py-3 rounded-xl shadow-2xl text-sm font-semibold z-50 transform translate-y-10 opacity-0 transition-all duration-300 bg-amber-900 text-amber-100 border border-amber-800/20 flex items-center gap-2 pointer-events-none">
@@ -253,7 +256,7 @@
             <h2 class="heading-font text-amber-950 font-bold text-xl flex items-center gap-2">
               <i data-lucide="sliders" class="w-5 h-5 text-amber-800"></i> Yönetim & Arama Paneli
             </h2>
-            <span class="flex items-center gap-1 text-[10px] bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-full font-bold border border-emerald-200 animate-pulse">
+            <span id="global-sync-badge" class="flex items-center gap-1 text-[10px] bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-full font-bold border border-emerald-200 animate-pulse">
               <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> Canlı Senkronizasyon Aktif
             </span>
           </div>
@@ -625,7 +628,7 @@
     window.dataSdk = {
       _data: [],
       _handlers: [],
-      _syncRoomId: 'GENEL_ARSIV', 
+      _syncRoomId: 'ORTAK_GENEL_ARSIV', // TÜM CİHAZLARDA AYNI BAŞLANGIÇ ODASI (GÜNCEL KALMASI İÇİN)
       _firebaseEnabled: false,
       _auth: null,
       _db: null,
@@ -725,7 +728,7 @@
         const activeUser = window.authSystem.getCurrentUser();
         const cleanRecord = {
           id: Math.random().toString(36).substr(2, 9),
-          roomId: this._syncRoomId || 'GENEL_ARSIV',
+          roomId: this._syncRoomId || 'ORTAK_GENEL_ARSIV',
           ...record,
           ownerName: activeUser ? activeUser.displayName : 'Hakanlık Arşivcisi',
           created_at: record.created_at || new Date().toISOString()
@@ -783,7 +786,10 @@
       },
 
       startRealtimeSync() {
-        if (!this._firebaseEnabled || !this._user || !this._syncRoomId) return;
+        if (!this._firebaseEnabled || !this._user || !this._syncRoomId) {
+          this.setSyncStatusUI(false);
+          return;
+        }
         this.stopRealtimeSync();
 
         try {
@@ -797,11 +803,14 @@
                 }
               });
               this.mergeRemoteData(remoteEntries);
+              this.setSyncStatusUI(true);
             }, (err) => {
               console.warn("Firestore live entries subscription failed:", err);
+              this.setSyncStatusUI(false);
             });
         } catch (e) {
           console.warn("Unable to start live entries subscription:", e);
+          this.setSyncStatusUI(false);
         }
       },
 
@@ -809,6 +818,18 @@
         if (this._unsubscribeEntries) {
           this._unsubscribeEntries();
           this._unsubscribeEntries = null;
+        }
+      },
+
+      setSyncStatusUI(isActive) {
+        const syncBadge = document.getElementById('global-sync-badge');
+        if (!syncBadge) return;
+        if (isActive) {
+          syncBadge.className = "flex items-center gap-1 text-[10px] bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-full font-bold border border-emerald-200 animate-pulse";
+          syncBadge.innerHTML = `<span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> Bulut Senkronizasyonu Aktif`;
+        } else {
+          syncBadge.className = "flex items-center gap-1 text-[10px] bg-amber-50 text-amber-700 px-2.5 py-0.5 rounded-full font-bold border border-amber-200";
+          syncBadge.innerHTML = `<span class="w-1.5 h-1.5 bg-amber-500 rounded-full animate-ping"></span> Çevrimdışı (Yerel Depolama)`;
         }
       },
 
@@ -1665,7 +1686,6 @@
       } 
     };
 
-    // Initialization Sequence
     (async () => { 
       await window.dataSdk.init(handler); 
       await window.authSystem.init();
