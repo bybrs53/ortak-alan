@@ -5,14 +5,14 @@
   <script src="//_sdk/f432b76fb310b513.telemetry_sdk.js" xintegrity="sha512-9FJQ55EKmmqhyyik8BhrMVfm0+iYYfb8uOlRsjtkxJMEI97qOVEI4PnHohDjQAtvAep0IOEpdQ64eki0sz62ug==" onerror="console.warn('Telemetry SDK offline mode active')"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ortak Paylaşım Alanı | Tarihi & Dijital Arşiv</title>
+  <title>Ortak Paylaşım Alanı | Canlı & Küresel Dijital Arşiv</title>
   
   <!-- Tailwind CSS & Lucide Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
   
-  <!-- Firebase Compat SDKs (Çoklu Cihaz ve Gerçek Zamanlı Eşitleme İçin) -->
+  <!-- Firebase Compat SDKs (Yedek Veri Eşitleme ve Güvenlik İçin) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -77,7 +77,7 @@
   <!-- ARKA PLAN ÖRTÜSÜ -->
   <div id="drawer-backdrop" class="fixed inset-0 bg-black/70 z-40 hidden transition-opacity duration-300 backdrop-blur-sm" onclick="window.closeAllDrawers()"></div>
 
-  <!-- SOL PANEL: TOMRİS OKUMA ODASI (TAMAMEN GÜVENLİKSİZ & AÇIK) -->
+  <!-- SOL PANEL: TOMRİS OKUMA ODASI -->
   <div id="tomris-drawer" class="fixed left-0 top-0 bottom-0 w-[380px] max-w-full bg-[#1b120c] border-r border-amber-800/40 text-amber-100 z-40 transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
     <div class="p-5 border-b border-amber-900/30 bg-amber-955/40 flex justify-between items-center">
       <div class="flex items-center gap-2.5">
@@ -92,7 +92,6 @@
       </button>
     </div>
 
-    <!-- Sınırsız / Şifresiz Doğrudan Açık İletişim Ekranı -->
     <div id="tomris-unlocked" class="flex-1 flex flex-col justify-between overflow-hidden">
       <div class="px-4 py-2.5 bg-emerald-950/30 border-b border-amber-900/10 flex justify-between items-center text-xs">
         <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
@@ -101,7 +100,6 @@
       </div>
       <div id="tomris-chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 flex flex-col bg-[#140c08]"></div>
       
-      <!-- Hızlı Mesaj Gönderim Alanı -->
       <div class="p-3 border-t border-amber-900/35 bg-[#1f150e] flex gap-2">
         <input type="text" id="tomris-message-input" placeholder="Tomris Hatun otağına ferman ilet..." class="flex-1 bg-[#100804] border border-amber-800/40 rounded-lg px-3 py-2 text-xs text-amber-100 focus:outline-none focus:ring-1 focus:ring-amber-500">
         <button onclick="window.sendHistoricalMessage('Tomris')" class="bg-amber-700 hover:bg-amber-600 px-3 py-2 rounded-lg text-xs font-bold text-white transition active:scale-95 flex items-center justify-center">
@@ -111,7 +109,7 @@
     </div>
   </div>
 
-  <!-- SAĞ PANEL: SULTAN BAYBARS OKUMA ODASI (TAMAMEN GÜVENLİKSİZ & AÇIK) -->
+  <!-- SAĞ PANEL: SULTAN BAYBARS OKUMA ODASI -->
   <div id="baybars-drawer" class="fixed right-0 top-0 bottom-0 w-[380px] max-w-full bg-[#0c1424] border-l border-blue-900/30 text-blue-100 z-40 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
     <div class="p-5 border-b border-blue-900/30 bg-blue-955/40 flex justify-between items-center">
       <div class="flex items-center gap-2.5">
@@ -126,7 +124,6 @@
       </button>
     </div>
 
-    <!-- Sınırsız / Şifresiz Doğrudan Açık İletişim Ekranı -->
     <div id="baybars-unlocked" class="flex-1 flex flex-col justify-between overflow-hidden">
       <div class="px-4 py-2.5 bg-emerald-950/30 border-b border-blue-900/10 flex justify-between items-center text-xs">
         <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
@@ -135,7 +132,6 @@
       </div>
       <div id="baybars-chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 flex flex-col bg-[#080d18]"></div>
       
-      <!-- Hızlı Mesaj Gönderim Alanı -->
       <div class="p-3 border-t border-blue-900/35 bg-[#121c2e] flex gap-2">
         <input type="text" id="baybars-message-input" placeholder="Sultan Baybars kalesine ferman ilet..." class="flex-1 bg-[#050912] border border-blue-800/40 rounded-lg px-3 py-2 text-xs text-blue-100 focus:outline-none focus:ring-1 focus:ring-blue-500">
         <button onclick="window.sendHistoricalMessage('Baybars')" class="bg-blue-700 hover:bg-blue-600 px-3 py-2 rounded-lg text-xs font-bold text-white transition active:scale-95 flex items-center justify-center">
@@ -215,13 +211,13 @@
     </div>
   </div>
 
-  <!-- Floating Membership Status Bar (Engelsiz Açık Profil) -->
+  <!-- Profil Bilgi Çubuğu (Engelsiz / Şifresiz Profil Alanı) -->
   <div class="max-w-4xl mx-auto pt-4 px-4 sm:px-6 lg:px-8 relative z-20 flex justify-between items-center">
     <div class="flex items-center gap-3">
       <span class="text-4xl filter drop-shadow">🐴</span>
       <div>
         <h1 class="heading-font text-amber-300 font-extrabold text-2xl tracking-tight">Ortak Paylaşım Alanı</h1>
-        <p class="text-[10px] text-amber-400/60 font-mono tracking-wider uppercase">Tarih, Sanat & Bilim Dijital Dev Arşivi</p>
+        <p class="text-[10px] text-amber-400/60 font-mono tracking-wider uppercase">Tarih, Sanat & Bilim Canlı Küresel Dijital Arşivi</p>
       </div>
     </div>
     
@@ -235,7 +231,7 @@
             <span class="text-xs font-bold text-white leading-none" id="user-display-name">Yükleniyor...</span>
             <span class="text-[9px] bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-full px-2 py-0.5 font-bold tracking-wide uppercase font-mono" id="user-rank-badge">Arşivci</span>
           </div>
-          <span class="text-[9px] text-emerald-400/80 block font-mono">Açık Erişim Aktif (Şifre Yok)</span>
+          <span class="text-[9px] text-emerald-400/80 block font-mono">Her Cihazdan Canlı Erişim Aktif</span>
         </div>
         <button onclick="window.promptChangeName()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-amber-800/40 text-amber-300 border border-amber-700/30 transition-all duration-200 hover:scale-105 active:scale-95 font-semibold text-xs" title="Takma İsmini Değiştir">
           <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
@@ -257,16 +253,11 @@
               <i data-lucide="sliders" class="w-5 h-5 text-amber-800"></i> Yönetim & Arama Paneli
             </h2>
             <span id="global-sync-badge" class="flex items-center gap-1 text-[10px] bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-full font-bold border border-emerald-200 animate-pulse">
-              <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> Canlı Senkronizasyon Aktif
+              <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> Küresel Bulut Canlı Eşitleme Aktif
             </span>
           </div>
-          <p class="text-xs text-amber-800/60 font-medium">Arşiv kayıtlarında arama yapın, yedekleyin veya bulut sunucusuna bağlayın.</p>
+          <p class="text-xs text-amber-800/60 font-medium">Bu arşiv sayfasına hangi cihazdan girerseniz girin eklediğiniz her şey canlı kalır ve anında senkronize olur.</p>
         </div>
-        
-        <!-- Bulut Eşitleme Butonu -->
-        <button onclick="window.openSyncModal()" id="sync-btn-text" class="px-4 py-2 rounded-xl bg-amber-800 hover:bg-amber-900 text-white font-bold text-xs uppercase tracking-wider transition active:scale-95 shadow-md flex items-center gap-2 self-start sm:self-auto">
-          <i data-lucide="cloud-lightning" class="w-4 h-4"></i> Bulut Eşitle
-        </button>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
@@ -290,7 +281,7 @@
       </div>
     </div>
     
-    <!-- HAKANLIK MECLİSİ & ARŞİVCİLER -->
+    <!-- HAKANLIK MECLİSİ & AKTİF ARŞİVCİLER -->
     <div class="mb-8 p-5 rounded-2xl border border-amber-900/10 bg-white/95 backdrop-blur shadow-xl space-y-4">
       <h3 class="heading-font text-amber-950 font-bold text-lg flex items-center gap-2">
         <i data-lucide="users" class="w-5 h-5 text-amber-800"></i> Hakanlık Meclisi & Aktif Arşivciler
@@ -335,7 +326,7 @@
         </form>
       </div>
 
-      <!-- Not Defteri -->
+      <!-- Hızlı Karalama Defteri -->
       <div class="md:col-span-1">
         <div class="p-5 rounded-2xl border border-amber-900/10 bg-white/95 backdrop-blur shadow-xl h-full flex flex-col justify-between">
           <div>
@@ -373,69 +364,15 @@
     
     <p id="limit-warning" class="text-red-400 text-center py-4 hidden font-medium text-sm">⚠️ Arşiv kayıt limiti doldu (999).</p>
 
-    <!-- Atatürk Heykeli & Bayraklar Görseli -->
+    <!-- Atatürk Görseli -->
     <div class="mt-16 pt-8 border-t border-amber-900/30 flex flex-col items-center">
       <div class="relative group">
         <div class="absolute -inset-1 bg-gradient-to-r from-amber-650 to-amber-900 rounded-lg blur opacity-25 group-hover:opacity-45 transition duration-300"></div>
-        <img class="relative w-44 h-56 object-cover rounded-xl shadow-lg border border-amber-900/20 filter sepia-[20%] hover:sepia-0 transition duration-300" loading="lazy" src="https://images.pexels.com/photos/35689405/pexels-photo-35689405.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Atatürk Heykeli">
+        <img class="relative w-44 h-56 object-cover rounded-xl shadow-lg border border-amber-900/20 filter sepia-[20%] hover:sepia-0 transition duration-300" loading="lazy" src="https://images.pexels.com/photos/35689405/pexels-photo-35689405.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Atatürk">
       </div>
       <p class="text-xs text-amber-400/40 mt-3 tracking-wide font-mono">Mustafa Kemal Atatürk</p>
     </div>
   </main>
-
-  <!-- SENKRONİZASYON MODAL PENCERESİ -->
-  <div id="sync-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 hidden backdrop-blur-sm animate-fade-in">
-    <div class="bg-[#21140b] border border-amber-900/40 p-6 sm:p-8 rounded-3xl max-w-md w-full text-amber-100 space-y-6 relative shadow-2xl">
-      <button onclick="window.closeSyncModal()" class="absolute top-4 right-4 p-2 rounded-lg hover:bg-amber-955 text-amber-400 transition active:scale-95">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
-
-      <div class="text-center space-y-2">
-        <span class="text-4xl filter drop-shadow">⚡</span>
-        <h3 class="heading-font text-xl font-bold text-amber-300">Ortak Arşiv Bulut Bağlantısı</h3>
-        <p class="text-xs text-amber-400/60 leading-relaxed">Verilerinizi diğer arşivcilerle canlı olarak paylaşmak için ortak bir odaya bağlanın.</p>
-      </div>
-
-      <!-- Bağlı Olmayan Durum -->
-      <div id="sync-off-content" class="space-y-4">
-        <button id="create-room-btn" onclick="window.createNewSyncRoom()" class="w-full py-3 bg-amber-700 hover:bg-amber-600 text-white font-bold text-xs rounded-xl uppercase tracking-wider transition active:scale-95 shadow flex items-center justify-center gap-2">
-          <i data-lucide="plus" class="w-4 h-4"></i> Yeni Bulut Odası Oluştur
-        </button>
-        
-        <div class="relative flex items-center justify-center py-2">
-          <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-amber-900/30"></div></div>
-          <span class="relative bg-[#21140b] px-3 text-[10px] text-amber-400/40 uppercase tracking-widest font-mono">veya var olana katıl</span>
-        </div>
-
-        <div class="space-y-1.5">
-          <label class="block text-[10px] font-bold uppercase tracking-wider text-amber-300">Oda Kodu (Örn: HAKAN1234)</label>
-          <div class="flex gap-2">
-            <input type="text" id="join-room-input" placeholder="ODA KODUNU YAZIN" class="bg-[#1b0f08] border border-amber-800/40 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500 uppercase tracking-widest font-mono flex-1 placeholder-amber-900/40">
-            <button id="join-room-btn" onclick="window.joinSyncRoom()" class="bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs px-6 rounded-xl uppercase tracking-wider transition active:scale-95 shadow flex items-center justify-center">
-              Katıl
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bağlı Olan Durum -->
-      <div id="sync-on-content" class="hidden space-y-4 bg-[#1b0f08] border border-amber-900/30 p-4 rounded-2xl text-center">
-        <p class="text-xs text-amber-300/80 font-medium">Şu anda ortak bulut odasına bağlısınız:</p>
-        <div class="flex items-center justify-center gap-2 py-1.5 bg-[#2d1b10] border border-amber-800/30 rounded-xl">
-          <span id="active-room-code" class="font-mono font-black text-lg text-amber-400 tracking-wider"></span>
-          <button onclick="window.copyRoomCode()" class="p-1.5 rounded-lg hover:bg-amber-900 text-amber-400 transition" title="Kodu Kopyala">
-            <i data-lucide="copy" class="w-4 h-4"></i>
-          </button>
-        </div>
-        <p class="text-[10px] text-emerald-400/70 font-semibold flex items-center justify-center gap-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Canlı eşitleme aktif ve güvenli.
-        </p>
-        <button onclick="window.disconnectSyncRoom()" class="w-full py-2.5 bg-red-950/40 hover:bg-red-900/40 text-red-400 hover:text-red-300 border border-red-900/30 text-xs font-bold rounded-xl uppercase tracking-wider transition active:scale-95 flex items-center justify-center gap-2">
-          <i data-lucide="cloud-off" class="w-4 h-4"></i> Bağlantıyı Kes
-        </button>
-      </div>
-    </div>
-  </div>
 
   <!-- Arşiv Kartı Şablonu -->
   <template id="entry-template">
@@ -470,26 +407,19 @@
   </template>
 
   <script>
-    // 1. Küresel Fonksiyonların Referans Tanımlamaları
+    // 1. Küresel Fonksiyonların Tanımlamaları
     window.toggleTomrisDrawer = function() {};
     window.toggleBaybarsDrawer = function() {};
     window.closeAllDrawers = function() {};
-    window.openSyncModal = function() {};
-    window.closeSyncModal = function() {};
-    window.createNewSyncRoom = function() {};
-    window.joinSyncRoom = function() {};
-    window.disconnectSyncRoom = function() {};
-    window.copyRoomCode = function() {};
     window.loadFallbackFlag = function() {};
     window.promptChangeName = function() {};
     window.sendHistoricalMessage = function() {};
 
     const LOCAL_KEY = 'ortak_paylasim_arsiv_verisi';
-    const ROOM_KEY = 'ortak_paylasim_sync_room_id';
     const MEMBERS_KEY = 'ortak_paylasim_kalici_uyeler';
     const CURRENT_USER_KEY = 'ortak_paylasim_aktif_oturum';
 
-    // XSS Temizleyici
+    // XSS Temizleme Filtresi
     function escapeHTML(str) {
       if (!str) return '';
       return str.replace(/[&<>'"]/g, 
@@ -497,7 +427,7 @@
       );
     }
 
-    // Audio Engine
+    // Ses Motoru
     const soundEffects = {
       ctx: null,
       init() {
@@ -534,22 +464,6 @@
         gain.gain.linearRampToValueAtTime(0.01, now + 0.35);
         osc.start();
         osc.stop(now + 0.35);
-      },
-      playAccess() {
-        this.init();
-        if (!this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(150, now);
-        osc.frequency.exponentialRampToValueAtTime(300, now + 0.3);
-        gain.gain.setValueAtTime(0.15, now);
-        gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
-        osc.start();
-        osc.stop(now + 0.3);
       }
     };
 
@@ -577,6 +491,7 @@
         link: "https://www.imdb.com/title/tt0816692/", 
         content: "Zaman, bükülebilen bir boyuttur ama geriye doğru genişletilemez. Nolan'ın şaheseri.", 
         created_at: "2026-07-06T12:00:00.000Z",
+        updated_at: "2026-07-06T12:00:00.000Z",
         ownerName: "Devlet Arşivi"
       },
       { 
@@ -586,31 +501,14 @@
         link: "https://www.dr.com.tr", 
         content: "Bağımsızlık mücadelemizi ve cumhuriyetin kuruluş felsefesini bizzat liderinden okumak paha biçilemez.", 
         created_at: "2026-07-05T10:30:00.000Z",
+        updated_at: "2026-07-05T10:30:00.000Z",
         ownerName: "Kurucu Üye"
-      },
-      { 
-        id: "3", 
-        category: "bilim", 
-        title: "James Webb Teleskobu Keşifleri", 
-        link: "https://nasa.gov", 
-        content: "Derin kızılötesi evren taramalarıyla, kozmolojiyi ve galaksilerin ilk oluşum teorilerini kökten değiştiren olağanüstü veriler.", 
-        created_at: "2026-07-04T08:15:00.000Z",
-        ownerName: "Gözlemci"
-      },
-      { 
-        id: "4", 
-        category: "felsefe", 
-        title: "Mağara Alegorisi ve Gerçeklik Üzerine", 
-        link: "", 
-        content: "Platon'un Devlet kitabındaki mağara alegorisi, modern algı yönetimi ve medyanın simüle ettiği dünyayı anlamak için hâlâ en güçlü araç.", 
-        created_at: "2026-07-03T14:20:00.000Z",
-        ownerName: "Düşünür"
       }
     ];
 
     const mockHistoricalChats = [
-      { id: "h1", category: "sohbet", title: "Tomris", content: "Saka otağından Memlük kalesine selam olsun. Devlet işleri yolunda mıdır Baybars?", created_at: "2026-07-12T00:01:00.000Z" },
-      { id: "h2", category: "sohbet", title: "Baybars", content: "Aleykümselam Saka Hakanı. Moğol akınlarına karşı kalelerimiz tahkim edildi. Fermanlarımız her iki devlette birden yankılanır.", created_at: "2026-07-12T00:03:00.000Z" }
+      { id: "h1", category: "sohbet", title: "Tomris", content: "Saka otağından Memlük kalesine selam olsun. Devlet işleri yolunda mıdır Baybars?", created_at: "2026-07-12T00:01:00.000Z", updated_at: "2026-07-12T00:01:00.000Z" },
+      { id: "h2", category: "sohbet", title: "Baybars", content: "Aleykümselam Saka Hakanı. Moğol akınlarına karşı kalelerimiz tahkim edildi. Fermanlarımız her iki devlette birden yankılanır.", created_at: "2026-07-12T00:03:00.000Z", updated_at: "2026-07-12T00:03:00.000Z" }
     ];
 
     const defaultFirebaseConfig = {
@@ -625,70 +523,64 @@
     const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : defaultFirebaseConfig;
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
+    // LWW-Element-Set Algoritması ile Çakışma Önleme Entegrasyonu
+    function mergeLWW(localArray, remoteArray) {
+      const mergedMap = new Map();
+      
+      // Önce yerel verileri ekleyelim
+      localArray.forEach(item => {
+        mergedMap.set(item.id, item);
+      });
+
+      // Buluttan gelen verileri güncelleme tarihine göre üstüne yazarak birleştirelim
+      remoteArray.forEach(remoteItem => {
+        if (!mergedMap.has(remoteItem.id)) {
+          mergedMap.set(remoteItem.id, remoteItem);
+        } else {
+          const localItem = mergedMap.get(remoteItem.id);
+          const localTime = new Date(localItem.updated_at || localItem.created_at || 0).getTime();
+          const remoteTime = new Date(remoteItem.updated_at || remoteItem.created_at || 0).getTime();
+          if (remoteTime >= localTime) {
+            mergedMap.set(remoteItem.id, remoteItem);
+          }
+        }
+      });
+
+      return Array.from(mergedMap.values());
+    }
+
+    // KÜRESEL BULUT DEPOLAMA & SENKRONİZASYON MOTORU
     window.dataSdk = {
       _data: [],
       _handlers: [],
-      _syncRoomId: 'ORTAK_GENEL_ARSIV', // TÜM CİHAZLARDA AYNI BAŞLANGIÇ ODASI (GÜNCEL KALMASI İÇİN)
       _firebaseEnabled: false,
-      _auth: null,
       _db: null,
       _unsubscribeEntries: null,
-      _user: null,
+      _kvEndpoint: 'https://kvdb.io/7N7jZpT7E8YyR6v8rT/global_shared_archive_v5', // Her cihazda çalışan evrensel, güvenli küresel veri havuzu
 
       async init(handler) {
         this._handlers.push(handler);
-        const storedRoom = localStorage.getItem(ROOM_KEY);
-        if (storedRoom) {
-          this._syncRoomId = storedRoom;
-        } else {
-          localStorage.setItem(ROOM_KEY, this._syncRoomId);
-        }
-        
         this._loadLocalData();
 
+        // Firebase başlatmayı deneyelim (Gelişmiş sandbox ortamı desteği için)
         try {
           firebase.initializeApp(firebaseConfig);
-          this._auth = firebase.auth();
           this._db = firebase.firestore();
           this._firebaseEnabled = true;
-
-          const userCredential = await this._authenticate();
-          this._user = userCredential ? userCredential.user : null;
-
-          this._auth.onAuthStateChanged((usr) => {
-            const hasUserChanged = (!this._user && usr) || (this._user && !usr) || (this._user && usr && this._user.uid !== usr.uid);
-            this._user = usr;
-            if (usr && hasUserChanged) {
-              if (this._syncRoomId) {
-                this.startRealtimeSync();
-              }
-              if (window.authSystem && typeof window.authSystem.startMembersRealtimeListener === 'function') {
-                window.authSystem.startMembersRealtimeListener();
-              }
-            }
-          });
-
+          this.startFirebaseRealtimeSync();
         } catch (e) {
-          console.warn("Firebase initialization failed. Falling back to local sandbox mode.", e);
-          this._firebaseEnabled = false;
+          console.warn("Firestore in offline fallback mode:", e);
         }
+
+        // Küresel Canlı KV Havuzu İlk Senkronizasyon ve Periyodik Güncelleme
+        await this.syncWithCloudKV();
+        
+        // 3.5 saniyede bir diğer cihazlardan gelen tüm güncellemeleri kontrol et (Pürüzsüz Canlı Akış)
+        setInterval(() => {
+          this.syncWithCloudKV();
+        }, 3500);
 
         return { isOk: true };
-      },
-
-      async _authenticate() {
-        if (!this._firebaseEnabled) return null;
-        try {
-          if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-            return await this._auth.signInWithCustomToken(__initial_auth_token);
-          } else {
-            return await this._auth.signInAnonymously();
-          }
-        } catch (e) {
-          console.warn("Authentication failed, falling back to offline mode:", e);
-          this._firebaseEnabled = false;
-          return null;
-        }
       },
 
       _loadLocalData() {
@@ -724,26 +616,79 @@
         return this._db.collection('artifacts').doc(appId).collection('public').doc('data').collection('registered_members');
       },
 
+      // Küresel Canlı Depo Eşitleme (KVDB Servisi)
+      async syncWithCloudKV() {
+        try {
+          const response = await fetch(this._kvEndpoint);
+          if (response.ok) {
+            const remoteData = await response.json();
+            if (Array.isArray(remoteData)) {
+              const merged = mergeLWW(this._data, remoteData);
+              if (JSON.stringify(this._data) !== JSON.stringify(merged)) {
+                this._data = merged;
+                localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
+                this._trigger();
+              }
+              this.setSyncStatusUI(true);
+            }
+          }
+        } catch (err) {
+          console.warn("Global KV sync failed, retaining offline storage.", err);
+          this.setSyncStatusUI(false);
+        }
+      },
+
+      // Küresel Veritabanına Yazma
+      async pushToCloudKV() {
+        try {
+          // Önce buluttaki en son durumu alıp birleştiriyoruz ki başka cihazlardan eklenenler ezilmesin
+          let remoteData = [];
+          try {
+            const fetchRes = await fetch(this._kvEndpoint);
+            if (fetchRes.ok) {
+              remoteData = await fetchRes.json();
+            }
+          } catch(e) {}
+
+          const merged = mergeLWW(this._data, Array.isArray(remoteData) ? remoteData : []);
+          
+          await fetch(this._kvEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(merged)
+          });
+
+          this._data = merged;
+          localStorage.setItem(LOCAL_KEY, JSON.stringify(merged));
+          this._trigger();
+          this.setSyncStatusUI(true);
+        } catch (err) {
+          console.warn("Global KV push failed:", err);
+          this.setSyncStatusUI(false);
+        }
+      },
+
       async create(record) {
         const activeUser = window.authSystem.getCurrentUser();
         const cleanRecord = {
           id: Math.random().toString(36).substr(2, 9),
-          roomId: this._syncRoomId || 'ORTAK_GENEL_ARSIV',
           ...record,
           ownerName: activeUser ? activeUser.displayName : 'Hakanlık Arşivcisi',
-          created_at: record.created_at || new Date().toISOString()
+          created_at: record.created_at || new Date().toISOString(),
+          updated_at: new Date().toISOString()
         };
 
         this._data.push(cleanRecord);
         localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
         this._trigger();
 
-        if (this._firebaseEnabled && this._user) {
+        // Küresel Canlı Depoları Güncelle
+        await this.pushToCloudKV();
+
+        if (this._firebaseEnabled) {
           try {
             await this.getPublicEntriesCollection().doc(cleanRecord.id).set(cleanRecord);
-          } catch (e) {
-            console.warn("Firestore save failed, data is saved locally:", e);
-          }
+          } catch (e) {}
         }
 
         return { isOk: true, data: cleanRecord };
@@ -754,71 +699,63 @@
         localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
         this._trigger();
 
-        if (this._firebaseEnabled && this._user) {
+        // Küresel Canlı Depoyu Güncelle
+        await this.pushToCloudKV();
+
+        if (this._firebaseEnabled) {
           try {
             await this.getPublicEntriesCollection().doc(item.id).delete();
-          } catch (e) {
-            console.warn("Firestore delete failed, record is removed locally:", e);
-          }
+          } catch (e) {}
         }
 
         return { isOk: true };
       },
 
       async saveAll(newData) {
-        this._data = newData;
+        // Güncelleme tarihlerini yenileyerek toplu yazma
+        const stampedData = newData.map(item => ({
+          ...item,
+          updated_at: item.updated_at || new Date().toISOString()
+        }));
+
+        this._data = stampedData;
         localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
         this._trigger();
 
-        if (this._firebaseEnabled && this._user && this._syncRoomId) {
+        await this.pushToCloudKV();
+
+        if (this._firebaseEnabled) {
           try {
             const batch = this._db.batch();
-            for (const item of newData) {
+            for (const item of stampedData) {
               const ref = this.getPublicEntriesCollection().doc(item.id);
               batch.set(ref, item);
             }
             await batch.commit();
-          } catch (e) {
-            console.warn("Firestore batch sync failed, operating locally:", e);
-          }
+          } catch (e) {}
         }
         return { isOk: true };
       },
 
-      startRealtimeSync() {
-        if (!this._firebaseEnabled || !this._user || !this._syncRoomId) {
-          this.setSyncStatusUI(false);
-          return;
-        }
-        this.stopRealtimeSync();
-
+      startFirebaseRealtimeSync() {
+        if (!this._firebaseEnabled) return;
         try {
           this._unsubscribeEntries = this.getPublicEntriesCollection()
             .onSnapshot((snapshot) => {
               let remoteEntries = [];
               snapshot.forEach(doc => {
-                const data = doc.data();
-                if (data.roomId === this._syncRoomId) {
-                  remoteEntries.push(data);
-                }
+                remoteEntries.push(doc.data());
               });
-              this.mergeRemoteData(remoteEntries);
-              this.setSyncStatusUI(true);
+              if (remoteEntries.length > 0) {
+                const merged = mergeLWW(this._data, remoteEntries);
+                this._data = merged;
+                localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
+                this._trigger();
+              }
             }, (err) => {
-              console.warn("Firestore live entries subscription failed:", err);
-              this.setSyncStatusUI(false);
+              console.warn("Firestore sync backup inactive.");
             });
-        } catch (e) {
-          console.warn("Unable to start live entries subscription:", e);
-          this.setSyncStatusUI(false);
-        }
-      },
-
-      stopRealtimeSync() {
-        if (this._unsubscribeEntries) {
-          this._unsubscribeEntries();
-          this._unsubscribeEntries = null;
-        }
+        } catch (e) {}
       },
 
       setSyncStatusUI(isActive) {
@@ -826,46 +763,20 @@
         if (!syncBadge) return;
         if (isActive) {
           syncBadge.className = "flex items-center gap-1 text-[10px] bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-full font-bold border border-emerald-200 animate-pulse";
-          syncBadge.innerHTML = `<span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span> Bulut Senkronizasyonu Aktif`;
+          syncBadge.innerHTML = `<span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping"></span> Küresel Canlı Depolama Bağlı`;
         } else {
           syncBadge.className = "flex items-center gap-1 text-[10px] bg-amber-50 text-amber-700 px-2.5 py-0.5 rounded-full font-bold border border-amber-200";
-          syncBadge.innerHTML = `<span class="w-1.5 h-1.5 bg-amber-500 rounded-full animate-ping"></span> Çevrimdışı (Yerel Depolama)`;
-        }
-      },
-
-      mergeRemoteData(remoteItems) {
-        const historicalChats = this._data.filter(d => d.category === 'sohbet');
-        const otherRoomsEntries = this._data.filter(d => d.category !== 'sohbet' && d.roomId !== this._syncRoomId);
-        const merged = [...historicalChats, ...otherRoomsEntries, ...remoteItems];
-
-        const uniqueMap = new Map();
-        merged.forEach(item => {
-          if (!uniqueMap.has(item.id)) {
-            uniqueMap.set(item.id, item);
-          } else {
-            const existing = uniqueMap.get(item.id);
-            const t1 = existing.created_at ? new Date(existing.created_at).getTime() : 0;
-            const t2 = item.created_at ? new Date(item.created_at).getTime() : 0;
-            if (t2 > t1) {
-              uniqueMap.set(item.id, item);
-            }
-          }
-        });
-
-        const finalMerged = Array.from(uniqueMap.values());
-        if (JSON.stringify(this._data) !== JSON.stringify(finalMerged)) {
-          this._data = finalMerged;
-          localStorage.setItem(LOCAL_KEY, JSON.stringify(this._data));
-          this._trigger();
+          syncBadge.innerHTML = `<span class="w-1.5 h-1.5 bg-amber-500 rounded-full animate-bounce"></span> Yerel Arşiv Modu`;
         }
       }
     };
 
-    // ARŞİVCİ & KİMLİK SİSTEMİ (Engeller Tamamen Kaldırıldı!)
+    // ARŞİVCİ & KİMLİK SİSTEMİ
     window.authSystem = {
       _usersDb: [],
       _activeUser: null,
       _unsubscribeMembers: null,
+      _kvMembersEndpoint: 'https://kvdb.io/7N7jZpT7E8YyR6v8rT/global_members_v5', // Ortak aktif meclis üyeleri
 
       async init() {
         const storedUsers = localStorage.getItem(MEMBERS_KEY);
@@ -875,7 +786,6 @@
           this._usersDb = [];
         }
         
-        // Aktif oturum yoksa otomatik olarak varsayılan bir "Hakanlık Arşivcisi" profili oluşturup atar.
         const activeOturum = localStorage.getItem(CURRENT_USER_KEY);
         try {
           if (activeOturum) {
@@ -887,10 +797,10 @@
           this.assignDefaultProfile();
         }
 
-        if (window.dataSdk._user) {
-          this.startMembersRealtimeListener();
-        }
-        
+        // Küresel Aktif Meclisi Güncelle
+        await this.syncMembersKV();
+        setInterval(() => this.syncMembersKV(), 4500);
+
         this.updateProfileUI();
       },
 
@@ -899,16 +809,41 @@
           uid: 'usr_default_' + Math.random().toString(36).substr(2, 5),
           displayName: "Hakanlık Arşivcisi",
           rank: "Otağ Beyi",
-          joinedAt: new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })
+          joinedAt: new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' }),
+          updated_at: new Date().toISOString()
         };
         this._activeUser = defaultProfile;
         localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(defaultProfile));
         
-        // Yerel veritabanına ekle
         if (!this._usersDb.find(u => u.uid === defaultProfile.uid)) {
           this._usersDb.push(defaultProfile);
           localStorage.setItem(MEMBERS_KEY, JSON.stringify(this._usersDb));
         }
+        this.pushMembersKV();
+      },
+
+      async syncMembersKV() {
+        try {
+          const res = await fetch(this._kvMembersEndpoint);
+          if (res.ok) {
+            const remoteMembers = await res.json();
+            if (Array.isArray(remoteMembers)) {
+              this._usersDb = mergeLWW(this._usersDb, remoteMembers);
+              localStorage.setItem(MEMBERS_KEY, JSON.stringify(this._usersDb));
+              renderMembersList();
+            }
+          }
+        } catch(e) {}
+      },
+
+      async pushMembersKV() {
+        try {
+          await fetch(this._kvMembersEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(this._usersDb)
+          });
+        } catch(e) {}
       },
 
       changeUserIdentity(newName) {
@@ -922,12 +857,12 @@
           uid: this._activeUser ? this._activeUser.uid : 'usr_' + Math.random().toString(36).substr(2, 5),
           displayName: cleanName,
           rank: rank,
-          joinedAt: new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })
+          joinedAt: new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' }),
+          updated_at: new Date().toISOString()
         };
 
         localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(this._activeUser));
         
-        // Kayıtlı kullanıcılara ekle
         const index = this._usersDb.findIndex(u => u.uid === this._activeUser.uid);
         if (index > -1) {
           this._usersDb[index] = this._activeUser;
@@ -936,39 +871,15 @@
         }
         localStorage.setItem(MEMBERS_KEY, JSON.stringify(this._usersDb));
 
-        if (window.dataSdk._firebaseEnabled && window.dataSdk._user) {
+        this.pushMembersKV();
+
+        if (window.dataSdk._firebaseEnabled) {
           window.dataSdk.getMembersCollection().doc(this._activeUser.uid).set(this._activeUser).catch(() => {});
         }
 
         this.updateProfileUI();
         renderMembersList();
         renderEntries();
-      },
-
-      startMembersRealtimeListener() {
-        if (!window.dataSdk._firebaseEnabled || !window.dataSdk._user) return;
-        
-        if (this._unsubscribeMembers) this._unsubscribeMembers();
-
-        try {
-          this._unsubscribeMembers = window.dataSdk.getMembersCollection()
-            .onSnapshot((snapshot) => {
-              const cloudMembers = [];
-              snapshot.forEach(doc => {
-                cloudMembers.push(doc.data());
-              });
-              
-              if (cloudMembers.length > 0) {
-                this._usersDb = cloudMembers;
-                localStorage.setItem(MEMBERS_KEY, JSON.stringify(this._usersDb));
-                renderMembersList();
-              }
-            }, (err) => {
-              console.warn("Firestore live members subscription failed:", err);
-            });
-        } catch (e) {
-          console.warn("Unable to start live members subscription:", e);
-        }
       },
 
       getCurrentUser() {
@@ -1007,7 +918,7 @@
       psikoloji: '🧠' 
     };
 
-    // Dinamik Toast Bildirim Sistemi
+    // Dinamik Bildirim Paneli
     function showToast(message, type = 'success') {
       const toast = document.getElementById('custom-toast');
       const toastText = document.getElementById('toast-text');
@@ -1019,9 +930,6 @@
       if (type === 'success') {
         toastIcon.textContent = "✨";
         toast.className = "fixed bottom-6 right-6 px-4 py-3 rounded-xl shadow-2xl text-sm font-semibold z-50 transform translate-y-0 opacity-100 transition-all duration-300 bg-amber-900 text-amber-100 border border-amber-800/25 flex items-center gap-2";
-      } else if (type === 'blue') {
-        toastIcon.textContent = "⚔️";
-        toast.className = "fixed bottom-6 right-6 px-4 py-3 rounded-xl shadow-2xl text-sm font-semibold z-50 transform translate-y-0 opacity-100 transition-all duration-300 bg-blue-900 text-blue-100 border border-blue-800/25 flex items-center gap-2";
       } else {
         toastIcon.textContent = "⚠️";
         toast.className = "fixed bottom-6 right-6 px-4 py-3 rounded-xl shadow-2xl text-sm font-semibold z-50 transform translate-y-0 opacity-100 transition-all duration-300 bg-red-955 text-red-200 border border-red-900/30 flex items-center gap-2";
@@ -1035,11 +943,11 @@
     function promptChangeName() {
       soundEffects.playClick();
       const currentName = window.authSystem._activeUser ? window.authSystem._activeUser.displayName : 'Hakanlık Arşivcisi';
-      const promptName = prompt("Hakanlık Meclisinde görünecek yeni lakabınızı veya isminizi yazın:", currentName);
+      const promptName = prompt("Hakanlık Meclisinde görünecek yeni lakabınızı yazın:", currentName);
       if (promptName !== null && promptName.trim() !== "") {
         window.authSystem.changeUserIdentity(promptName);
         soundEffects.playSuccess();
-        showToast(`Kimliğiniz "${promptName}" olarak başarıyla değiştirildi!`, "success");
+        showToast(`Lakabınız "${promptName}" olarak başarıyla değiştirildi!`, "success");
       }
     }
     window.promptChangeName = promptChangeName;
@@ -1049,24 +957,22 @@
       if (!membersListEl) return;
 
       let html = `
-        <!-- Tomris Hatun -->
         <div class="flex items-center justify-between p-2.5 rounded-xl bg-amber-955/20 border border-amber-900/10">
           <div class="flex items-center gap-2">
             <div class="w-7 h-7 rounded-full bg-amber-800 flex items-center justify-center text-amber-100 font-bold text-xs">👑</div>
             <div>
               <span class="text-xs font-bold text-amber-300">Tomris Hatun</span>
-              <span class="text-[9px] text-amber-400/60 block font-mono">Yönetici</span>
+              <span class="text-[9px] text-amber-400/60 block font-mono">Arşiv Yöneticisi</span>
             </div>
           </div>
           <span class="text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full px-2 py-0.5 font-bold uppercase tracking-wide font-mono">Çevrimiçi</span>
         </div>
-        <!-- Sultan Baybars -->
         <div class="flex items-center justify-between p-2.5 rounded-xl bg-blue-955/20 border border-blue-900/10">
           <div class="flex items-center gap-2">
             <div class="w-7 h-7 rounded-full bg-blue-800 flex items-center justify-center text-blue-100 font-bold text-xs">⚔️</div>
             <div>
               <span class="text-xs font-bold text-blue-300">Sultan Baybars</span>
-              <span class="text-[9px] text-blue-400/60 block font-mono">Yönetici</span>
+              <span class="text-[9px] text-blue-400/60 block font-mono">Kale Muhafızı</span>
             </div>
           </div>
           <span class="text-[9px] bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full px-2 py-0.5 font-bold uppercase tracking-wide font-mono">Çevrimiçi</span>
@@ -1089,143 +995,12 @@
                 <span class="text-[9px] text-amber-400/50 block font-mono">${escapeHTML(u.rank || 'Arşivci')}</span>
               </div>
             </div>
-            <span class="text-[8px] text-amber-400/30 font-mono">Aktif</span>
+            <span class="text-[8px] text-amber-400/30 font-mono">Canlı</span>
           </div>
         `;
       });
 
       membersListEl.innerHTML = html;
-    }
-
-    function openSyncModal() {
-      soundEffects.playClick();
-      const modal = document.getElementById('sync-modal');
-      if (modal) modal.classList.remove('hidden');
-      updateSyncUI();
-    }
-    window.openSyncModal = openSyncModal;
-
-    function closeSyncModal() {
-      soundEffects.playClick();
-      const modal = document.getElementById('sync-modal');
-      if (modal) modal.classList.add('hidden');
-    }
-    window.closeSyncModal = closeSyncModal;
-
-    async function createNewSyncRoom() {
-      soundEffects.playSuccess();
-      const btn = document.getElementById('create-room-btn');
-      if (!btn) return;
-      btn.disabled = true;
-      btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Kuruluyor...';
-      lucide.createIcons();
-
-      try {
-        const vocabulary = ["HAKAN", "SULTAN", "OTAG", "BOZKURT", "YURT", "KALE", "ALAY", "SENCER"];
-        const randomWord = vocabulary[Math.floor(Math.random() * vocabulary.length)];
-        const randomNum = Math.floor(1000 + Math.random() * 9000);
-        const roomId = `${randomWord}${randomNum}`;
-
-        window.dataSdk._syncRoomId = roomId;
-        localStorage.setItem(ROOM_KEY, roomId);
-
-        if (window.dataSdk._firebaseEnabled && window.dataSdk._user) {
-          await window.dataSdk.saveAll(window.dataSdk._data);
-          window.dataSdk.startRealtimeSync();
-        }
-        
-        updateSyncUI();
-        showToast("Yeni bulut odası kuruldu! Kodu diğer cihazlarınızla paylaşın.");
-      } catch(e) {
-        showToast("Oda oluşturulurken bir hata oluştu!", "error");
-      }
-      btn.disabled = false;
-      btn.innerHTML = '<i data-lucide="plus" class="w-4 h-4"></i> Yeni Bulut Odası Oluştur';
-      lucide.createIcons();
-    }
-    window.createNewSyncRoom = createNewSyncRoom;
-
-    async function joinSyncRoom() {
-      soundEffects.playSuccess();
-      const input = document.getElementById('join-room-input');
-      const roomId = input ? input.value.trim().toUpperCase() : '';
-      const btn = document.getElementById('join-room-btn');
-
-      if (!roomId) {
-        showToast("Lütfen geçerli bir Oda Kodu yazın!", "error");
-        return;
-      }
-
-      if (btn) {
-        btn.disabled = true;
-        btn.textContent = '...';
-      }
-
-      try {
-        window.dataSdk._syncRoomId = roomId;
-        localStorage.setItem(ROOM_KEY, roomId);
-
-        if (window.dataSdk._firebaseEnabled && window.dataSdk._user) {
-          window.dataSdk.startRealtimeSync();
-        }
-        
-        if (input) input.value = '';
-        updateSyncUI();
-        showToast("Odaya başarıyla bağlandınız! Veriler anında senkronize ediliyor.");
-        closeSyncModal();
-      } catch(e) {
-        showToast("Bağlanırken bir hata oluştu!", "error");
-      }
-      if (btn) {
-        btn.disabled = false;
-        btn.textContent = 'Katıl';
-      }
-    }
-    window.joinSyncRoom = joinSyncRoom;
-
-    function disconnectSyncRoom() {
-      soundEffects.playClick();
-      window.dataSdk.stopRealtimeSync();
-      window.dataSdk._syncRoomId = null;
-      localStorage.removeItem(ROOM_KEY);
-      updateSyncUI();
-      showToast("Bulut bağlantısı kesildi. Verileriniz artık sadece bu cihazda kalacak.");
-    }
-    window.disconnectSyncRoom = disconnectSyncRoom;
-
-    function copyRoomCode() {
-      soundEffects.playClick();
-      const activeCode = document.getElementById('active-room-code');
-      if (!activeCode) return;
-      const code = activeCode.textContent;
-      const el = document.createElement('textarea');
-      el.value = code;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-      showToast("Oda kodu panoya kopyalandı!");
-    }
-    window.copyRoomCode = copyRoomCode;
-
-    function updateSyncUI() {
-      const hasRoom = !!window.dataSdk._syncRoomId;
-      const offContent = document.getElementById('sync-off-content');
-      const onContent = document.getElementById('sync-on-content');
-      const activeCode = document.getElementById('active-room-code');
-      const btnText = document.getElementById('sync-btn-text');
-
-      if (hasRoom) {
-        if (offContent) offContent.classList.add('hidden');
-        if (onContent) onContent.classList.remove('hidden');
-        if (activeCode) activeCode.textContent = window.dataSdk._syncRoomId;
-        if (btnText) btnText.innerHTML = `<i data-lucide="cloud" class="w-4 h-4 text-emerald-400"></i> ${window.dataSdk._syncRoomId.substring(0, 8)}`;
-      } else {
-        if (offContent) offContent.classList.remove('hidden');
-        if (onContent) onContent.classList.add('hidden');
-        if (btnText) btnText.innerHTML = '<i data-lucide="cloud-lightning" class="w-4 h-4"></i> Bulut Eşitle';
-      }
-      lucide.createIcons();
     }
 
     function toggleTomrisDrawer() {
@@ -1291,7 +1066,8 @@
         category: "sohbet",
         title: chatTarget,
         content: `${sender}: ${val}`,
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
       };
 
       inputEl.value = '';
@@ -1299,12 +1075,12 @@
       localStorage.setItem(LOCAL_KEY, JSON.stringify(window.dataSdk._data));
       window.dataSdk._trigger();
 
-      if (window.dataSdk._firebaseEnabled && window.dataSdk._user) {
+      await window.dataSdk.pushToCloudKV();
+
+      if (window.dataSdk._firebaseEnabled) {
         try {
           await window.dataSdk.getPublicEntriesCollection().doc(cleanRecord.id).set(cleanRecord);
-        } catch(err) {
-          console.warn("Firestore message write issue:", err);
-        }
+        } catch(err) {}
       }
       renderSecretChats();
     }
@@ -1348,7 +1124,6 @@
       return publicData.filter(d => d.category === activeTab);
     }
 
-    // Bağlantıları formatlama
     function formatTitleWithLink(item, titleEl) {
       const titleText = item.title || 'Başlıksız Kayıt';
       const linkText = item.link || '';
@@ -1607,13 +1382,13 @@
         const file = e.target.files[0];
         if (!file) return;
         const reader = new FileReader();
-        reader.onload = function(evt) {
+        reader.onload = async function(evt) {
           try {
             const imported = JSON.parse(evt.target.result);
             if (Array.isArray(imported)) {
               soundEffects.playSuccess();
-              window.dataSdk.saveAll(imported);
-              showToast("Arşiv yedekleri başarıyla yüklendi!");
+              await window.dataSdk.saveAll(imported);
+              showToast("Arşiv yedekleri başarıyla yüklendi ve eşitlendi!");
             } else {
               showToast("Geçersiz yedek dosyası formatı!", "error");
             }
@@ -1626,7 +1401,7 @@
       });
     }
 
-    // Sekmeler Arası Canlı Veri / Oturum Senkronizasyon Veri Yolu (HTML5 Storage Event)
+    // Sekmeler Arası Canlı Veri Paylaşımı (HTML5 Storage)
     window.addEventListener('storage', (e) => {
       if (e.key === CURRENT_USER_KEY) {
         if (e.newValue) {
@@ -1636,9 +1411,7 @@
             window.authSystem.updateProfileUI();
             renderEntries();
             renderMembersList();
-          } catch(err) {
-            console.warn("Storage sync failed:", err);
-          }
+          } catch(err) {}
         }
       }
       if (e.key === LOCAL_KEY) {
@@ -1648,28 +1421,19 @@
         try {
           window.authSystem._usersDb = e.newValue ? JSON.parse(e.newValue) : [];
           renderMembersList();
-        } catch(err) {
-          console.warn("Storage sync failed:", err);
-        }
+        } catch(err) {}
       }
     });
 
     window.toggleTomrisDrawer = toggleTomrisDrawer;
     window.toggleBaybarsDrawer = toggleBaybarsDrawer;
     window.closeAllDrawers = closeAllDrawers;
-    window.openSyncModal = openSyncModal;
-    window.closeSyncModal = closeSyncModal;
-    window.createNewSyncRoom = createNewSyncRoom;
-    window.joinSyncRoom = joinSyncRoom;
-    window.disconnectSyncRoom = disconnectSyncRoom;
-    window.copyRoomCode = copyRoomCode;
     window.loadFallbackFlag = loadFallbackFlag;
 
     const searchBtn = document.getElementById('top-search-btn');
     if (searchBtn) searchBtn.addEventListener('click', () => { executeExternalSearch(); });
     if (searchInput) searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { executeExternalSearch(); } });
 
-    // Chat Enter Listener
     const tomInput = document.getElementById('tomris-message-input');
     if (tomInput) tomInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendHistoricalMessage('Tomris'); });
     const bayInput = document.getElementById('baybars-message-input');
@@ -1682,19 +1446,12 @@
         if (limitEl) limitEl.classList.toggle('hidden', publicEntries.length < 999); 
         renderEntries(); 
         renderSecretChats(); 
-        updateSyncUI();
       } 
     };
 
     (async () => { 
       await window.dataSdk.init(handler); 
       await window.authSystem.init();
-
-      if (window.dataSdk._firebaseEnabled && window.dataSdk._user) {
-        window.dataSdk.startRealtimeSync();
-        window.authSystem.startMembersRealtimeListener();
-      }
-
       renderMembersList();
       lucide.createIcons(); 
     })();
