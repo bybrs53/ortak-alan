@@ -71,66 +71,17 @@
     <span id="toast-text">İşlem Başarılı</span>
   </div>
 
-  <!-- TAM EKRAN GİRİŞ GEÇİDİ (GİRİŞ EKRANI - GİZLİ ŞİFRE REHBERİ KALDIRILDI) -->
-  <div id="gate-landing-screen" class="fixed inset-0 z-50 bg-[#160c06] flex items-center justify-center p-4 overflow-y-auto">
-    <div class="absolute inset-0 opacity-10 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/1996333/pexels-photo-1996333.jpeg?auto=compress&cs=tinysrgb&w=1920'); filter: grayscale(100%);"></div>
-    
-    <div class="relative bg-[#21140b] border border-amber-900/40 text-amber-100 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-6 animate-fade-in z-10">
-      <div class="text-center space-y-2">
-        <span class="text-5xl filter drop-shadow">🐴</span>
-        <h2 class="heading-font text-amber-300 font-bold text-3xl">Ortak Paylaşım Alanı</h2>
-        <p class="text-xs text-amber-400/70 font-mono uppercase tracking-widest">Hakanlık Dijital Devlet Arşivi</p>
-      </div>
-
-      <!-- Giriş / Kayıt Tab Seçici -->
-      <div class="flex border-b border-amber-900/30 mb-2 text-xs font-semibold">
-        <button type="button" id="gate-tab-login" onclick="window.setGateTab('login')" class="flex-1 py-2 text-center text-amber-300 border-b-2 border-amber-500 font-bold transition">Giriş Yap</button>
-        <button type="button" id="gate-tab-register" onclick="window.setGateTab('register')" class="flex-1 py-2 text-center text-amber-400/50 border-b-2 border-transparent transition">Kayıt Ol (Yeni Arşivci)</button>
-      </div>
-
-      <!-- Giriş Formu -->
-      <form id="gate-auth-form" onsubmit="window.handleGateAuthSubmit(event)" class="space-y-4">
-        <!-- Kullanıcı Adı -->
-        <div class="space-y-1.5">
-          <label class="block text-xs font-bold uppercase tracking-wider text-amber-300">Kullanıcı Adı / Hakanlık Lakabı</label>
-          <div class="relative">
-            <input type="text" required id="gate-username" placeholder="Örn: Tomris, Baybars veya Kendi Adınız" class="w-full bg-[#2e1d10] border border-amber-800/40 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500 font-medium">
-            <i data-lucide="user" class="absolute left-3.5 top-3 w-4 h-4 text-amber-500/60"></i>
-          </div>
-        </div>
-
-        <!-- Şifre -->
-        <div class="space-y-1.5">
-          <label class="block text-xs font-bold uppercase tracking-wider text-amber-300">Geçit Şifresi</label>
-          <div class="relative">
-            <input type="password" required id="gate-password" placeholder="••••••••" class="w-full bg-[#2e1d10] border border-amber-800/40 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500 tracking-widest">
-            <i data-lucide="lock" class="absolute left-3.5 top-3 w-4 h-4 text-amber-500/60"></i>
-          </div>
-        </div>
-
-        <button type="submit" id="gate-submit-btn" class="w-full py-3 bg-amber-700 hover:bg-amber-600 active:scale-95 text-white font-bold text-sm rounded-xl uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2">
-          <i data-lucide="shield-check" class="w-4 h-4"></i>  Geçidi Aç ve Gir
-        </button>
-      </form>
-      
-      <div class="text-center">
-        <p class="text-[11px] text-amber-500/60 font-semibold italic bg-amber-955/40 py-2 px-3 rounded-lg border border-amber-900/20">
-          ⚠️ Hakanlık arşiv kayıtlarına yetkisiz erişim kesinlikle yasaktır.
-        </p>
-      </div>
-    </div>
-  </div>
-
   <!-- ARKA PLAN ÖRTÜSÜ -->
   <div id="drawer-backdrop" class="fixed inset-0 bg-black/70 z-40 hidden transition-opacity duration-300 backdrop-blur-sm" onclick="window.closeAllDrawers()"></div>
 
-  <!-- SOL PANEL: TOMRİS OKUMA ODASI -->
+  <!-- SOL PANEL: TOMRİS OKUMA ODASI (TAMAMEN GÜVENLİKSİZ & AÇIK) -->
   <div id="tomris-drawer" class="fixed left-0 top-0 bottom-0 w-[380px] max-w-full bg-[#1b120c] border-r border-amber-800/40 text-amber-100 z-40 transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
     <div class="p-5 border-b border-amber-900/30 bg-amber-955/40 flex justify-between items-center">
       <div class="flex items-center gap-2.5">
         <span class="text-3xl filter drop-shadow">👑</span>
         <div>
           <h3 class="font-bold heading-font text-amber-400 text-lg">Tomris Hatun</h3>
+          <p class="text-[10px] text-amber-500/60 font-mono">Hakanlık Divanı Arşivi</p>
         </div>
       </div>
       <button onclick="window.closeAllDrawers()" class="p-2 rounded-lg hover:bg-amber-900/40 text-amber-400 transition active:scale-95">
@@ -138,46 +89,33 @@
       </button>
     </div>
 
-    <!-- Giriş Yapılmadıysa -->
-    <div id="tomris-locked" class="p-6 flex-1 flex flex-col justify-center items-center text-center bg-[#130b06]">
-      <div class="w-16 h-16 rounded-full bg-amber-900/20 flex items-center justify-center text-amber-500 mb-4 border border-amber-500/30 animate-pulse">
-        <i data-lucide="lock" class="w-8 h-8"></i>
-      </div>
-      <h4 class="text-base font-bold text-amber-300 mb-2 heading-font">Hakanlığın Gizli Kapısı</h4>
-      <p class="text-xs text-amber-200/50 mb-6 max-w-[240px] leading-relaxed">Tomris Hatun'un kişisel yazışma arşivine erişmek için devlet sırrı anahtarını girin.</p>
-      <div class="w-full max-w-[260px] space-y-3">
-        <input type="password" id="tomris-key-input" placeholder="Sır Anahtarı" class="w-full bg-[#271b12] border border-amber-800/40 rounded-lg px-4 py-2.5 text-center text-sm text-white placeholder-amber-700/50 focus:outline-none focus:ring-2 focus:ring-amber-500 font-mono tracking-widest">
-        <button onclick="window.loginTomris()" class="w-full py-2.5 bg-amber-700 hover:bg-amber-600 active:scale-95 text-white font-bold text-xs rounded-lg uppercase tracking-wider transition shadow-md flex items-center justify-center gap-2">
-          <i data-lucide="key-round" class="w-3.5 h-3.5"></i> Geçidi Aç
-        </button>
-      </div>
-      <p id="tomris-error" class="text-red-400 text-xs mt-3 hidden font-semibold">⚠️ Geçersiz Devlet Anahtarı!</p>
-    </div>
-
-    <!-- Giriş Yapıldıysa -->
-    <div id="tomris-unlocked" class="flex-1 flex flex-col justify-between hidden overflow-hidden">
+    <!-- Sınırsız / Şifresiz Doğrudan Açık İletişim Ekranı -->
+    <div id="tomris-unlocked" class="flex-1 flex flex-col justify-between overflow-hidden">
       <div class="px-4 py-2.5 bg-emerald-950/30 border-b border-amber-900/10 flex justify-between items-center text-xs">
         <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Çevrimiçi (Hakan Yetkisi)
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Tam Erişim Açık (Arşivci Yetkisi)
         </span>
-        <button onclick="window.logoutTomris()" class="text-amber-400 hover:text-red-400 transition flex items-center gap-1 font-semibold">
-          <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Çıkış Yap
-        </button>
       </div>
       <div id="tomris-chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 flex flex-col bg-[#140c08]"></div>
-      <div class="p-4 border-t border-amber-900/20 bg-amber-955/10 text-center text-amber-400/50 text-xs italic">
-        🛡️ Saltanat fermanı gereği yazışma gönderimi dondurulmuştur.
+      
+      <!-- Hızlı Mesaj Gönderim Alanı -->
+      <div class="p-3 border-t border-amber-900/35 bg-[#1f150e] flex gap-2">
+        <input type="text" id="tomris-message-input" placeholder="Tomris Hatun otağına ferman ilet..." class="flex-1 bg-[#100804] border border-amber-800/40 rounded-lg px-3 py-2 text-xs text-amber-100 focus:outline-none focus:ring-1 focus:ring-amber-500">
+        <button onclick="window.sendHistoricalMessage('Tomris')" class="bg-amber-700 hover:bg-amber-600 px-3 py-2 rounded-lg text-xs font-bold text-white transition active:scale-95 flex items-center justify-center">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- SAĞ PANEL: SULTAN BAYBARS OKUMA ODASI -->
+  <!-- SAĞ PANEL: SULTAN BAYBARS OKUMA ODASI (TAMAMEN GÜVENLİKSİZ & AÇIK) -->
   <div id="baybars-drawer" class="fixed right-0 top-0 bottom-0 w-[380px] max-w-full bg-[#0c1424] border-l border-blue-900/30 text-blue-100 z-40 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
     <div class="p-5 border-b border-blue-900/30 bg-blue-955/40 flex justify-between items-center">
       <div class="flex items-center gap-2.5">
         <span class="text-3xl filter drop-shadow">⚔️</span>
         <div>
           <h3 class="font-bold heading-font text-blue-400 text-lg">Sultan Baybars</h3>
+          <p class="text-[10px] text-blue-500/60 font-mono">Memlük Kalesi Muhaberesi</p>
         </div>
       </div>
       <button onclick="window.closeAllDrawers()" class="p-2 rounded-lg hover:bg-blue-900/40 text-blue-400 transition active:scale-95">
@@ -185,35 +123,21 @@
       </button>
     </div>
 
-    <!-- Giriş Yapılmadıysa -->
-    <div id="baybars-locked" class="p-6 flex-1 flex flex-col justify-center items-center text-center bg-[#070c14]">
-      <div class="w-16 h-16 rounded-full bg-blue-900/20 flex items-center justify-center text-blue-500 mb-4 border border-blue-500/30 animate-pulse">
-        <i data-lucide="lock" class="w-8 h-8"></i>
-      </div>
-      <h4 class="text-base font-bold text-blue-300 mb-2 heading-font">Memlük Kalesinin Kapısı</h4>
-      <p class="text-xs text-blue-200/50 mb-6 max-w-[240px] leading-relaxed">Sultan Baybars'ın askeri yazışma arşivine erişmek için saltanat sırrı anahtarını girin.</p>
-      <div class="w-full max-w-[260px] space-y-3">
-        <input type="password" id="baybars-key-input" placeholder="Sır Anahtarı" class="w-full bg-[#131d31] border border-blue-800/40 rounded-lg px-4 py-2.5 text-center text-sm text-white placeholder-blue-700/50 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono tracking-widest">
-        <button onclick="window.loginBaybars()" class="w-full py-2.5 bg-blue-700 hover:bg-blue-600 active:scale-95 text-white font-bold text-xs rounded-lg uppercase tracking-wider transition shadow-md flex items-center justify-center gap-2">
-          <i data-lucide="key-round" class="w-3.5 h-3.5"></i> Kaleyi Aç
-        </button>
-      </div>
-      <p id="baybars-error" class="text-red-400 text-xs mt-3 hidden font-semibold">⚠️ Geçersiz Saltanat Anahtarı!</p>
-    </div>
-
-    <!-- Giriş Yapıldıysa -->
-    <div id="baybars-unlocked" class="flex-1 flex flex-col justify-between hidden overflow-hidden">
+    <!-- Sınırsız / Şifresiz Doğrudan Açık İletişim Ekranı -->
+    <div id="baybars-unlocked" class="flex-1 flex flex-col justify-between overflow-hidden">
       <div class="px-4 py-2.5 bg-emerald-950/30 border-b border-blue-900/10 flex justify-between items-center text-xs">
         <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Çevrimiçi (Sultan Yetkisi)
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Tam Erişim Açık (Arşivci Yetkisi)
         </span>
-        <button onclick="window.logoutBaybars()" class="text-blue-400 hover:text-red-400 transition flex items-center gap-1 font-semibold">
-          <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Çıkış Yap
-        </button>
       </div>
       <div id="baybars-chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 flex flex-col bg-[#080d18]"></div>
-      <div class="p-4 border-t border-blue-900/20 bg-blue-955/10 text-center text-blue-400/50 text-xs italic">
-        ⚔️ Saltanat fermanı gereği yazışma gönderimi dondurulmuştur.
+      
+      <!-- Hızlı Mesaj Gönderim Alanı -->
+      <div class="p-3 border-t border-blue-900/35 bg-[#121c2e] flex gap-2">
+        <input type="text" id="baybars-message-input" placeholder="Sultan Baybars kalesine ferman ilet..." class="flex-1 bg-[#050912] border border-blue-800/40 rounded-lg px-3 py-2 text-xs text-blue-100 focus:outline-none focus:ring-1 focus:ring-blue-500">
+        <button onclick="window.sendHistoricalMessage('Baybars')" class="bg-blue-700 hover:bg-blue-600 px-3 py-2 rounded-lg text-xs font-bold text-white transition active:scale-95 flex items-center justify-center">
+          <i data-lucide="send" class="w-3.5 h-3.5"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -222,14 +146,14 @@
   <button onclick="window.toggleTomrisDrawer()" class="fixed left-0 top-[40%] translate-y-[-50%] bg-amber-900/90 hover:bg-amber-800 text-amber-100 py-4 px-2 rounded-r-xl border border-l-0 border-amber-700/50 shadow-2xl flex flex-col items-center gap-2.5 z-30 transition-all duration-300 group hover:pl-3 active:scale-95">
     <span class="text-sm filter drop-shadow">👑</span>
     <span class="vertical-text text-[10px] font-bold uppercase tracking-widest text-amber-300 font-mono">Tomris Hatun</span>
-    <span id="tomris-status-dot" class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
   </button>
 
   <!-- SAĞ HIZLI GİRİŞ BUTONU (BAYBARS) -->
   <button onclick="window.toggleBaybarsDrawer()" class="fixed right-0 top-[40%] translate-y-[-50%] bg-blue-955/90 hover:bg-blue-900 text-blue-100 py-4 px-2 rounded-l-xl border border-r-0 border-blue-700/50 shadow-2xl flex flex-col items-center gap-2.5 z-30 transition-all duration-300 group hover:pr-3 active:scale-95">
     <span class="text-sm filter drop-shadow">⚔️</span>
     <span class="vertical-text text-[10px] font-bold uppercase tracking-widest text-blue-300 font-mono">Sultan Baybars</span>
-    <span id="baybars-status-dot" class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
   </button>
 
   <!-- Sol Kenar Bayrakları -->
@@ -288,23 +212,31 @@
     </div>
   </div>
 
-  <!-- Floating Membership Status Bar (Kalıcı Üyelik Arayüzü) -->
-  <div class="max-w-4xl mx-auto pt-4 px-4 sm:px-6 lg:px-8 relative z-20 flex justify-end">
+  <!-- Floating Membership Status Bar (Engelsiz Açık Profil) -->
+  <div class="max-w-4xl mx-auto pt-4 px-4 sm:px-6 lg:px-8 relative z-20 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <span class="text-4xl filter drop-shadow">🐴</span>
+      <div>
+        <h1 class="heading-font text-amber-300 font-extrabold text-2xl tracking-tight">Ortak Paylaşım Alanı</h1>
+        <p class="text-[10px] text-amber-400/60 font-mono tracking-wider uppercase">Tarih, Sanat & Bilim Dijital Dev Arşivi</p>
+      </div>
+    </div>
+    
     <div id="member-profile-widget" class="bg-[#1b120c]/90 border border-amber-800/30 rounded-xl px-4 py-2 text-amber-100 shadow-2xl flex items-center gap-3 backdrop-blur-md">
       <div id="profile-logged-in" class="flex items-center gap-3">
         <div class="w-8 h-8 rounded-full bg-amber-800 flex items-center justify-center text-amber-100 font-bold border border-amber-500/35 shadow font-mono uppercase" id="user-avatar">
-          G
+          A
         </div>
         <div>
           <div class="flex items-center gap-1.5">
-            <span class="text-xs font-bold text-white leading-none" id="user-display-name">Misafir</span>
+            <span class="text-xs font-bold text-white leading-none" id="user-display-name">Yükleniyor...</span>
             <span class="text-[9px] bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-full px-2 py-0.5 font-bold tracking-wide uppercase font-mono" id="user-rank-badge">Arşivci</span>
           </div>
-          <span class="text-[10px] text-amber-300/50 block font-mono" id="user-join-date">Bağanlantı: Çevrimiçi</span>
+          <span class="text-[9px] text-emerald-400/80 block font-mono">Açık Erişim Aktif (Şifre Yok)</span>
         </div>
-        <button onclick="window.logoutUser()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-red-950/40 text-red-400 border border-red-900/20 transition-all duration-200 hover:scale-105 active:scale-95 font-semibold text-xs" title="Güvenli Çıkış">
-          <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
-          <span class="hidden sm:inline">Güvenli Çıkış</span>
+        <button onclick="window.promptChangeName()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-amber-800/40 text-amber-300 border border-amber-700/30 transition-all duration-200 hover:scale-105 active:scale-95 font-semibold text-xs" title="Takma İsmini Değiştir">
+          <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+          <span>İsim Değiştir</span>
         </button>
       </div>
     </div>
@@ -355,42 +287,10 @@
       </div>
     </div>
     
-    <!-- HAKANLIK ÜYE YÖNETİM PANELİ (Yalnızca Tomris & Baybars'a görünür) -->
-    <div id="admin-member-management" class="hidden animate-fade-in mb-8">
-      <div class="p-5 rounded-2xl border border-amber-500/30 bg-gradient-to-br from-[#2c1a0e] to-[#1b0f08] text-amber-100 shadow-2xl relative overflow-hidden">
-        <div class="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-          <i data-lucide="shield-alert" class="w-24 h-24 text-amber-500"></i>
-        </div>
-        <div class="flex items-center gap-2 mb-4">
-          <span class="text-2xl">🛡️</span>
-          <div>
-            <h2 class="heading-font text-amber-300 font-bold text-lg">Hakanlık Üye Yönetim Sırrı</h2>
-            <p class="text-[9px] text-amber-400/50 uppercase tracking-widest font-mono">Yalnızca Tomris Hatun ve Sultan Baybars yetkilidir</p>
-          </div>
-        </div>
-        
-        <form id="admin-add-member-form" onsubmit="window.handleAdminCreateMemberSubmit(event)" class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
-          <div>
-            <label class="block text-[10px] font-bold uppercase tracking-wider text-amber-300 mb-1">Yeni Üyenin Lakabı</label>
-            <input type="text" id="admin-new-username" required placeholder="Örn: SencerBey, AlpArslan" class="w-full bg-[#160c06] border border-amber-800/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-amber-500">
-          </div>
-          <div>
-            <label class="block text-[10px] font-bold uppercase tracking-wider text-amber-300 mb-1">Geçit Şifresi</label>
-            <input type="text" id="admin-new-password" required placeholder="Giriş şifresi belirleyin" class="w-full bg-[#160c06] border border-amber-800/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:ring-1 focus:ring-amber-500">
-          </div>
-          <div>
-            <button type="submit" class="w-full py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs rounded-xl uppercase tracking-wider transition active:scale-95 shadow flex items-center justify-center gap-1.5">
-              <i data-lucide="user-plus" class="w-4 h-4"></i> Üye Kaydını Yap
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
     <!-- HAKANLIK MECLİSİ & ARŞİVCİLER -->
     <div class="mb-8 p-5 rounded-2xl border border-amber-900/10 bg-white/95 backdrop-blur shadow-xl space-y-4">
       <h3 class="heading-font text-amber-950 font-bold text-lg flex items-center gap-2">
-        <i data-lucide="users" class="w-5 h-5 text-amber-800"></i> Hakanlık Meclisi & Arşivciler
+        <i data-lucide="users" class="w-5 h-5 text-amber-800"></i> Hakanlık Meclisi & Aktif Arşivciler
       </h3>
       <div id="registered-members-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
         <!-- JS Tarafından Dinamik Doldurulur -->
@@ -568,15 +468,9 @@
 
   <script>
     // 1. Küresel Fonksiyonların Referans Tanımlamaları
-    window.handleGateAuthSubmit = function(e) { e.preventDefault(); };
-    window.handleAdminCreateMemberSubmit = function(e) { e.preventDefault(); };
     window.toggleTomrisDrawer = function() {};
     window.toggleBaybarsDrawer = function() {};
     window.closeAllDrawers = function() {};
-    window.loginTomris = function() {};
-    window.logoutTomris = function() {};
-    window.loginBaybars = function() {};
-    window.logoutBaybars = function() {};
     window.openSyncModal = function() {};
     window.closeSyncModal = function() {};
     window.createNewSyncRoom = function() {};
@@ -584,11 +478,8 @@
     window.disconnectSyncRoom = function() {};
     window.copyRoomCode = function() {};
     window.loadFallbackFlag = function() {};
-    window.logoutUser = function() {};
-    window.setGateTab = function() {};
-
-    let isTomrisLoggedIn = false;
-    let isBaybarsLoggedIn = false;
+    window.promptChangeName = function() {};
+    window.sendHistoricalMessage = function() {};
 
     const LOCAL_KEY = 'ortak_paylasim_arsiv_verisi';
     const ROOM_KEY = 'ortak_paylasim_sync_room_id';
@@ -603,7 +494,7 @@
       );
     }
 
-    // Ses Efektleri Motoru
+    // Audio Engine
     const soundEffects = {
       ctx: null,
       init() {
@@ -659,7 +550,7 @@
       }
     };
 
-    // Bayrak Yüklenemezse Çizilecek Şablon
+    // Flag Fallback
     function loadFallbackFlag(imgEl, colorHex, label) {
       imgEl.onerror = null;
       imgEl.style.display = 'none';
@@ -675,7 +566,6 @@
     }
     window.loadFallbackFlag = loadFallbackFlag;
 
-    // Örnek Arşiv Verileri
     const defaultMockData = [
       { 
         id: "1", 
@@ -732,7 +622,6 @@
     const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : defaultFirebaseConfig;
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 
-    // GERÇEK ZAMANLI VERİ SENKRONİZASYON SDK
     window.dataSdk = {
       _data: [],
       _handlers: [],
@@ -821,8 +710,7 @@
       },
 
       getSecretChats() {
-        const chats = this._data.filter(d => d.category === 'sohbet');
-        return chats.length ? chats : mockHistoricalChats;
+        return this._data.filter(d => d.category === 'sohbet');
       },
 
       getPublicEntriesCollection() {
@@ -839,7 +727,7 @@
           id: Math.random().toString(36).substr(2, 9),
           roomId: this._syncRoomId || 'GENEL_ARSIV',
           ...record,
-          ownerName: activeUser ? activeUser.displayName : 'Arşivci',
+          ownerName: activeUser ? activeUser.displayName : 'Hakanlık Arşivcisi',
           created_at: record.created_at || new Date().toISOString()
         };
 
@@ -883,8 +771,6 @@
           try {
             const batch = this._db.batch();
             for (const item of newData) {
-              if (item.category === 'sohbet') continue;
-              item.roomId = this._syncRoomId;
               const ref = this.getPublicEntriesCollection().doc(item.id);
               batch.set(ref, item);
             }
@@ -954,7 +840,7 @@
       }
     };
 
-    // ARŞİVCİ & HAKAN KİMLİK DOĞRULAMA SİSTEMİ
+    // ARŞİVCİ & KİMLİK SİSTEMİ (Engeller Tamamen Kaldırıldı!)
     window.authSystem = {
       _usersDb: [],
       _activeUser: null,
@@ -968,20 +854,74 @@
           this._usersDb = [];
         }
         
+        // Aktif oturum yoksa otomatik olarak varsayılan bir "Hakanlık Arşivcisi" profili oluşturup atar.
         const activeOturum = localStorage.getItem(CURRENT_USER_KEY);
         try {
           if (activeOturum) {
             this._activeUser = JSON.parse(activeOturum);
+          } else {
+            this.assignDefaultProfile();
           }
         } catch (e) {
-          this._activeUser = null;
+          this.assignDefaultProfile();
         }
 
         if (window.dataSdk._user) {
           this.startMembersRealtimeListener();
         }
         
-        this.checkAuthGateState();
+        this.updateProfileUI();
+      },
+
+      assignDefaultProfile() {
+        const defaultProfile = {
+          uid: 'usr_default_' + Math.random().toString(36).substr(2, 5),
+          displayName: "Hakanlık Arşivcisi",
+          rank: "Otağ Beyi",
+          joinedAt: new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })
+        };
+        this._activeUser = defaultProfile;
+        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(defaultProfile));
+        
+        // Yerel veritabanına ekle
+        if (!this._usersDb.find(u => u.uid === defaultProfile.uid)) {
+          this._usersDb.push(defaultProfile);
+          localStorage.setItem(MEMBERS_KEY, JSON.stringify(this._usersDb));
+        }
+      },
+
+      changeUserIdentity(newName) {
+        if (!newName || !newName.trim()) return;
+        const cleanName = newName.trim();
+        
+        const titles = ["Otağ Beyi", "Hakan Muhafızı", "Süvari Üyesi", "Arşiv Koruyucusu", "Bilge Hatun", "Devlet Düşünürü", "Altın Orda Alpı", "Baş Yazıcı"];
+        const rank = titles[Math.floor(Math.random() * titles.length)];
+
+        this._activeUser = {
+          uid: this._activeUser ? this._activeUser.uid : 'usr_' + Math.random().toString(36).substr(2, 5),
+          displayName: cleanName,
+          rank: rank,
+          joinedAt: new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })
+        };
+
+        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(this._activeUser));
+        
+        // Kayıtlı kullanıcılara ekle
+        const index = this._usersDb.findIndex(u => u.uid === this._activeUser.uid);
+        if (index > -1) {
+          this._usersDb[index] = this._activeUser;
+        } else {
+          this._usersDb.push(this._activeUser);
+        }
+        localStorage.setItem(MEMBERS_KEY, JSON.stringify(this._usersDb));
+
+        if (window.dataSdk._firebaseEnabled && window.dataSdk._user) {
+          window.dataSdk.getMembersCollection().doc(this._activeUser.uid).set(this._activeUser).catch(() => {});
+        }
+
+        this.updateProfileUI();
+        renderMembersList();
+        renderEntries();
       },
 
       startMembersRealtimeListener() {
@@ -1014,196 +954,21 @@
         return this._activeUser;
       },
 
-      checkAuthGateState() {
-        const gate = document.getElementById('gate-landing-screen');
-        const adminPanel = document.getElementById('admin-member-management');
-
-        if (this._activeUser) {
-          if (gate) gate.classList.add('hidden');
-          this.updateProfileUI();
-
-          const isHakan = this._activeUser.uid === 'tomris_hakan' || this._activeUser.uid === 'baybars_sultan';
-          if (adminPanel) {
-            if (isHakan) {
-              adminPanel.classList.remove('hidden');
-            } else {
-              adminPanel.classList.add('hidden');
-            }
-          }
-
-          // Çekmece durum senkronizasyonları (Sayfa yenilense dahi açık kalır)
-          if (this._activeUser.uid === 'tomris_hakan') {
-            isTomrisLoggedIn = true;
-            const tLocked = document.getElementById('tomris-locked');
-            if (tLocked) tLocked.classList.add('hidden');
-            const tUnlocked = document.getElementById('tomris-unlocked');
-            if (tUnlocked) tUnlocked.classList.remove('hidden');
-            const tDot = document.getElementById('tomris-status-dot');
-            if (tDot) tDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
-          } else if (this._activeUser.uid === 'baybars_sultan') {
-            isBaybarsLoggedIn = true;
-            const bLocked = document.getElementById('baybars-locked');
-            if (bLocked) bLocked.classList.add('hidden');
-            const bUnlocked = document.getElementById('baybars-unlocked');
-            if (bUnlocked) bUnlocked.classList.remove('hidden');
-            const bDot = document.getElementById('baybars-status-dot');
-            if (bDot) bDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
-          }
-        } else {
-          if (gate) gate.classList.remove('hidden');
-          if (adminPanel) adminPanel.classList.add('hidden');
-        }
-      },
-
-      async register(displayName, password, email) {
-        const nameClean = displayName.trim();
-        const pwdClean = password.trim();
-        const emailClean = (email || `${nameClean.toLowerCase()}@arsiv.com`).trim();
-
-        if (nameClean.toLowerCase() === 'tomris' || nameClean.toLowerCase() === 'tomris hatun' ||
-            nameClean.toLowerCase() === 'baybars' || nameClean.toLowerCase() === 'sultan baybars') {
-          return { isOk: false, message: "Tomris ve Baybars hesapları korumalı yönetici hesaplarıdır!" };
-        }
-
-        const userExists = this._usersDb.find(u => u.displayName && u.displayName.toLowerCase() === nameClean.toLowerCase());
-        if (userExists) {
-          return { isOk: false, message: "Bu kullanıcı adı ile zaten kayıtlı bir üye var!" };
-        }
-
-        const titles = ["Otağ Beyi", "Hakan Muhafızı", "Süvari Üyesi", "Arşiv Koruyucusu", "Bilge Hatun", "Devlet Düşünürü", "Altın Orda Alpı"];
-        const rank = titles[Math.floor(Math.random() * titles.length)];
-
-        const newUser = {
-          uid: 'usr_' + Math.random().toString(36).substr(2, 9),
-          displayName: nameClean,
-          password: pwdClean,
-          email: emailClean,
-          rank: rank,
-          joinedAt: new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })
-        };
-
-        this._usersDb.push(newUser);
-        localStorage.setItem(MEMBERS_KEY, JSON.stringify(this._usersDb));
-
-        if (window.dataSdk._firebaseEnabled && window.dataSdk._user) {
-          try {
-            await window.dataSdk.getMembersCollection().doc(newUser.uid).set(newUser);
-          } catch(e) {
-            console.warn("Firestore member syncing error:", e);
-          }
-        }
-
-        return { isOk: true, user: newUser };
-      },
-
-      async login(displayName, password) {
-        const nameClean = displayName ? displayName.trim().toLowerCase() : '';
-        const pwdClean = password ? password.trim() : '';
-
-        // Tomris Giriş Doğrulaması (Gizli Şifre: 1283)
-        if ((nameClean === 'tomris' || nameClean === 'tomris hatun') && pwdClean === '1283') {
-          const tomrisUser = {
-            uid: 'tomris_hakan',
-            displayName: "Tomris Hatun",
-            rank: "Yönetici 👑",
-            joinedAt: "M.Ö. 6. Yüzyıl"
-          };
-          this._activeUser = tomrisUser;
-          localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(tomrisUser));
-          this.checkAuthGateState();
-          
-          isTomrisLoggedIn = true;
-          const tLocked = document.getElementById('tomris-locked');
-          if (tLocked) tLocked.classList.add('hidden');
-          const tUnlocked = document.getElementById('tomris-unlocked');
-          if (tUnlocked) tUnlocked.classList.remove('hidden');
-          const tDot = document.getElementById('tomris-status-dot');
-          if (tDot) tDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
-          
-          return { isOk: true, user: tomrisUser, autoOpen: 'tomris' };
-        }
-
-        // Baybars Giriş Doğrulaması (Gizli Şifre: 1283)
-        if ((nameClean === 'baybars' || nameClean === 'sultan baybars') && pwdClean === '1283') {
-          const baybarsUser = {
-            uid: 'baybars_sultan',
-            displayName: "Sultan Baybars",
-            rank: "Yönetici ⚔️",
-            joinedAt: "1223 (Kıpçak Bozkırı)"
-          };
-          this._activeUser = baybarsUser;
-          localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(baybarsUser));
-          this.checkAuthGateState();
-          
-          isBaybarsLoggedIn = true;
-          const bLocked = document.getElementById('baybars-locked');
-          if (bLocked) bLocked.classList.add('hidden');
-          const bUnlocked = document.getElementById('baybars-unlocked');
-          if (bUnlocked) bUnlocked.classList.remove('hidden');
-          const bDot = document.getElementById('baybars-status-dot');
-          if (bDot) bDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
-          
-          return { isOk: true, user: baybarsUser, autoOpen: 'baybars' };
-        }
-
-        // Genel Üye Giriş Doğrulaması
-        const matchedUser = this._usersDb.find(u => {
-          if (!u || !u.displayName) return false;
-          return u.displayName.toLowerCase() === nameClean && u.password === pwdClean;
-        });
-
-        if (!matchedUser) {
-          return { isOk: false, message: "Hatalı kullanıcı adı veya geçit şifresi girdiniz!" };
-        }
-
-        this._activeUser = matchedUser;
-        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(matchedUser));
-        this.checkAuthGateState();
-        return { isOk: true, user: matchedUser };
-      },
-
-      logout() {
-        this._activeUser = null;
-        localStorage.removeItem(CURRENT_USER_KEY);
-        
-        isTomrisLoggedIn = false;
-        const tUnlocked = document.getElementById('tomris-unlocked');
-        if (tUnlocked) tUnlocked.classList.add('hidden');
-        const tLocked = document.getElementById('tomris-locked');
-        if (tLocked) tLocked.classList.remove('hidden');
-        const tDot = document.getElementById('tomris-status-dot');
-        if (tDot) tDot.className = "w-2 h-2 rounded-full bg-red-500 animate-pulse";
-        
-        isBaybarsLoggedIn = false;
-        const bUnlocked = document.getElementById('baybars-unlocked');
-        if (bUnlocked) bUnlocked.classList.add('hidden');
-        const bLocked = document.getElementById('baybars-locked');
-        if (bLocked) bLocked.classList.remove('hidden');
-        const bDot = document.getElementById('baybars-status-dot');
-        if (bDot) bDot.className = "w-2 h-2 rounded-full bg-red-500 animate-pulse";
-
-        this.checkAuthGateState();
-        renderMembersList();
-      },
-
       updateProfileUI() {
         const uAvatar = document.getElementById('user-avatar');
         const uName = document.getElementById('user-display-name');
         const uRank = document.getElementById('user-rank-badge');
-        const uJoin = document.getElementById('user-join-date');
 
         if (this._activeUser) {
-          if (uAvatar) uAvatar.textContent = this._activeUser.displayName ? this._activeUser.displayName.charAt(0) : 'G';
-          if (uName) uName.textContent = this._activeUser.displayName || 'Misafir';
+          if (uAvatar) uAvatar.textContent = this._activeUser.displayName ? this._activeUser.displayName.charAt(0) : 'A';
+          if (uName) uName.textContent = this._activeUser.displayName || 'Hakanlık Arşivcisi';
           if (uRank) uRank.textContent = this._activeUser.rank || 'Arşivci';
-          if (uJoin) uJoin.textContent = `Üye Girişi: ${this._activeUser.joinedAt || ''}`;
         }
       }
     };
 
     let allData = [];
     let activeTab = 'all';
-    let gateAuthTab = 'login';
 
     const entriesEl = document.getElementById('entries');
     const emptyEl = document.getElementById('empty-state');
@@ -1243,104 +1008,20 @@
       
       setTimeout(() => {
         toast.className = "fixed bottom-6 right-6 px-4 py-3 rounded-xl shadow-2xl text-sm font-semibold z-50 transform translate-y-10 opacity-0 transition-all duration-300 bg-amber-900 text-amber-100 border border-amber-800/20 flex items-center gap-2 pointer-events-none";
-      }, 3550);
+      }, 3500);
     }
 
-    // Giriş/Kayıt Sekme Yönetimi
-    function setGateTab(tab) {
+    function promptChangeName() {
       soundEffects.playClick();
-      gateAuthTab = tab;
-      const loginTabBtn = document.getElementById('gate-tab-login');
-      const registerTabBtn = document.getElementById('gate-tab-register');
-      const submitBtn = document.getElementById('gate-submit-btn');
-
-      if (!loginTabBtn || !registerTabBtn || !submitBtn) return;
-
-      if (tab === 'register') {
-        loginTabBtn.className = "flex-1 py-2 text-center text-amber-400/50 border-b-2 border-transparent transition";
-        registerTabBtn.className = "flex-1 py-2 text-center text-amber-300 border-b-2 border-amber-500 font-bold transition";
-        submitBtn.innerHTML = '<i data-lucide="user-plus" class="w-4 h-4"></i> Yeni Arşivci Olarak Kaydol';
-      } else {
-        loginTabBtn.className = "flex-1 py-2 text-center text-amber-300 border-b-2 border-amber-500 font-bold transition";
-        registerTabBtn.className = "flex-1 py-2 text-center text-amber-400/50 border-b-2 border-transparent transition";
-        submitBtn.innerHTML = '<i data-lucide="shield-check" class="w-4 h-4"></i> Geçidi Aç ve Gir';
-      }
-      lucide.createIcons();
-    }
-    window.setGateTab = setGateTab;
-
-    // Giriş Form Gönderimi
-    async function handleGateAuthSubmit(event) {
-      event.preventDefault();
-      const username = document.getElementById('gate-username').value;
-      const password = document.getElementById('gate-password').value;
-
-      if (gateAuthTab === 'register') {
-        const res = await window.authSystem.register(username, password);
-        if (res.isOk) {
-          soundEffects.playSuccess();
-          showToast("Kayıt Başarılı! Şimdi giriş yapabilirsiniz.", "success");
-          setGateTab('login');
-        } else {
-          showToast(res.message, "error");
-        }
-      } else {
-        const res = await window.authSystem.login(username, password);
-        if (res.isOk) {
-          soundEffects.playSuccess();
-          showToast(`Giriş Başarılı! Hoş geldiniz ${res.user.displayName}.`, "success");
-          renderEntries();
-          renderMembersList();
-          document.getElementById('gate-auth-form').reset();
-        } else {
-          showToast(res.message, "error");
-        }
-      }
-    }
-    window.handleGateAuthSubmit = handleGateAuthSubmit;
-
-    // Admin tarafından yeni üye eklendiğinde
-    async function handleAdminCreateMemberSubmit(event) {
-      event.preventDefault();
-      soundEffects.playClick();
-      
-      const newUsernameInput = document.getElementById('admin-new-username');
-      const newPasswordInput = document.getElementById('admin-new-password');
-      const submitBtn = event.target.querySelector('button[type="submit"]');
-
-      if (!newUsernameInput || !newPasswordInput || !submitBtn) return;
-
-      const username = newUsernameInput.value;
-      const password = newPasswordInput.value;
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Ekleniyor...';
-      lucide.createIcons();
-
-      const result = await window.authSystem.register(username, password);
-
-      if (result.isOk) {
+      const currentName = window.authSystem._activeUser ? window.authSystem._activeUser.displayName : 'Hakanlık Arşivcisi';
+      const promptName = prompt("Hakanlık Meclisinde görünecek yeni lakabınızı veya isminizi yazın:", currentName);
+      if (promptName !== null && promptName.trim() !== "") {
+        window.authSystem.changeUserIdentity(promptName);
         soundEffects.playSuccess();
-        showToast(`Kullanıcı "${result.user.displayName}" başarıyla sisteme eklendi ve unvanı "${result.user.rank}" olarak atandı.`, "success");
-        event.target.reset();
-        renderMembersList();
-      } else {
-        showToast(result.message, "error");
+        showToast(`Kimliğiniz "${promptName}" olarak başarıyla değiştirildi!`, "success");
       }
-
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = '<i data-lucide="user-plus" class="w-4 h-4"></i> Üye Kaydını Yap';
-      lucide.createIcons();
     }
-    window.handleAdminCreateMemberSubmit = handleAdminCreateMemberSubmit;
-
-    function logoutUser() {
-      soundEffects.playClick();
-      window.authSystem.logout();
-      showToast("Giriş Kapısı kilitlendi. Oturum kapatıldı.");
-      renderEntries();
-    }
-    window.logoutUser = logoutUser;
+    window.promptChangeName = promptChangeName;
 
     function renderMembersList() {
       const membersListEl = document.getElementById('registered-members-list');
@@ -1373,15 +1054,17 @@
 
       const uniqueUsers = Array.from(new Set(window.authSystem._usersDb.map(u => u.uid)))
         .map(uid => window.authSystem._usersDb.find(u => u.uid === uid))
-        .filter(u => u && u.displayName && u.displayName.toLowerCase() !== 'tomris' && u.displayName.toLowerCase() !== 'baybars');
+        .filter(u => u && u.displayName);
 
       uniqueUsers.forEach(u => {
+        const isCurrent = window.authSystem._activeUser && window.authSystem._activeUser.uid === u.uid;
+        const currentHighlight = isCurrent ? 'border-amber-500 bg-amber-900/10' : 'border-amber-900/5 bg-amber-900/5';
         html += `
-          <div class="flex items-center justify-between p-2.5 rounded-xl bg-amber-900/5 border border-amber-900/5 hover:bg-amber-900/10 transition duration-150">
+          <div class="flex items-center justify-between p-2.5 rounded-xl border ${currentHighlight} hover:bg-amber-900/10 transition duration-150">
             <div class="flex items-center gap-2">
               <div class="w-7 h-7 rounded-full bg-amber-700/20 text-amber-300 flex items-center justify-center font-bold text-xs uppercase font-mono">${escapeHTML(u.displayName.charAt(0))}</div>
               <div>
-                <span class="text-xs font-bold text-amber-100">${escapeHTML(u.displayName)}</span>
+                <span class="text-xs font-bold text-amber-100">${escapeHTML(u.displayName)} ${isCurrent ? '<span class="text-[9px] text-amber-400">(Siz)</span>' : ''}</span>
                 <span class="text-[9px] text-amber-400/50 block font-mono">${escapeHTML(u.rank || 'Arşivci')}</span>
               </div>
             </div>
@@ -1533,6 +1216,7 @@
       drawer.classList.toggle('-translate-x-full');
       if (!drawer.classList.contains('-translate-x-full')) {
         backdrop.classList.remove('hidden');
+        renderSecretChats();
       } else {
         backdrop.classList.add('hidden');
       }
@@ -1548,91 +1232,12 @@
       drawer.classList.toggle('translate-x-full');
       if (!drawer.classList.contains('translate-x-full')) {
         backdrop.classList.remove('hidden');
+        renderSecretChats();
       } else {
         backdrop.classList.add('hidden');
       }
     }
     window.toggleBaybarsDrawer = toggleBaybarsDrawer;
-
-    // Tomris Çekmece Sır Anahtarı Girişi (Gizli Şifre: 1283)
-    function loginTomris() {
-      const input = document.getElementById('tomris-key-input');
-      const errorMsg = document.getElementById('tomris-error');
-      
-      if (input && input.value === '1283') {
-        soundEffects.playAccess();
-        isTomrisLoggedIn = true;
-        if (errorMsg) errorMsg.classList.add('hidden');
-        input.value = '';
-        
-        const tLocked = document.getElementById('tomris-locked');
-        if (tLocked) tLocked.classList.add('hidden');
-        const tUnlocked = document.getElementById('tomris-unlocked');
-        if (tUnlocked) tUnlocked.classList.remove('hidden');
-        const tDot = document.getElementById('tomris-status-dot');
-        if (tDot) tDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
-        
-        showToast("Tomris Hatun hakanlık odasına teşrif etti!", "success");
-        renderSecretChats();
-      } else {
-        if (errorMsg) errorMsg.classList.remove('hidden');
-        showToast("Geçersiz devlet anahtarı!", "error");
-      }
-    }
-    window.loginTomris = loginTomris;
-
-    function logoutTomris() {
-      soundEffects.playClick();
-      isTomrisLoggedIn = false;
-      const tUnlocked = document.getElementById('tomris-unlocked');
-      if (tUnlocked) tUnlocked.classList.add('hidden');
-      const tLocked = document.getElementById('tomris-locked');
-      if (tLocked) tLocked.classList.remove('hidden');
-      const tDot = document.getElementById('tomris-status-dot');
-      if (tDot) tDot.className = "w-2 h-2 rounded-full bg-red-500 animate-pulse";
-      showToast("Tomris Hatun hakanlık odasından ayrıldı.");
-    }
-    window.logoutTomris = logoutTomris;
-
-    // Baybars Çekmece Sır Anahtarı Girişi (Gizli Şifre: 1283)
-    function loginBaybars() {
-      const input = document.getElementById('baybars-key-input');
-      const errorMsg = document.getElementById('baybars-error');
-      
-      if (input && input.value === '1283') {
-        soundEffects.playAccess();
-        isBaybarsLoggedIn = true;
-        if (errorMsg) errorMsg.classList.add('hidden');
-        input.value = '';
-        
-        const bLocked = document.getElementById('baybars-locked');
-        if (bLocked) bLocked.classList.add('hidden');
-        const bUnlocked = document.getElementById('baybars-unlocked');
-        if (bUnlocked) bUnlocked.classList.remove('hidden');
-        const bDot = document.getElementById('baybars-status-dot');
-        if (bDot) bDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
-        
-        showToast("Sultan Baybars memlük kalesine giriş yaptı!", "blue");
-        renderSecretChats();
-      } else {
-        if (errorMsg) errorMsg.classList.remove('hidden');
-        showToast("Geçersiz saltanat anahtarı!", "error");
-      }
-    }
-    window.loginBaybars = loginBaybars;
-
-    function logoutBaybars() {
-      soundEffects.playClick();
-      isBaybarsLoggedIn = false;
-      const bUnlocked = document.getElementById('baybars-unlocked');
-      if (bUnlocked) bUnlocked.classList.add('hidden');
-      const bLocked = document.getElementById('baybars-locked');
-      if (bLocked) bLocked.classList.remove('hidden');
-      const bDot = document.getElementById('baybars-status-dot');
-      if (bDot) bDot.className = "w-2 h-2 rounded-full bg-red-500 animate-pulse";
-      showToast("Sultan Baybars kaleden ayrıldı.");
-    }
-    window.logoutBaybars = logoutBaybars;
 
     function closeAllDrawers() {
       const tomris = document.getElementById('tomris-drawer');
@@ -1651,6 +1256,39 @@
       if (active !== 'baybars' && baybars) baybars.classList.add('translate-x-full');
     }
 
+    async function sendHistoricalMessage(chatTarget) {
+      const inputId = chatTarget === 'Tomris' ? 'tomris-message-input' : 'baybars-message-input';
+      const inputEl = document.getElementById(inputId);
+      if (!inputEl) return;
+      const val = inputEl.value.trim();
+      if (!val) return;
+
+      soundEffects.playSuccess();
+      const sender = window.authSystem.getCurrentUser()?.displayName || 'Hakanlık Arşivcisi';
+      const cleanRecord = {
+        id: "chat_" + Math.random().toString(36).substr(2, 9),
+        category: "sohbet",
+        title: chatTarget,
+        content: `${sender}: ${val}`,
+        created_at: new Date().toISOString()
+      };
+
+      inputEl.value = '';
+      window.dataSdk._data.push(cleanRecord);
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(window.dataSdk._data));
+      window.dataSdk._trigger();
+
+      if (window.dataSdk._firebaseEnabled && window.dataSdk._user) {
+        try {
+          await window.dataSdk.getPublicEntriesCollection().doc(cleanRecord.id).set(cleanRecord);
+        } catch(err) {
+          console.warn("Firestore message write issue:", err);
+        }
+      }
+      renderSecretChats();
+    }
+    window.sendHistoricalMessage = sendHistoricalMessage;
+
     function renderSecretChats() {
       const chats = window.dataSdk.getSecretChats();
       chats.sort((a, b) => (a.created_at || '').localeCompare(b.created_at || ''));
@@ -1658,31 +1296,27 @@
       const tomrisContainer = document.getElementById('tomris-chat-messages');
       const baybarsContainer = document.getElementById('baybars-chat-messages');
 
-      const buildChatHTML = (msg, viewer) => {
-        const isMe = msg.title === viewer;
+      const buildChatHTML = (msg) => {
         const bubbleBg = msg.title === 'Tomris' ? 'bg-amber-900/40 text-amber-100' : 'bg-blue-900/40 text-blue-100';
-        const alignClass = isMe ? 'self-end text-right' : 'self-start text-left';
-        const senderBadge = msg.title === 'Tomris' ? '👑 Tomris Hatun' : '⚔️ Sultan Baybars';
         const dateStr = msg.created_at ? new Date(msg.created_at).toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'}) : '';
 
         return `
-          <div class="flex flex-col max-w-[85%] ${alignClass} space-y-1 animate-fade-in">
-            <span class="text-[9px] font-bold opacity-50 font-mono text-amber-300">${senderBadge}</span>
+          <div class="flex flex-col max-w-[90%] space-y-1 animate-fade-in self-start text-left">
             <div class="p-2.5 rounded-xl text-xs leading-relaxed ${bubbleBg} border border-white/5 break-words">
               ${escapeHTML(msg.content)}
             </div>
-            <span class="text-[8px] opacity-35 font-mono">${dateStr}</span>
+            <span class="text-[8px] opacity-35 font-mono pl-1">${dateStr}</span>
           </div>
         `;
       };
 
-      if (isTomrisLoggedIn && tomrisContainer) {
-        tomrisContainer.innerHTML = chats.map(c => buildChatHTML(c, 'Tomris')).join('');
+      if (tomrisContainer) {
+        tomrisContainer.innerHTML = chats.map(c => buildChatHTML(c)).join('');
         tomrisContainer.scrollTop = tomrisContainer.scrollHeight;
       }
 
-      if (isBaybarsLoggedIn && baybarsContainer) {
-        baybarsContainer.innerHTML = chats.map(c => buildChatHTML(c, 'Baybars')).join('');
+      if (baybarsContainer) {
+        baybarsContainer.innerHTML = chats.map(c => buildChatHTML(c)).join('');
         baybarsContainer.scrollTop = baybarsContainer.scrollHeight;
       }
     }
@@ -1974,13 +1608,11 @@
     // Sekmeler Arası Canlı Veri / Oturum Senkronizasyon Veri Yolu (HTML5 Storage Event)
     window.addEventListener('storage', (e) => {
       if (e.key === CURRENT_USER_KEY) {
-        if (!e.newValue) {
-          window.authSystem.logout();
-        } else {
+        if (e.newValue) {
           try {
             const parsed = JSON.parse(e.newValue);
             window.authSystem._activeUser = parsed;
-            window.authSystem.checkAuthGateState();
+            window.authSystem.updateProfileUI();
             renderEntries();
             renderMembersList();
           } catch(err) {
@@ -2004,10 +1636,6 @@
     window.toggleTomrisDrawer = toggleTomrisDrawer;
     window.toggleBaybarsDrawer = toggleBaybarsDrawer;
     window.closeAllDrawers = closeAllDrawers;
-    window.loginTomris = loginTomris;
-    window.logoutTomris = logoutTomris;
-    window.loginBaybars = loginBaybars;
-    window.logoutBaybars = logoutBaybars;
     window.openSyncModal = openSyncModal;
     window.closeSyncModal = closeSyncModal;
     window.createNewSyncRoom = createNewSyncRoom;
@@ -2015,17 +1643,16 @@
     window.disconnectSyncRoom = disconnectSyncRoom;
     window.copyRoomCode = copyRoomCode;
     window.loadFallbackFlag = loadFallbackFlag;
-    window.handleGateAuthSubmit = handleGateAuthSubmit;
-    window.handleAdminCreateMemberSubmit = handleAdminCreateMemberSubmit;
-    window.logoutUser = logoutUser;
 
-    const tomrisKeyInput = document.getElementById('tomris-key-input');
-    if (tomrisKeyInput) tomrisKeyInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') loginTomris(); });
-    const baybarsKeyInput = document.getElementById('baybars-key-input');
-    if (baybarsKeyInput) baybarsKeyInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') loginBaybars(); });
     const searchBtn = document.getElementById('top-search-btn');
     if (searchBtn) searchBtn.addEventListener('click', () => { executeExternalSearch(); });
     if (searchInput) searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { executeExternalSearch(); } });
+
+    // Chat Enter Listener
+    const tomInput = document.getElementById('tomris-message-input');
+    if (tomInput) tomInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendHistoricalMessage('Tomris'); });
+    const bayInput = document.getElementById('baybars-message-input');
+    if (bayInput) bayInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendHistoricalMessage('Baybars'); });
 
     const handler = { 
       onDataChanged(data) { 
@@ -2038,6 +1665,7 @@
       } 
     };
 
+    // Initialization Sequence
     (async () => { 
       await window.dataSdk.init(handler); 
       await window.authSystem.init();
